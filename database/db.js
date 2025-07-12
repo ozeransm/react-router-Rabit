@@ -1,7 +1,8 @@
 import { Sequelize } from 'sequelize';
-
-const sequelize = new Sequelize('neondb', 'neondb_owner', 'npg_wTPiO29vZztH', {
-  host: 'ep-cold-term-a90qnt27-pooler.gwc.azure.neon.tech',
+import dotenv from 'dotenv';
+dotenv.config();
+const sequelize = new Sequelize(process.env.NAME_DB, 'neondb_owner', process.env.PASS_DB, {
+  host: process.env.HOST_DB,
   dialect: 'postgres',
   port: 5432,
   logging: false,
