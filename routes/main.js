@@ -22,5 +22,5 @@ export async function writeFJ(jsonData) {
 }
 export default {
   readFJ,
-  writeFJ
+  writeFJ,
 };

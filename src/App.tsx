@@ -1,8 +1,8 @@
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route, Outlet, Link } from 'react-router-dom';
 type AppProps = {
-  products: string; 
+  products: string;
 };
-export default function App( {products} : AppProps) {
+export default function App({ products }: AppProps) {
   return (
     <div>
       <h1>Server Rendering Example</h1>
@@ -34,7 +34,7 @@ export default function App( {products} : AppProps) {
             parent route elements. See the note about <Outlet> below. */}
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home products={products}/>} />
+          <Route index element={<Home products={products} />} />
           <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} />
 
@@ -80,14 +80,13 @@ function Layout() {
   );
 }
 
-function Home( {products} : AppProps) {
+function Home({ products }: AppProps) {
   console.log('Тип:', typeof products);
   console.log('name:', products);
   return (
     <div>
       <h2>Home</h2>
-      <div>Name: {products}
-      </div>
+      <div>Name: {products}</div>
     </div>
   );
 }

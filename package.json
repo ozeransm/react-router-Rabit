@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "format": "prettier --write .",
     "dev": "cross-env NODE_ENV=development node bin/www",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client --ssrManifest",
@@ -26,14 +27,17 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^5.0.2",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/styled-components": "^5.1.34",
     "@vitejs/plugin-react": "^3.0.1",
+    "prettier": "^3.6.2",
     "typescript": "^4.9.5",
     "vite": "^4.0.4"
   }

@@ -1,7 +1,7 @@
-export {};  // щоб цей файл був модулем
+export {}; // щоб цей файл був модулем
 
 declare global {
   interface Window {
-    __INITIAL_PRODUCTS__?: any;  // або string / потрібний тип
+    __INITIAL_PRODUCTS__?: any; // або string / потрібний тип
   }
 }

@@ -23,12 +23,15 @@ export default function indexRouter(vite) {
         if (fileJson.cards.find((el) => el.id === `toy-${body.id}`)) {
           fileJson.cards[body.id].name = body.name;
           fileJson.cards[body.id].price = body.price;
-          fileJson.cards[body.id].description = body.description || 'description';
+          fileJson.cards[body.id].description =
+            body.description || 'description';
           cards.writeFJ(fileJson);
         }
         break;
       case 1:
-        const newFileJson = fileJson.cards.filter((el) => el.id !== `toy-${body.id}`);
+        const newFileJson = fileJson.cards.filter(
+          (el) => el.id !== `toy-${body.id}`
+        );
         cards.writeFJ({
           cards: newFileJson.map((el, i) => {
             el.id = `toy-${i}`;
@@ -50,22 +53,28 @@ export default function indexRouter(vite) {
       let render;
 
       if (!isProduction) {
-        template = await fs.readFile(resolve("index.html"), "utf8");
+        template = await fs.readFile(resolve('index.html'), 'utf8');
         template = await vite.transformIndexHtml(url, template);
-        render = await vite.ssrLoadModule("src/entry.server.tsx").then((m) => m.render);
+        render = await vite
+          .ssrLoadModule('src/entry.server.tsx')
+          .then((m) => m.render);
       } else {
-        template = await fs.readFile(resolve("dist/client/index.html"), "utf8");
-        render = require(resolve("dist/server/entry.server.js")).render;
+        template = await fs.readFile(resolve('dist/client/index.html'), 'utf8');
+        render = require(resolve('dist/server/entry.server.js')).render;
       }
 
-      let html = template.replace(
-        "<!--app-html-->",
-        render(url, product.map(el=>el.dataValues.name).join(' '))
-      ).replace("</body>", `<script>window.__INITIAL_PRODUCTS__ = "${product.map(el=>el.dataValues.name).join(' ')}"</script></body>`);
-// 
-      res.setHeader("Content-Type", "text/html");
+      let html = template
+        .replace(
+          '<!--app-html-->',
+          render(url, product.map((el) => el.dataValues.name).join(' '))
+        )
+        .replace(
+          '</body>',
+          `<script>window.__INITIAL_PRODUCTS__ = "${product.map((el) => el.dataValues.name).join(' ')}"</script></body>`
+        );
+      //
+      res.setHeader('Content-Type', 'text/html');
       return res.status(200).end(html);
-
     } catch (error) {
       if (!isProduction && vite?.ssrFixStacktrace) {
         vite.ssrFixStacktrace(error);

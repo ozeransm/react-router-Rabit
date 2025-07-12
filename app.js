@@ -23,31 +23,31 @@ function resolve(p) {
 }
 // Створення застосунку
 const app = express();
-  /**
-   * @type {import('vite').ViteDevServer}
-   */
-  
-  if (!isProduction) {
-    const viteModule = await import("vite");
-   
-    vite = await viteModule.createServer({
-      root,
-      server: { middlewareMode: "ssr" },
-    });
+/**
+ * @type {import('vite').ViteDevServer}
+ */
 
-    app.use(vite.middlewares);
-  } else {
-    app.use(require("compression")());
-    app.use(express.static(resolve("dist/client")));
-  }
+if (!isProduction) {
+  const viteModule = await import('vite');
 
+  vite = await viteModule.createServer({
+    root,
+    server: { middlewareMode: 'ssr' },
+  });
+
+  app.use(vite.middlewares);
+} else {
+  app.use(require('compression')());
+  app.use(express.static(resolve('dist/client')));
+}
 
 // Синхронізація бази
-sequelize.sync()
+sequelize
+  .sync()
   .then(() => {
     console.log('Таблиці синхронізовано');
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Помилка синхронізації:', err);
   });
 
@@ -81,10 +81,10 @@ app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-// Але якщо без шаблонізатора — просто JSON:
+  // Але якщо без шаблонізатора — просто JSON:
   res.status(err.status || 500).json({
     error: res.locals.error,
-    message: res.locals.message
+    message: res.locals.message,
   });
 });
 

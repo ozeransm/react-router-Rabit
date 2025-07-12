@@ -30,4 +30,6 @@ logs/
 # VSCode settings
 .vscode/
 
+#Prettier
+.prettierrc
 server.js
