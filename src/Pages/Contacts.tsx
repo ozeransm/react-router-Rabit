@@ -1,7 +1,7 @@
-export default function Contacts(){
-    return(
-        <div>
-            <h2>Contacts</h2>
-        </div>
-    )
+export default function Contacts() {
+  return (
+    <div>
+      <h2>Contacts</h2>
+    </div>
+  );
 }
