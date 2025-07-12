@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+build/
+.temp/
+.temp_ssr/
+
+# Vite cache
+.vite/
+.cache/
+.vscode/
+
+# TypeScript
+*.tsbuildinfo
+
+# Env files
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# VSCode settings
+.vscode/
+
+server.js

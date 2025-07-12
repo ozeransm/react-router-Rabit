@@ -1,0 +1,123 @@
+import express from 'express';
+import cards from './main.js';
+import Product from '../database/model.js';
+import cloudinary from '../cloudinary/index.js';
+import fs from 'fs/promises';
+import path from 'path';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+function resolve(p) {
+  return path.resolve(process.cwd(), p);
+}
+
+export default function indexRouter(vite) {
+  const router = express.Router();
+
+  // Асинхронна функція для оновлення або видалення карток
+  async function writeF(body, del = 0) {
+    const fileJson = await cards.readFJ();
+
+    switch (del) {
+      case 0:
+        if (fileJson.cards.find((el) => el.id === `toy-${body.id}`)) {
+          fileJson.cards[body.id].name = body.name;
+          fileJson.cards[body.id].price = body.price;
+          fileJson.cards[body.id].description = body.description || 'description';
+          cards.writeFJ(fileJson);
+        }
+        break;
+      case 1:
+        const newFileJson = fileJson.cards.filter((el) => el.id !== `toy-${body.id}`);
+        cards.writeFJ({
+          cards: newFileJson.map((el, i) => {
+            el.id = `toy-${i}`;
+            return el;
+          }),
+        });
+        break;
+      default:
+        break;
+    }
+  }
+
+  // GET: Отримати всі продукти
+  router.get('/', async (req, res, next) => {
+    try {
+      const product = await Product.findAll();
+      let url = req.originalUrl;
+      let template;
+      let render;
+
+      if (!isProduction) {
+        template = await fs.readFile(resolve("index.html"), "utf8");
+        template = await vite.transformIndexHtml(url, template);
+        render = await vite.ssrLoadModule("src/entry.server.tsx").then((m) => m.render);
+      } else {
+        template = await fs.readFile(resolve("dist/client/index.html"), "utf8");
+        render = require(resolve("dist/server/entry.server.js")).render;
+      }
+
+      let html = template.replace(
+        "<!--app-html-->",
+        render(url, product.map(el=>el.dataValues.name).join(' '))
+      ).replace("</body>", `<script>window.__INITIAL_PRODUCTS__ = "${product.map(el=>el.dataValues.name).join(' ')}"</script></body>`);
+// 
+      res.setHeader("Content-Type", "text/html");
+      return res.status(200).end(html);
+
+    } catch (error) {
+      if (!isProduction && vite?.ssrFixStacktrace) {
+        vite.ssrFixStacktrace(error);
+      }
+      console.error(error.stack);
+      res.status(500).end(error.stack);
+    }
+  });
+
+  // POST: Оновити продукт за id
+  router.post('/', async (req, res, next) => {
+    const { id } = req.body;
+
+    try {
+      const ProductId = await Product.findByPk(id);
+      if (ProductId) {
+        await ProductId.update({
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+        });
+      }
+
+      res.status(200).json({ status: 'ok' });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // DELETE: Видалити продукт + зображення з Cloudinary
+  router.delete('/', async (req, res, next) => {
+    const { id } = req.body;
+
+    try {
+      const ProductId = await Product.findByPk(id);
+      if (ProductId) {
+        await ProductId.destroy();
+        await Promise.all(
+          ProductId.img.split(',').map(async (url) => {
+            const publicId = `rabit/${url.split('/').pop().split('.')[0]}`;
+            await cloudinary.uploader.destroy(publicId);
+            console.log(`Deleted image with public ID: ${publicId}`);
+          })
+        );
+      }
+
+      res.status(200).json({ status: 'ok' });
+    } catch (error) {
+      console.error('Error deleting images from Cloudinary:', error);
+      next(error);
+    }
+  });
+
+  return router; // 👈 обов'язково поверни
+}
