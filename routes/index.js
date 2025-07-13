@@ -4,6 +4,8 @@ import Product from '../database/model.js';
 import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -64,8 +66,8 @@ export default function indexRouter(vite) {
       }
       // Send template to render on server and client
       const initialData = product.map((el) => {
-        const { id, name, price, describe, img } = el.dataValues;
-        return { id, name, price, describe, img };
+        const { id, name, price, description, img } = el.dataValues;
+        return { id, name, price, description, img };
       });
       const jsonString = JSON.stringify(initialData);
 

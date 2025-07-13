@@ -5,6 +5,7 @@ import Orders from './Pages/Orders';
 import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
+import { useState } from 'react';
 
 type Product = {
   id: string;
@@ -17,6 +18,7 @@ type AppProps = {
   products: Product[];
 };
 export default function App({ products }: AppProps) {
+  const [productState, setProductState] = useState(products);
   return (
     <div>
       <h1>Server Rendering Example</h1>
@@ -48,8 +50,16 @@ export default function App({ products }: AppProps) {
             parent route elements. See the note about <Outlet> below. */}
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home products={products} />} />
-          <Route path="admin" element={<Admin />} />
+          <Route index element={<Home products={productState} />} />
+          <Route
+            path="admin"
+            element={
+              <Admin
+                products={productState}
+                setProductState={setProductState}
+              />
+            }
+          />
           <Route path="orders" element={<Orders />} />
           <Route path="contacts" element={<Contacts />} />
           {/* Using path="*"" means "match anything", so this route

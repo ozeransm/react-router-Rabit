@@ -1,6 +1,3 @@
-// type AppProps = {
-//   products: string;
-// };
 type Product = {
   id: string;
   name: string;
@@ -19,11 +16,11 @@ export default function Home({ products }: AppProps) {
       <div>
         {products.map((p) => (
           <div key={p.id}>
-            <h3>{p.name}</h3>
-            <p>{p.id}</p>
-            <p>{p.description}</p>
-            <p>{p.price}</p>
-            <p>{p.img}</p>
+            <h3>Name: {p.name}</h3>
+            <p>id: {p.id}</p>
+            <p>Description: {p.description}</p>
+            <p>Price: {p.price}</p>
+            <p>images: {p.img}</p>
           </div>
         ))}
       </div>

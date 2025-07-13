@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
-console.log('zxbcvzbxvbnvxcbvxnbcv', window.__INITIAL_PRODUCTS__);
+
 ReactDOM.hydrateRoot(
   document.getElementById('app')!,
   <React.StrictMode>

@@ -85,7 +85,12 @@ router.post('/', upload.array('files', 15), async (req, res) => {
     console.error('Error clearing the uploads directory:', error.message);
   }
 
-  res.status(200).json({ status: 'ok' });
+  res.status(200).json({
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    img: urlAllImg.join(','),
+  });
 });
 
 export default router;

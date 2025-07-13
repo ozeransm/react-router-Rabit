@@ -10,7 +10,7 @@ import cors from 'cors';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import uploadRouter from './routes/upload.js';
-
+import indexRouterAll from './routes/indexAll.js';
 // Імпорт бази даних
 import sequelize from './database/db.js';
 
@@ -68,6 +68,7 @@ app.use(cookieParser());
 
 // Маршрути
 app.use('/', indexRouter(vite));
+app.use('/all', indexRouterAll);
 app.use('/upload', uploadRouter);
 app.use('/users', usersRouter);
 
