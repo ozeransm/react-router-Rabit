@@ -5,8 +5,16 @@ import Orders from './Pages/Orders';
 import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
+
+type Product = {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  img: string;
+};
 type AppProps = {
-  products: string;
+  products: Product[];
 };
 export default function App({ products }: AppProps) {
   return (

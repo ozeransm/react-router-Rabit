@@ -62,17 +62,19 @@ export default function indexRouter(vite) {
         template = await fs.readFile(resolve('dist/client/index.html'), 'utf8');
         render = require(resolve('dist/server/entry.server.js')).render;
       }
+      // Send template to render on server and client
+      const initialData = product.map((el) => {
+        const { id, name, price, describe, img } = el.dataValues;
+        return { id, name, price, describe, img };
+      });
+      const jsonString = JSON.stringify(initialData);
 
-      let html = template
+      const html = template
+        .replace('<!--app-html-->', render(url, initialData))
         .replace(
-          '<!--app-html-->',
-          render(url, product.map((el) => el.dataValues.name).join(' '))
-        )
-        .replace(
-          '</body>',
-          `<script>window.__INITIAL_PRODUCTS__ = "${product.map((el) => el.dataValues.name).join(' ')}"</script></body>`
+          '<body>',
+          `<script>window.__INITIAL_PRODUCTS__ = ${jsonString}</script></body>`
         );
-      //
       res.setHeader('Content-Type', 'text/html');
       return res.status(200).end(html);
     } catch (error) {

@@ -4,12 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
-
+console.log('zxbcvzbxvbnvxcbvxnbcv', window.__INITIAL_PRODUCTS__);
 ReactDOM.hydrateRoot(
   document.getElementById('app')!,
   <React.StrictMode>
     <BrowserRouter>
-      <App products={window.__INITIAL_PRODUCTS__ || ''} />
+      <App products={window.__INITIAL_PRODUCTS__ ?? []} />
     </BrowserRouter>
   </React.StrictMode>
 );
