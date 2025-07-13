@@ -1,4 +1,4 @@
-import Card from "../Components/Card";
+import Card from '../Components/Card';
 
 type Product = {
   id: string;
@@ -10,14 +10,14 @@ type Product = {
 
 type AppProps = {
   products: Product[];
-  
 };
-export default function Catalog({products}:AppProps){
-
-    return(
-        <div>
-           <h1>Catalog</h1>
-           {products.map((el:Product)=><Card key={el.id} product={el}/>)} 
-        </div>
-    )
+export default function Catalog({ products }: AppProps) {
+  return (
+    <div>
+      <h1>Catalog</h1>
+      {products.map((el: Product) => (
+        <Card key={el.id} product={el} />
+      ))}
+    </div>
+  );
 }

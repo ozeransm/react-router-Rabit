@@ -20,8 +20,8 @@ type AppProps = {
   products: Product[];
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
 };
-const StyledBaseField= styled.div`
-display: flex;
+const StyledBaseField = styled.div`
+  display: flex;
 `;
 
 const StyledForm = styled.form`
@@ -99,32 +99,34 @@ export default function Admin({ products, setProductState }: AppProps) {
     <div>
       <h2>Administrator</h2>
       <StyledBaseField>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          {/* register your input into the hook by invoking the "register" function */}
-          <StyledFormField
-            {...register('name', { required: true })}
-            placeholder="Name"
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {/* register your input into the hook by invoking the "register" function */}
+            <StyledFormField
+              {...register('name', { required: true })}
+              placeholder="Name"
+            />
+            {errors.name && <span>This field name is required</span>}
+            {/* include validation with required or other standard HTML validation rules */}
+            <StyledFormField
+              {...register('price', { required: true })}
+              placeholder="Price"
+            />
+            {/* errors will return when field validation fails  */}
+            {errors.price && <span>This field price is required</span>}
+          </div>
+          <StyledFormTextArea
+            {...register('description', { required: true })}
+            placeholder="Description"
+            rows={5}
           />
-          {errors.name && <span>This field name is required</span>}
-          {/* include validation with required or other standard HTML validation rules */}
-          <StyledFormField
-            {...register('price', { required: true })}
-            placeholder="Price"
-          />
-          {/* errors will return when field validation fails  */}
-          {errors.price && <span>This field price is required</span>}
-        </div>
-        <StyledFormTextArea
-          {...register('description', { required: true })}
-          placeholder="Description"
-          rows={5}
-        />
-        <StyledFormFile type="file" name="files" accept=".jpg" multiple />
-        {errors.description && <span>This field description is required</span>}
-        <StyledButton type="submit" />
-      </form>
-      <Catalog products={products}/>
+          <StyledFormFile type="file" name="files" accept=".jpg" multiple />
+          {errors.description && (
+            <span>This field description is required</span>
+          )}
+          <StyledButton type="submit" />
+        </form>
+        <Catalog products={products} />
       </StyledBaseField>
     </div>
   );
