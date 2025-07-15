@@ -15,6 +15,9 @@ const StyledBaseField = styled.div`
 const StyledForm = styled.form`
   margin: 30px;
   align-self: auto;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+  padding: 40px;
 `;
 
 const StyledFormField = styled.input`

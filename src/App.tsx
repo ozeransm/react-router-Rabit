@@ -16,12 +16,12 @@ export default function App({ products }: AppProps) {
     function handleResize() {
       const width = window.innerWidth;
       if (width < 480) {
-        setRows(1);
+        setRows(4);
       } else if (width < 768) {
-        setRows(2);
-      } else if (width < 1024) {
         setRows(3);
-      } else setRows(4);
+      } else if (width < 1024) {
+        setRows(2);
+      } else setRows(1);
     }
 
     handleResize();
