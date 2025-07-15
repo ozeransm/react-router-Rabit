@@ -1,26 +1,46 @@
 import styled from 'styled-components';
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  img: string;
-};
-type CardProps = {
-  product: Product;
-};
-const StyledCard = styled.div`
+import type { AppProp } from '../../type/index';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/grid';
+import { Grid } from 'swiper/modules';
+
+const StyledImg = styled.img`
   width: 320px;
-  height: auto;
-  border-radius: 10px;
-  border-color: lightgray;
+  display: block;
+  margin: 0;
+  padding: 0;
+  @media (max-width: 480px) {
+    width: 220px;
+  }
+
+  /*@media (max-width: 768px) {
+    width: 520px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 620px;
+  } */
 `;
-export default function Card({ product }: CardProps) {
+export default function Card({ products, rows }: AppProp) {
+  console.log('esghflgsfgsdlkhfkshafklhsdk', rows);
   return (
-    <StyledCard>
-      <h2>{product.name}</h2>
-      <p>{product.price}</p>
-      <img src={product.img} alt="" />
-    </StyledCard>
+    <Swiper
+      modules={[Grid]}
+      spaceBetween={10}
+      slidesPerView={2}
+      grid={{
+        rows: 2,
+        fill: 'row',
+      }}
+    >
+      {products.map((el) => (
+        <SwiperSlide key={el.id}>
+          <p>{el.name}</p>
+          <p>{el.price}</p>
+          <StyledImg src={el.img} alt={el.name} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }

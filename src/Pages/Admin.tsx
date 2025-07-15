@@ -2,41 +2,21 @@ import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Catalog from './Catalog';
+import type { Product, AppProps, Inputs } from '../../type/index';
 const url = import.meta.env.VITE_API_URL;
-type Inputs = {
-  name: string;
-  price: string;
-  description: string;
-};
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  img: string;
-};
 
-type AppProps = {
-  products: Product[];
-  setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
-};
 const StyledBaseField = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledForm = styled.form`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  margin: 30px;
+  align-self: auto;
 `;
-const StyledFormDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-`;
+
 const StyledFormField = styled.input`
   margin: 5px;
   width: 150px;
@@ -54,7 +34,7 @@ const StyledFormFile = styled.input`
   display: block;
 `;
 
-export default function Admin({ products, setProductState }: AppProps) {
+export default function Admin({ products, setProductState, rows }: AppProps) {
   const {
     register,
     reset,
@@ -97,9 +77,11 @@ export default function Admin({ products, setProductState }: AppProps) {
 
   return (
     <div>
-      <h2>Administrator</h2>
       <StyledBaseField>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Administrator</h2>
+        <Catalog products={products} rows={rows} />
+        <h2>Create new card</h2>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <div>
             {/* register your input into the hook by invoking the "register" function */}
             <StyledFormField
@@ -125,8 +107,7 @@ export default function Admin({ products, setProductState }: AppProps) {
             <span>This field description is required</span>
           )}
           <StyledButton type="submit" />
-        </form>
-        <Catalog products={products} />
+        </StyledForm>
       </StyledBaseField>
     </div>
   );

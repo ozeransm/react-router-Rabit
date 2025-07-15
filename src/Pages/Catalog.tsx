@@ -1,23 +1,16 @@
 import Card from '../Components/Card';
+import type { AppProp } from '../../type/index';
+import styled from 'styled-components';
 
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  img: string;
-};
+const StyledBaseField = styled.div`
+  width: 90%;
+`;
 
-type AppProps = {
-  products: Product[];
-};
-export default function Catalog({ products }: AppProps) {
+export default function Catalog({ products, rows }: AppProp) {
   return (
-    <div>
-      <h1>Catalog</h1>
-      {products.map((el: Product) => (
-        <Card key={el.id} product={el} />
-      ))}
-    </div>
+    <StyledBaseField>
+      <h2>Catalog</h2>
+      <Card products={products} rows={rows} />
+    </StyledBaseField>
   );
 }

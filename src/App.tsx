@@ -5,20 +5,32 @@ import Orders from './Pages/Orders';
 import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { AppProps } from '../type/index';
 
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  img: string;
-};
-type AppProps = {
-  products: Product[];
-};
 export default function App({ products }: AppProps) {
   const [productState, setProductState] = useState(products);
+  const [rows, setRows] = useState(2);
+
+  useEffect(() => {
+    function handleResize() {
+      const width = window.innerWidth;
+      if (width < 480) {
+        setRows(1);
+      } else if (width < 768) {
+        setRows(2);
+      } else if (width < 1024) {
+        setRows(3);
+      } else setRows(4);
+    }
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div>
       <h1>Server Rendering Example</h1>
@@ -50,12 +62,13 @@ export default function App({ products }: AppProps) {
             parent route elements. See the note about <Outlet> below. */}
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home products={productState} />} />
+          <Route index element={<Home products={products} />} />
           <Route
             path="admin"
             element={
               <Admin
-                products={productState}
+                products={products}
+                rows={rows}
                 setProductState={setProductState}
               />
             }
