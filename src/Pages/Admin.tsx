@@ -14,19 +14,36 @@ const StyledBaseField = styled.div`
 
 const StyledForm = styled.form`
   margin: 30px;
-  align-self: auto;
+  align-items: center;
   border: 1px solid lightblue;
   border-radius: 10px;
-  padding: 40px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  @media (min-width: 480px) {
+    padding: 40px;
+  }
+
+  @media (min-width: 600px) {
+    width: 500px;
+  }
 `;
 
 const StyledFormField = styled.input`
   margin: 5px;
   width: 150px;
+  @media (max-width: 480px) {
+    width: 200px;
+    display: block;
+  }
 `;
 const StyledFormTextArea = styled.textarea`
   margin: 5px;
-  width: 320px;
+  width: 200px;
+  @media (min-width: 480px) {
+    width: 320px;
+  }
 `;
 const StyledButton = styled.input`
   margin: 10px;

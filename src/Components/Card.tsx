@@ -10,7 +10,7 @@ const StyledBaseField = styled.div`
   padding: 40px;
 `;
 const StyledImg = styled.img`
-  width: 200px;
+  width: 220px;
   display: block;
   margin: 0;
   padding: 0;
@@ -20,42 +20,36 @@ const StyledImg = styled.img`
   }
 
   @media (min-width: 768px) {
-    width: 250px;
+    width: 300px;
   }
 
   @media (min-width: 1024px) {
-    width: 420px;
+    width: 260px;
   }
 `;
 export default function Card({ products, rows }: AppProp) {
-  let row = 1;
+  let row = 3;
   let slidePreView = 1;
-  let direction: 'horizontal' | 'vertical' = 'horizontal';
   switch (rows) {
     case 3:
       slidePreView = 1;
       row = 3;
-      direction = 'vertical';
       break;
     case 2:
-      slidePreView = 1;
+      slidePreView = 2;
       row = 2;
-      direction = 'horizontal';
       break;
     case 1:
       slidePreView = 3;
       row = 1;
-      direction = 'horizontal';
       break;
     default:
       slidePreView = 1;
-      direction = 'horizontal';
   }
-  console.log(row, slidePreView);
+  // console.log(row, slidePreView);
   return (
     <StyledBaseField>
       <Swiper
-        // direction={direction}
         modules={[Grid]}
         spaceBetween={10}
         slidesPerView={slidePreView}
