@@ -27,7 +27,12 @@ const StyledImg = styled.img`
     width: 260px;
   }
 `;
-export default function Card({ products, rows }: AppProp) {
+export default function Card({
+  products,
+  rows,
+  setIsOpenModal,
+  isOpenModal,
+}: AppProp) {
   let row = 3;
   let slidePreView = 1;
   switch (rows) {
@@ -46,7 +51,11 @@ export default function Card({ products, rows }: AppProp) {
     default:
       slidePreView = 1;
   }
-  // console.log(row, slidePreView);
+
+  function handleModal() {
+    setIsOpenModal(true);
+  }
+
   return (
     <StyledBaseField>
       <Swiper
@@ -59,7 +68,7 @@ export default function Card({ products, rows }: AppProp) {
         }}
       >
         {products.map((el) => (
-          <SwiperSlide key={el.id}>
+          <SwiperSlide key={el.id} onClick={handleModal}>
             <p>{el.name}</p>
             <p>{el.price}</p>
             <StyledImg src={el.img} alt={el.name} />

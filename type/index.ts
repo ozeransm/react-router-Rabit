@@ -13,12 +13,19 @@ export type Product = {
 };
 export type AppProps = {
   products: Product[];
-  setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
   rows: number;
+  isOpenModal: boolean;
+  setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export type AppPropModal = {
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export type AppProp = {
   products: Product[];
   rows: number;
+  isOpenModal: boolean;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export type CardProps = {
   product: Product;

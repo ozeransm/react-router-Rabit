@@ -11,6 +11,7 @@ import type { AppProps } from '../type/index';
 export default function App({ products }: AppProps) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -70,6 +71,8 @@ export default function App({ products }: AppProps) {
                 products={products}
                 rows={rows}
                 setProductState={setProductState}
+                setIsOpenModal={setIsOpenModal}
+                isOpenModal={isOpenModal}
               />
             }
           />

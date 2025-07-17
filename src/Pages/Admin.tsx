@@ -3,6 +3,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Catalog from './Catalog';
 import type { Product, AppProps, Inputs } from '../../type/index';
+import Modal from './Modal';
 const url = import.meta.env.VITE_API_URL;
 
 const StyledBaseField = styled.div`
@@ -54,7 +55,13 @@ const StyledFormFile = styled.input`
   display: block;
 `;
 
-export default function Admin({ products, setProductState, rows }: AppProps) {
+export default function Admin({
+  products,
+  setProductState,
+  rows,
+  setIsOpenModal,
+  isOpenModal,
+}: AppProps) {
   const {
     register,
     reset,
@@ -97,9 +104,15 @@ export default function Admin({ products, setProductState, rows }: AppProps) {
 
   return (
     <div>
+      {isOpenModal && <Modal setIsOpenModal={setIsOpenModal} />}
       <StyledBaseField>
         <h2>Administrator</h2>
-        <Catalog products={products} rows={rows} />
+        <Catalog
+          products={products}
+          rows={rows}
+          setIsOpenModal={setIsOpenModal}
+          isOpenModal={isOpenModal}
+        />
         <h2>Create new card</h2>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <div>

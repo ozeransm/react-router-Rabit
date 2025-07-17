@@ -6,11 +6,21 @@ const StyledBaseField = styled.div`
   width: 90%;
 `;
 
-export default function Catalog({ products, rows }: AppProp) {
+export default function Catalog({
+  products,
+  rows,
+  setIsOpenModal,
+  isOpenModal,
+}: AppProp) {
   return (
     <StyledBaseField>
       <h2>Catalog</h2>
-      <Card products={products} rows={rows} />
+      <Card
+        products={products}
+        rows={rows}
+        setIsOpenModal={setIsOpenModal}
+        isOpenModal={isOpenModal}
+      />
     </StyledBaseField>
   );
 }
