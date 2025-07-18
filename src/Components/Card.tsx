@@ -52,7 +52,8 @@ export default function Card({
       slidePreView = 1;
   }
 
-  function handleModal() {
+  function handleModal(id: string) {
+    console.log("hjjhvhcgxgdsfdz",id, products)
     setIsOpenModal(true);
   }
 
@@ -68,7 +69,8 @@ export default function Card({
         }}
       >
         {products.map((el) => (
-          <SwiperSlide key={el.id} onClick={handleModal}>
+          <SwiperSlide key={el.id} onClick={()=>handleModal(el.id)}>
+            <p>{el.id}</p>
             <p>{el.name}</p>
             <p>{el.price}</p>
             <StyledImg src={el.img} alt={el.name} />

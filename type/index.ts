@@ -30,3 +30,6 @@ export type AppProp = {
 export type CardProps = {
   product: Product;
 };
+// export type Event = {
+//   e: object;
+// };
