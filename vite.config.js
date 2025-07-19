@@ -51,6 +51,7 @@ export default defineConfig({
     port: 3000,
     sourcemap: false,
     historyApiFallback: true,
+    allowedHosts: ['react-router-rabit.onrender.com'],
   },
   plugins: [
     rollupReplace({
