@@ -47,13 +47,6 @@ export default function Cards({
       img: '',
     };
     setCard(newCard);
-    console.log(
-      'hjjhvhcgxgdsfdz',
-      id,
-      products.find((el) => el.id === id),
-      card
-    );
-
     setIsOpenModal(true);
   }
 
