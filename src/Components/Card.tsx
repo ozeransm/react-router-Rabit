@@ -1,14 +1,6 @@
 import styled from 'styled-components';
-import type { AppProp } from '../../type/index';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/grid';
-import { Grid } from 'swiper/modules';
-const StyledBaseField = styled.div`
-  border: 1px solid lightblue;
-  border-radius: 10px;
-  padding: 40px;
-`;
+import type { CardProps } from 'type';
+
 const StyledImg = styled.img`
   width: 220px;
   display: block;
@@ -27,56 +19,13 @@ const StyledImg = styled.img`
     width: 260px;
   }
 `;
-export default function Card({
-  products,
-  rows,
-  setIsOpenModal,
-  isOpenModal,
-}: AppProp) {
-  let row = 3;
-  let slidePreView = 1;
-  switch (rows) {
-    case 3:
-      slidePreView = 1;
-      row = 3;
-      break;
-    case 2:
-      slidePreView = 2;
-      row = 2;
-      break;
-    case 1:
-      slidePreView = 3;
-      row = 1;
-      break;
-    default:
-      slidePreView = 1;
-  }
-
-  function handleModal(id: string) {
-    console.log("hjjhvhcgxgdsfdz",id, products)
-    setIsOpenModal(true);
-  }
-
+export default function Card({ product }: CardProps) {
   return (
-    <StyledBaseField>
-      <Swiper
-        modules={[Grid]}
-        spaceBetween={10}
-        slidesPerView={slidePreView}
-        grid={{
-          rows: row,
-          fill: 'row',
-        }}
-      >
-        {products.map((el) => (
-          <SwiperSlide key={el.id} onClick={()=>handleModal(el.id)}>
-            <p>{el.id}</p>
-            <p>{el.name}</p>
-            <p>{el.price}</p>
-            <StyledImg src={el.img} alt={el.name} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </StyledBaseField>
+    <div>
+      <p>{product.id}</p>
+      <p>{product.name}</p>
+      <p>{product.price}</p>
+      <StyledImg src={product.img} alt={product.name} />
+    </div>
   );
 }

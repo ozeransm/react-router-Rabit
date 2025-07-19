@@ -1,5 +1,6 @@
+import Card from '../Components/Card';
 import styled from 'styled-components';
-import type { AppProp, AppPropModal, AppProps } from 'type';
+import type { AppProps } from 'type';
 
 const StyledBaseField = styled.div`
   position: relative;
@@ -34,7 +35,15 @@ const StyledButtonClose = styled.div`
   transition: color 0.2s ease;
 `;
 
-export default function Modal({ setIsOpenModal }: AppPropModal) {
+export default function Modal({
+  products,
+  card,
+  rows,
+  setCard,
+  setProductState,
+  setIsOpenModal,
+  isOpenModal,
+}: AppProps) {
   function handleClose() {
     setIsOpenModal(false);
   }
@@ -42,6 +51,7 @@ export default function Modal({ setIsOpenModal }: AppPropModal) {
     <StyledOverlay>
       <StyledBaseField>
         <StyledButtonClose onClick={handleClose}>x</StyledButtonClose>
+        <Card product={card} />
       </StyledBaseField>
     </StyledOverlay>
   );

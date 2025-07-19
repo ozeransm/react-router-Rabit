@@ -12,7 +12,13 @@ export default function App({ products }: AppProps) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
   const [isOpenModal, setIsOpenModal] = useState(false);
-
+  const [card, setCard] = useState({
+    id: '',
+    name: '',
+    description: '',
+    price: '',
+    img: '',
+  });
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
@@ -69,7 +75,9 @@ export default function App({ products }: AppProps) {
             element={
               <Admin
                 products={products}
+                card={card}
                 rows={rows}
+                setCard={setCard}
                 setProductState={setProductState}
                 setIsOpenModal={setIsOpenModal}
                 isOpenModal={isOpenModal}

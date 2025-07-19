@@ -9,27 +9,17 @@ export type Product = {
   price: string;
   description: string;
   img: string;
-  rows: number;
 };
 export type AppProps = {
   products: Product[];
+  card: Product;
   rows: number;
   isOpenModal: boolean;
+  setCard: React.Dispatch<React.SetStateAction<Product>>;
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export type AppPropModal = {
-  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export type AppProp = {
-  products: Product[];
-  rows: number;
-  isOpenModal: boolean;
-  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
+
 export type CardProps = {
   product: Product;
 };
-// export type Event = {
-//   e: object;
-// };

@@ -57,8 +57,10 @@ const StyledFormFile = styled.input`
 
 export default function Admin({
   products,
-  setProductState,
+  card,
   rows,
+  setCard,
+  setProductState,
   setIsOpenModal,
   isOpenModal,
 }: AppProps) {
@@ -104,12 +106,25 @@ export default function Admin({
 
   return (
     <div>
-      {isOpenModal && <Modal setIsOpenModal={setIsOpenModal} />}
+      {isOpenModal && (
+        <Modal
+          products={products}
+          card={card}
+          rows={rows}
+          setCard={setCard}
+          setProductState={setProductState}
+          setIsOpenModal={setIsOpenModal}
+          isOpenModal={isOpenModal}
+        />
+      )}
       <StyledBaseField>
         <h2>Administrator</h2>
         <Catalog
           products={products}
+          card={card}
           rows={rows}
+          setCard={setCard}
+          setProductState={setProductState}
           setIsOpenModal={setIsOpenModal}
           isOpenModal={isOpenModal}
         />

@@ -1,6 +1,6 @@
-import Card from '../Components/Card';
-import type { AppProp } from '../../type/index';
+import type { AppProps } from '../../type/index';
 import styled from 'styled-components';
+import Cards from '../Components/Cards';
 
 const StyledBaseField = styled.div`
   width: 90%;
@@ -8,16 +8,22 @@ const StyledBaseField = styled.div`
 
 export default function Catalog({
   products,
+  card,
   rows,
+  setCard,
+  setProductState,
   setIsOpenModal,
   isOpenModal,
-}: AppProp) {
+}: AppProps) {
   return (
     <StyledBaseField>
       <h2>Catalog</h2>
-      <Card
+      <Cards
         products={products}
+        card={card}
         rows={rows}
+        setCard={setCard}
+        setProductState={setProductState}
         setIsOpenModal={setIsOpenModal}
         isOpenModal={isOpenModal}
       />
