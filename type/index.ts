@@ -19,7 +19,10 @@ export type AppProps = {
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
 export type CardProps = {
   product: Product;
+};
+export type CardProducts = Product[];
+export type Products = {
+  products: CardProducts;
 };

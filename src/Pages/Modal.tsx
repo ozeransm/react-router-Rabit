@@ -2,7 +2,7 @@ import Card from '../Components/Card';
 import styled from 'styled-components';
 import type { AppProps } from 'type';
 
-const StyledBaseField = styled.div`
+const StyledBaseField = styled('div')`
   position: relative;
   width: 80%;
   height: 80%;
@@ -11,7 +11,7 @@ const StyledBaseField = styled.div`
   border: 1px solid lightblue;
   border-radius: 10px;
 `;
-const StyledOverlay = styled.div`
+const StyledOverlay = styled('div')`
   position: fixed;
   top: 0;
   left: 0;
@@ -23,7 +23,7 @@ const StyledOverlay = styled.div`
   justify-content: center;
   z-index: 1000;
 `;
-const StyledButtonClose = styled.div`
+const StyledButtonClose = styled('div')`
   position: absolute;
   top: 12px;
   right: 16px;

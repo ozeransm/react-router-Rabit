@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import type { CardProps } from 'type';
 
-const StyledImg = styled.img`
+const StyledImg = styled('img')`
   width: 220px;
   display: block;
   margin: 0;

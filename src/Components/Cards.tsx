@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/grid';
 import { Grid } from 'swiper/modules';
 import Card from './Card';
-const StyledBaseField = styled.div`
+const StyledBaseField = styled('div')`
   border: 1px solid lightblue;
   border-radius: 10px;
   padding: 40px;

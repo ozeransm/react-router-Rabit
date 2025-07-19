@@ -6,9 +6,9 @@ import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
 import { useEffect, useState } from 'react';
-import type { AppProps } from '../type/index';
+import type { CardProducts, Products } from '../type/index';
 
-export default function App({ products }: AppProps) {
+export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
   const [isOpenModal, setIsOpenModal] = useState(false);

@@ -2,7 +2,7 @@ import type { AppProps } from '../../type/index';
 import styled from 'styled-components';
 import Cards from '../Components/Cards';
 
-const StyledBaseField = styled.div`
+const StyledBaseField = styled('div')`
   width: 90%;
 `;
 

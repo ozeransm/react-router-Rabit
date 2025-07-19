@@ -62,7 +62,12 @@ export default function indexRouter(vite) {
           .then((m) => m.render);
       } else {
         template = await fs.readFile(resolve('dist/client/index.html'), 'utf8');
-        render = require(resolve('dist/server/entry.server.js')).render;
+        const serverEntry = await import(
+          resolve('dist/server/entry.server.js')
+        );
+        render = serverEntry.render;
+        // template = await fs.readFile(resolve('dist/client/index.html'), 'utf8');
+        // render = require(resolve('dist/server/entry.server.js')).render;
       }
       // Send template to render on server and client
       const initialData = product.map((el) => {

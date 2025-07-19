@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write .",
-    "dev": "cross-env NODE_ENV=development node bin/www",
+    "dev": "cross-env NODE_ENV=development node bin/www.mjs",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client --ssrManifest",
     "build:server": "vite build --ssr src/entry.server.tsx --outDir dist/server",
-    "start": "cross-env NODE_ENV=production node bin/www",
+    "start": "cross-env NODE_ENV=production node bin/www.mjs",
     "debug": "node --inspect-brk server.js"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
     "react-hook-form": "^7.60.0",
     "react-router-dom": "^6.15.0",
     "sequelize": "^6.37.5",
-    "styled-components": "^6.1.19",
+    "styled-components": "^5.3.11",
     "swiper": "^11.2.10"
   },
   "devDependencies": {

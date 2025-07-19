@@ -6,14 +6,14 @@ import type { Product, AppProps, Inputs } from '../../type/index';
 import Modal from './Modal';
 const url = import.meta.env.VITE_API_URL;
 
-const StyledBaseField = styled.div`
+const StyledBaseField = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-const StyledForm = styled.form`
+const StyledForm = styled('form')`
   margin: 30px;
   align-items: center;
   border: 1px solid lightblue;
@@ -31,7 +31,7 @@ const StyledForm = styled.form`
   }
 `;
 
-const StyledFormField = styled.input`
+const StyledFormField = styled('input')`
   margin: 5px;
   width: 150px;
   @media (max-width: 480px) {
@@ -39,18 +39,18 @@ const StyledFormField = styled.input`
     display: block;
   }
 `;
-const StyledFormTextArea = styled.textarea`
+const StyledFormTextArea = styled('textarea')`
   margin: 5px;
   width: 200px;
   @media (min-width: 480px) {
     width: 320px;
   }
 `;
-const StyledButton = styled.input`
+const StyledButton = styled('input')`
   margin: 10px;
   display: block;
 `;
-const StyledFormFile = styled.input`
+const StyledFormFile = styled('input')`
   margin: 10px;
   display: block;
 `;

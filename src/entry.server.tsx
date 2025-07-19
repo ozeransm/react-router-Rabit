@@ -3,14 +3,9 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 
 import App from './App';
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  img: string;
-};
-export function render(url: string, products: Product[]) {
+import type { CardProducts } from 'type';
+
+export function render(url: string, products: CardProducts) {
   return ReactDOMServer.renderToString(
     <React.StrictMode>
       <StaticRouter location={url}>
