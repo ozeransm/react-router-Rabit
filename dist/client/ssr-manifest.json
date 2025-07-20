@@ -118,7 +118,5 @@
   "src/Pages/Orders.tsx": [
   ],
   "src/entry.client.tsx": [
-  ],
-  "src/index.css": [
   ]
 }

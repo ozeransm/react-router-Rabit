@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 export type Inputs = {
   name: string;
   price: string;
@@ -26,3 +29,4 @@ export type CardProducts = Product[];
 export type Products = {
   products: CardProducts;
 };
+

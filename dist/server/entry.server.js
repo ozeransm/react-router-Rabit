@@ -1,5 +1,4 @@
 import * as jsxRuntime from "react/jsx-runtime";
-import * as React from "react";
 import { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
@@ -7,6 +6,7 @@ import { Link, Outlet, Routes, Route } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styledComponents from 'styled-components';
 const styled = styledComponents.default;
+import  { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid } from "swiper/modules";
 const jsx = jsxRuntime.jsx;
@@ -289,6 +289,10 @@ function Layout() {
     /* @__PURE__ */ jsx(Outlet, {})
   ] });
 }
+const Test = styled("div").withConfig({
+  displayName: "App__Test",
+  componentId: "sc-zj5zhc-0"
+})(["color:red;"]);
 function App({
   products
 }) {
@@ -302,6 +306,10 @@ function App({
     price: "",
     img: ""
   });
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
@@ -311,20 +319,22 @@ function App({
         setRows(3);
       } else if (width < 1024) {
         setRows(2);
-      } else
+      } else {
         setRows(1);
+      }
     }
     handleResize();
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+  if (!hydrated)
+    return null;
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx("h1", { children: "Server Rendering Example" }),
     /* @__PURE__ */ jsx("p", { children: "If you check out the HTML source of this page, you'll notice that it already contains the HTML markup of the app that was sent from the server!" }),
     /* @__PURE__ */ jsx("p", { children: "This is great for search engines that need to index this page. It's also great for users because server-rendered pages tend to load more quickly on mobile devices and over slow networks." }),
     /* @__PURE__ */ jsx("p", { children: "Another thing to notice is that when you click one of the links below and navigate to a different URL, then hit the refresh button on your browser, the server is able to generate the HTML markup for that page as well because you're using React Router on the server. This creates a seamless experience both for your users navigating around your site and for developers on your team who get to use the same routing library in both places." }),
+    /* @__PURE__ */ jsx(Test, { children: "dfsdfsdfsdfsd" }),
     /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
       /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products }) }),
       /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal }) }),
@@ -335,7 +345,18 @@ function App({
   ] });
 }
 function render(url2, products) {
-  return ReactDOMServer.renderToString(/* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { location: url2, children: /* @__PURE__ */ jsx(App, { products }) }) }));
+  const sheet = new ServerStyleSheet();
+  try {
+    const html = ReactDOMServer.renderToString(/* @__PURE__ */ jsx(StyleSheetManager, { sheet: sheet.instance, children: /* @__PURE__ */ jsx(StaticRouter, { location: url2, children: /* @__PURE__ */ jsx(App, { products }) }) }));
+    const styleTags = sheet.getStyleTags();
+    console.log("hsahdfasdkashdkjhaskjdhkja", url2);
+    return {
+      html,
+      styleTags
+    };
+  } finally {
+    sheet.seal();
+  }
 }
 export {
   render

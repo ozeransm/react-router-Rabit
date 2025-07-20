@@ -13,11 +13,17 @@ import uploadRouter from './routes/upload.js';
 import indexRouterAll from './routes/indexAll.js';
 // Імпорт бази даних
 import sequelize from './database/db.js';
+import {isProduction} from './type/const.js'
+
+import compression from 'compression';
 
 //імпорт реакт
 let root = process.cwd();
-let isProduction = false;
 let vite;
+// __dirname заміна в ES-модулях
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 function resolve(p) {
   return path.resolve(__dirname, p);
 }
@@ -37,8 +43,7 @@ if (!isProduction) {
 
   app.use(vite.middlewares);
 } else {
-  app.use(require('compression')());
-  app.use(express.static(resolve('dist/client')));
+app.use(compression());
 }
 
 // Синхронізація бази
@@ -51,9 +56,6 @@ sequelize
     console.error('Помилка синхронізації:', err);
   });
 
-// __dirname заміна в ES-модулях
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Публічна папка
 const publicDir = path.join(__dirname, 'public');
@@ -67,10 +69,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Маршрути
+
 app.use('/', indexRouter(vite));
-app.use('/all', indexRouterAll);
-app.use('/upload', uploadRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter(vite));
+// app.use('/all', indexRouterAll);
+// app.use('/upload', uploadRouter);
+// app.use('/users', usersRouter);
 
 // Обробка 404
 app.use((req, res, next) => {
@@ -82,6 +86,7 @@ app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+ 
   // Але якщо без шаблонізатора — просто JSON:
   res.status(err.status || 500).json({
     error: res.locals.error,

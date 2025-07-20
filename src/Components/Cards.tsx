@@ -72,11 +72,7 @@ export default function Cards({
                 img: el.img ?? '',
               }}
             />
-            {/* />
-            {/* <p>{el.id}</p>
-            <p>{el.name}</p>
-            <p>{el.price}</p>
-            <StyledImg src={el.img} alt={el.name} /> */}
+
           </SwiperSlide>
         ))}
       </Swiper>

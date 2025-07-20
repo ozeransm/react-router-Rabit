@@ -5,12 +5,25 @@ import { StaticRouter } from 'react-router-dom/server';
 import App from './App';
 import type { CardProducts } from 'type';
 
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+
 export function render(url: string, products: CardProducts) {
-  return ReactDOMServer.renderToString(
-    <React.StrictMode>
-      <StaticRouter location={url}>
-        <App products={products} />
-      </StaticRouter>
-    </React.StrictMode>
-  );
+  const sheet = new ServerStyleSheet();
+
+  try {
+    const html = ReactDOMServer.renderToString(
+      <StyleSheetManager sheet={sheet.instance}>
+        <StaticRouter location={url}>
+          <App products={products}/>
+
+        </StaticRouter>
+      </StyleSheetManager>
+    );
+    const styleTags = sheet.getStyleTags(); // зібрані стилі в <style>...</style>
+    
+    console.log("hsahdfasdkashdkjhaskjdhkja", url)
+    return { html, styleTags };
+  } finally {
+    sheet.seal();
+  }
 }

@@ -4,15 +4,13 @@ import Product from '../database/model.js';
 import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const isProduction = process.env.NODE_ENV === 'production';
-
+import {isProduction} from '../type/const.js'
+import { ServerStyleSheet } from 'styled-components';
+// import { resolve } from 'path';
 function resolve(p) {
   return path.resolve(process.cwd(), p);
 }
-
+const clientPath = resolve('dist/client');
 export default function indexRouter(vite) {
   const router = express.Router();
 
@@ -46,11 +44,20 @@ export default function indexRouter(vite) {
     }
   }
 
+
+router.use((req, res, next) => {
+  console.log("Запит:", req.url, clientPath);
+ 
+  next();
+});
+
   // GET: Отримати всі продукти
   router.get('/', async (req, res, next) => {
-    try {
+  
+  const url = req.originalUrl;
+     try {
       const product = await Product.findAll();
-      let url = req.originalUrl;
+       
       let template;
       let render;
 
@@ -66,8 +73,7 @@ export default function indexRouter(vite) {
           resolve('dist/server/entry.server.js')
         );
         render = serverEntry.render;
-        // template = await fs.readFile(resolve('dist/client/index.html'), 'utf8');
-        // render = require(resolve('dist/server/entry.server.js')).render;
+   
       }
       // Send template to render on server and client
       const initialData = product.map((el) => {
@@ -75,15 +81,18 @@ export default function indexRouter(vite) {
         return { id, name, price, description, img };
       });
       const jsonString = JSON.stringify(initialData);
+      const { html, styleTags } = render(url, initialData);
+      
+      const htmlNew = template
+      .replace('<!--app-html-->', html)
+      .replace('</head>', `${styleTags}</head>`)
+      .replace(
+        '</body>',
+        `<script>window.__INITIAL_PRODUCTS__ = ${jsonString}</script></body>`
+      );
 
-      const html = template
-        .replace('<!--app-html-->', render(url, initialData))
-        .replace(
-          '<body>',
-          `<script>window.__INITIAL_PRODUCTS__ = ${jsonString}</script></body>`
-        );
       res.setHeader('Content-Type', 'text/html');
-      return res.status(200).end(html);
+      return res.status(200).end(htmlNew);
     } catch (error) {
       if (!isProduction && vite?.ssrFixStacktrace) {
         vite.ssrFixStacktrace(error);
@@ -94,7 +103,7 @@ export default function indexRouter(vite) {
   });
 
   // POST: Оновити продукт за id
-  router.post('/', async (req, res, next) => {
+  router.post('/admin', async (req, res, next) => {
     const { id } = req.body;
 
     try {
@@ -136,6 +145,7 @@ export default function indexRouter(vite) {
       next(error);
     }
   });
+  router.use(express.static(clientPath));
 
   return router; // 👈 обов'язково поверни
 }

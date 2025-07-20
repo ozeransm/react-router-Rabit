@@ -7,7 +7,11 @@ import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
 import { useEffect, useState } from 'react';
 import type { CardProducts, Products } from '../type/index';
+import styled from 'styled-components';
 
+const Test = styled('div')`
+  color: red;
+`;
 export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
@@ -19,25 +23,53 @@ export default function App({ products }: Products) {
     price: '',
     img: '',
   });
-  useEffect(() => {
-    function handleResize() {
-      const width = window.innerWidth;
-      if (width < 480) {
-        setRows(4);
-      } else if (width < 768) {
-        setRows(3);
-      } else if (width < 1024) {
-        setRows(2);
-      } else setRows(1);
+  
+  // useEffect(() => {
+
+
+  //   function handleResize() {
+  //     const width = window.innerWidth;
+  //     if (width < 480) {
+  //       setRows(4);
+  //     } else if (width < 768) {
+  //       setRows(3);
+  //     } else if (width < 1024) {
+  //       setRows(2);
+  //     } else setRows(1);
+  //   }
+
+  //   handleResize();
+  //   window.addEventListener('resize', handleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
+  const [hydrated, setHydrated] = useState(false);
+
+useEffect(() => {
+  setHydrated(true);
+}, []);
+
+useEffect(() => {
+  function handleResize() {
+    const width = window.innerWidth;
+    if (width < 480) {
+      setRows(4);
+    } else if (width < 768) {
+      setRows(3);
+    } else if (width < 1024) {
+      setRows(2);
+    } else {
+      setRows(1);
     }
+  }
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  handleResize();
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+if (!hydrated) return null;
   return (
     <div>
       <h1>Server Rendering Example</h1>
@@ -67,6 +99,7 @@ export default function App({ products }: Products) {
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
             parent route elements. See the note about <Outlet> below. */}
+            <Test>dfsdfsdfsdfsd</Test>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home products={products} />} />
