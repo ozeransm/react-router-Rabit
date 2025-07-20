@@ -4,7 +4,7 @@ import Product from '../database/model.js';
 import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';
-import {isProduction} from '../type/const.js'
+import { isProduction } from '../type/const.js';
 import { ServerStyleSheet } from 'styled-components';
 // import { resolve } from 'path';
 function resolve(p) {
@@ -44,20 +44,18 @@ export default function indexRouter(vite) {
     }
   }
 
+  router.use((req, res, next) => {
+    console.log('Запит:', req.url, clientPath);
 
-router.use((req, res, next) => {
-  console.log("Запит:", req.url, clientPath);
- 
-  next();
-});
+    next();
+  });
 
   // GET: Отримати всі продукти
   router.get('/', async (req, res, next) => {
-  
-  const url = req.originalUrl;
-     try {
+    const url = req.originalUrl;
+    try {
       const product = await Product.findAll();
-       
+
       let template;
       let render;
 
@@ -73,7 +71,6 @@ router.use((req, res, next) => {
           resolve('dist/server/entry.server.js')
         );
         render = serverEntry.render;
-   
       }
       // Send template to render on server and client
       const initialData = product.map((el) => {
@@ -82,14 +79,14 @@ router.use((req, res, next) => {
       });
       const jsonString = JSON.stringify(initialData);
       const { html, styleTags } = render(url, initialData);
-      
+
       const htmlNew = template
-      .replace('<!--app-html-->', html)
-      .replace('</head>', `${styleTags}</head>`)
-      .replace(
-        '</body>',
-        `<script>window.__INITIAL_PRODUCTS__ = ${jsonString}</script></body>`
-      );
+        .replace('<!--app-html-->', html)
+        .replace('</head>', `${styleTags}</head>`)
+        .replace(
+          '</body>',
+          `<script>window.__INITIAL_PRODUCTS__ = ${jsonString}</script></body>`
+        );
 
       res.setHeader('Content-Type', 'text/html');
       return res.status(200).end(htmlNew);

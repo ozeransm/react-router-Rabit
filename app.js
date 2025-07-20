@@ -13,7 +13,7 @@ import uploadRouter from './routes/upload.js';
 import indexRouterAll from './routes/indexAll.js';
 // Імпорт бази даних
 import sequelize from './database/db.js';
-import {isProduction} from './type/const.js'
+import { isProduction } from './type/const.js';
 
 import compression from 'compression';
 
@@ -43,7 +43,7 @@ if (!isProduction) {
 
   app.use(vite.middlewares);
 } else {
-app.use(compression());
+  app.use(compression());
 }
 
 // Синхронізація бази
@@ -55,7 +55,6 @@ sequelize
   .catch((err) => {
     console.error('Помилка синхронізації:', err);
   });
-
 
 // Публічна папка
 const publicDir = path.join(__dirname, 'public');
@@ -86,7 +85,6 @@ app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
- 
   // Але якщо без шаблонізатора — просто JSON:
   res.status(err.status || 500).json({
     error: res.locals.error,

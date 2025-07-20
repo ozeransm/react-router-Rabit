@@ -72,7 +72,6 @@ export default function Cards({
                 img: el.img ?? '',
               }}
             />
-
           </SwiperSlide>
         ))}
       </Swiper>

@@ -29,4 +29,3 @@ export type CardProducts = Product[];
 export type Products = {
   products: CardProducts;
 };
-

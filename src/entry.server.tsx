@@ -14,14 +14,11 @@ export function render(url: string, products: CardProducts) {
     const html = ReactDOMServer.renderToString(
       <StyleSheetManager sheet={sheet.instance}>
         <StaticRouter location={url}>
-          <App products={products}/>
-
+          <App products={products} />
         </StaticRouter>
       </StyleSheetManager>
     );
     const styleTags = sheet.getStyleTags(); // зібрані стилі в <style>...</style>
-    
-    console.log("hsahdfasdkashdkjhaskjdhkja", url)
     return { html, styleTags };
   } finally {
     sheet.seal();
