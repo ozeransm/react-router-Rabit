@@ -15,7 +15,10 @@ In the browser entry point (see [src/entry.client.tsx](src/entry.client.tsx)), w
 
 On the server (see [src/entry.server.tsx](src/entry.server.tsx)), we use React Router's `<StaticRouter>` to render the app and plug in the URL we get from the incoming HTTP request.
 
+# Summary (Tech Stack Keywords):
+
+React, React Router, Styled-components, Swiper, Node.js, Express, Multer, Cloudinary, Sequelize, PostgreSQL, Vite, TypeScript, SSR.
+
 ## Preview
 
 Open this example on [Render.com](https://react-router-rabit.onrender.com):
-

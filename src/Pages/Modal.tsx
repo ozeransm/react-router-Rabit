@@ -47,6 +47,7 @@ export default function Modal({
   function handleClose() {
     setIsOpenModal(false);
   }
+
   return (
     <StyledOverlay>
       <StyledBaseField>

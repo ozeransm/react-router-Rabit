@@ -72,7 +72,7 @@ app.use(cookieParser());
 app.use('/', indexRouter(vite));
 // app.use('/', indexRouter(vite));
 // app.use('/all', indexRouterAll);
-// app.use('/upload', uploadRouter);
+app.use('/upload', uploadRouter);
 // app.use('/users', usersRouter);
 
 // Обробка 404

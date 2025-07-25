@@ -1,19 +1,7 @@
-import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
-import Catalog from './Catalog';
-import type { Product, AppProps, Inputs } from '../../type/index';
-import Modal from './Modal';
-import MyForm from '../Components/MyForm';
+import type { AppProps, Inputs, Product } from 'type';
 const url = import.meta.env.VITE_API_URL;
-
-const StyledBaseField = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 const StyledForm = styled('form')`
   margin: 30px;
   align-items: center;
@@ -56,7 +44,7 @@ const StyledFormFile = styled('input')`
   display: block;
 `;
 
-export default function Admin({
+export default function MyForm({
   products,
   card,
   rows,
@@ -87,7 +75,7 @@ export default function Admin({
         formData.append('files', file);
       });
     }
-
+console.log("jksdfhsjdlajsldkjaslkjdlkas", url)
     // надсилаємо на бекенд
     await fetch(`http://${url}/upload`, {
       method: 'POST',
@@ -104,41 +92,34 @@ export default function Admin({
     setProductState(initialData);
     reset();
   };
-
   return (
     <div>
-      {isOpenModal && (
-        <Modal
-          products={products}
-          card={card}
-          rows={rows}
-          setCard={setCard}
-          setProductState={setProductState}
-          setIsOpenModal={setIsOpenModal}
-          isOpenModal={isOpenModal}
+      <h2>Create new card</h2>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          {/* register your input into the hook by invoking the "register" function */}
+          <StyledFormField
+            {...register('name', { required: true })}
+            placeholder="Name"
+          />
+          {errors.name && <span>This field name is required</span>}
+          {/* include validation with required or other standard HTML validation rules */}
+          <StyledFormField
+            {...register('price', { required: true })}
+            placeholder="Price"
+          />
+          {/* errors will return when field validation fails  */}
+          {errors.price && <span>This field price is required</span>}
+        </div>
+        <StyledFormTextArea
+          {...register('description', { required: true })}
+          placeholder="Description"
+          rows={5}
         />
-      )}
-      <StyledBaseField>
-        <h2>Administrator</h2>
-        <Catalog
-          products={products}
-          card={card}
-          rows={rows}
-          setCard={setCard}
-          setProductState={setProductState}
-          setIsOpenModal={setIsOpenModal}
-          isOpenModal={isOpenModal}
-        />
-       <MyForm
-          products={products}
-          card={card}
-          rows={rows}
-          setCard={setCard}
-          setProductState={setProductState}
-          setIsOpenModal={setIsOpenModal}
-          isOpenModal={isOpenModal}
-       /> 
-      </StyledBaseField>
+        <StyledFormFile type="file" name="files" accept=".jpg" multiple />
+        {errors.description && <span>This field description is required</span>}
+        <StyledButton type="submit" />
+      </StyledForm>
     </div>
   );
 }
