@@ -17,6 +17,6 @@ On the server (see [src/entry.server.tsx](src/entry.server.tsx)), we use React R
 
 ## Preview
 
-Open this example on [StackBlitz](https://stackblitz.com):
+Open this example on [Render.com](https://react-router-rabit.onrender.com):
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router/tree/main/examples/ssr?file=src/App.tsx)
