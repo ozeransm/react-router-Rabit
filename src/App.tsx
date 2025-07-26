@@ -9,9 +9,6 @@ import { useEffect, useState } from 'react';
 import type { CardProducts, Products } from '../type/index';
 import styled from 'styled-components';
 
-const Test = styled('div')`
-  color: red;
-`;
 export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
@@ -27,6 +24,7 @@ export default function App({ products }: Products) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setProductState(products);
     setHydrated(true);
   }, []);
 
@@ -78,15 +76,15 @@ export default function App({ products }: Products) {
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
             parent route elements. See the note about <Outlet> below. */}
-      <Test>dfsdfsdfsdfsd</Test>
+
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home products={products} />} />
+          <Route index element={<Home products={productState} />} />
           <Route
             path="admin"
             element={
               <Admin
-                products={products}
+                products={productState}
                 card={card}
                 rows={rows}
                 setCard={setCard}

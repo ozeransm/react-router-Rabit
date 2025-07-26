@@ -63,12 +63,18 @@ export default function MyForm({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('price', data.price);
     formData.append('description', data.description);
-
+    formData.append('id', card.id);
+    setCard({
+      id: card.id,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      img: card.img,
+    });
     const filesInput = document.querySelector<HTMLInputElement>(
       'input[name="files"]'
     );
@@ -77,7 +83,6 @@ export default function MyForm({
         formData.append('files', file);
       });
     }
-
     // надсилаємо на бекенд
     await fetch(`http://${url}/${endPoint}`, {
       method: 'POST',
@@ -91,12 +96,13 @@ export default function MyForm({
       const { id, name, price, description, img } = el;
       return { id, name, price, description, img };
     });
+
     setProductState(initialData);
     reset();
   };
   return (
     <div>
-      <h2>Create new card</h2>
+      {endPoint === 'upload' ? <h2>Create new card</h2> : <h2>Update card</h2>}
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <div>
           {/* register your input into the hook by invoking the "register" function */}

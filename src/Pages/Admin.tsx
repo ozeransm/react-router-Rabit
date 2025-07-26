@@ -1,5 +1,3 @@
-import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Catalog from './Catalog';
 import type { Product, AppProps, Inputs } from '../../type/index';

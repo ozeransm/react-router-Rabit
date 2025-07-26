@@ -5,8 +5,7 @@ import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { isProduction } from '../type/const.js';
-import { ServerStyleSheet } from 'styled-components';
-// import { resolve } from 'path';
+import { upload } from '../type/const.js';
 function resolve(p) {
   return path.resolve(process.cwd(), p);
 }
@@ -77,6 +76,7 @@ export default function indexRouter(vite) {
         const { id, name, price, description, img } = el.dataValues;
         return { id, name, price, description, img };
       });
+
       const jsonString = JSON.stringify(initialData);
       const { html, styleTags } = render(url, initialData);
 
@@ -100,7 +100,7 @@ export default function indexRouter(vite) {
   });
 
   // POST: Оновити продукт за id
-  router.post('/admin', async (req, res, next) => {
+  router.post('/admin', upload.none(), async (req, res, next) => {
     const { id } = req.body;
 
     try {

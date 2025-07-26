@@ -1,37 +1,13 @@
 import express from 'express';
 import path from 'path';
-import multer from 'multer';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
+import { uploadDir } from '../type/const.js';
+import { upload } from '../type/const.js';
 
-import cards from './main.js';
 import Product from '../database/model.js';
 import cloudinary from '../cloudinary/index.js';
 
 const router = express.Router();
-
-// Для __dirname в ES-модулях
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Шляхи
-const uploadDir = path.join(process.cwd(), 'uploads');
-const storeImage = path.join(process.cwd(), 'public/images');
-
-// Налаштування multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-  limits: {
-    fileSize: 6048576,
-  },
-});
-
-const upload = multer({ storage });
 
 router.get('/', (req, res) => {
   res.status(200).json({ status: 'ok' });
