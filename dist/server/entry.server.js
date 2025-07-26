@@ -178,11 +178,11 @@ function MyForm({
         formData.append("files", file);
       });
     }
-    await fetch(`https://${url2}/${endPoint2}`, {
+    await fetch(`${url2}/${endPoint2}`, {
       method: "POST",
       body: formData
     });
-    const response = await fetch(`https://${url2}/all`, {
+    const response = await fetch(`${url2}/all`, {
       method: "GET"
     });
     const product = await response.json();
@@ -261,7 +261,7 @@ function Modal({
     setIsOpenModal(false);
   }
   async function handleDel() {
-    await fetch(`http://${url2}/`, {
+    await fetch(`${url2}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -270,7 +270,7 @@ function Modal({
         id: card.id
       })
     });
-    const response = await fetch(`http://${url2}/all`, {
+    const response = await fetch(`${url2}/all`, {
       method: "GET"
     });
     const product = await response.json();
@@ -309,7 +309,7 @@ function Modal({
     ] })
   ] }) });
 }
-const url = "react-router-rabit.onrender.com";
+const url = "https://react-router-rabit.onrender.com";
 const endPoint = "upload";
 const StyledBaseField = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",

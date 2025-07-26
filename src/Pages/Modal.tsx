@@ -102,14 +102,14 @@ export default function Modal({
     setIsOpenModal(false);
   }
   async function handleDel() {
-    await fetch(`http://${url}/`, {
+    await fetch(`${url}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ id: card.id }),
     });
-    const response = await fetch(`http://${url}/all`, {
+    const response = await fetch(`${url}/all`, {
       method: 'GET',
     });
     const product = await response.json();
