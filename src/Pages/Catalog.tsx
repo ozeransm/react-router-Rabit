@@ -26,6 +26,8 @@ export default function Catalog({
         setProductState={setProductState}
         setIsOpenModal={setIsOpenModal}
         isOpenModal={isOpenModal}
+        url=""
+        endPoint=""
       />
     </StyledBaseField>
   );

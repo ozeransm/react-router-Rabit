@@ -1,7 +1,7 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import type { AppProps, Inputs, Product } from 'type';
-const url = import.meta.env.VITE_API_URL;
+
 const StyledForm = styled('form')`
   margin: 30px;
   align-items: center;
@@ -52,6 +52,8 @@ export default function MyForm({
   setProductState,
   setIsOpenModal,
   isOpenModal,
+  url,
+  endPoint,
 }: AppProps) {
   const {
     register,
@@ -75,9 +77,9 @@ export default function MyForm({
         formData.append('files', file);
       });
     }
-console.log("jksdfhsjdlajsldkjaslkjdlkas", url)
+
     // надсилаємо на бекенд
-    await fetch(`http://${url}/upload`, {
+    await fetch(`http://${url}/${endPoint}`, {
       method: 'POST',
       body: formData,
     });

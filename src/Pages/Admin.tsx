@@ -6,54 +6,12 @@ import type { Product, AppProps, Inputs } from '../../type/index';
 import Modal from './Modal';
 import MyForm from '../Components/MyForm';
 const url = import.meta.env.VITE_API_URL;
-
+const endPoint = 'upload';
 const StyledBaseField = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledForm = styled('form')`
-  margin: 30px;
-  align-items: center;
-  border: 1px solid lightblue;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  @media (min-width: 480px) {
-    padding: 40px;
-  }
-
-  @media (min-width: 600px) {
-    width: 500px;
-  }
-`;
-
-const StyledFormField = styled('input')`
-  margin: 5px;
-  width: 150px;
-  @media (max-width: 480px) {
-    width: 200px;
-    display: block;
-  }
-`;
-const StyledFormTextArea = styled('textarea')`
-  margin: 5px;
-  width: 200px;
-  @media (min-width: 480px) {
-    width: 320px;
-  }
-`;
-const StyledButton = styled('input')`
-  margin: 10px;
-  display: block;
-`;
-const StyledFormFile = styled('input')`
-  margin: 10px;
-  display: block;
 `;
 
 export default function Admin({
@@ -65,46 +23,6 @@ export default function Admin({
   setIsOpenModal,
   isOpenModal,
 }: AppProps) {
-  const {
-    register,
-    reset,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('price', data.price);
-    formData.append('description', data.description);
-
-    const filesInput = document.querySelector<HTMLInputElement>(
-      'input[name="files"]'
-    );
-    if (filesInput?.files) {
-      Array.from(filesInput.files).forEach((file) => {
-        formData.append('files', file);
-      });
-    }
-
-    // надсилаємо на бекенд
-    await fetch(`http://${url}/upload`, {
-      method: 'POST',
-      body: formData,
-    });
-    const response = await fetch(`http://${url}/all`, {
-      method: 'GET',
-    });
-    const product = await response.json();
-    const initialData = product.initialData.map((el: Product) => {
-      const { id, name, price, description, img } = el;
-      return { id, name, price, description, img };
-    });
-    setProductState(initialData);
-    reset();
-  };
-
   return (
     <div>
       {isOpenModal && (
@@ -116,6 +34,8 @@ export default function Admin({
           setProductState={setProductState}
           setIsOpenModal={setIsOpenModal}
           isOpenModal={isOpenModal}
+          url={url}
+          endPoint={endPoint}
         />
       )}
       <StyledBaseField>
@@ -128,8 +48,10 @@ export default function Admin({
           setProductState={setProductState}
           setIsOpenModal={setIsOpenModal}
           isOpenModal={isOpenModal}
+          url={url}
+          endPoint={endPoint}
         />
-       <MyForm
+        <MyForm
           products={products}
           card={card}
           rows={rows}
@@ -137,7 +59,9 @@ export default function Admin({
           setProductState={setProductState}
           setIsOpenModal={setIsOpenModal}
           isOpenModal={isOpenModal}
-       /> 
+          url={url}
+          endPoint={endPoint}
+        />
       </StyledBaseField>
     </div>
   );

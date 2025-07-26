@@ -18,6 +18,8 @@ export type AppProps = {
   card: Product;
   rows: number;
   isOpenModal: boolean;
+  url: string;
+  endPoint: string;
   setCard: React.Dispatch<React.SetStateAction<Product>>;
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;

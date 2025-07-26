@@ -24,26 +24,6 @@ export default function App({ products }: Products) {
     img: '',
   });
 
-  // useEffect(() => {
-
-  //   function handleResize() {
-  //     const width = window.innerWidth;
-  //     if (width < 480) {
-  //       setRows(4);
-  //     } else if (width < 768) {
-  //       setRows(3);
-  //     } else if (width < 1024) {
-  //       setRows(2);
-  //     } else setRows(1);
-  //   }
-
-  //   handleResize();
-  //   window.addEventListener('resize', handleResize);
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -113,6 +93,8 @@ export default function App({ products }: Products) {
                 setProductState={setProductState}
                 setIsOpenModal={setIsOpenModal}
                 isOpenModal={isOpenModal}
+                url=""
+                endPoint=""
               />
             }
           />
