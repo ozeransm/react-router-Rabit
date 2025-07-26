@@ -309,7 +309,7 @@ function Modal({
     ] })
   ] }) });
 }
-const url = "https://react-router-rabit.onrender.com";
+const url = "https://soft-rabit.onrender.com";
 const endPoint = "upload";
 const StyledBaseField = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",
