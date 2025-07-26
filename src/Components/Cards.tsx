@@ -3,7 +3,8 @@ import type { AppProps } from '../../type/index';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/grid';
-import { Grid } from 'swiper/modules';
+import 'swiper/css/scrollbar';
+import { Grid, Scrollbar } from 'swiper/modules';
 import Card from './Card';
 const StyledBaseField = styled('div')`
   border: 1px solid lightblue;
@@ -53,7 +54,10 @@ export default function Cards({
   return (
     <StyledBaseField>
       <Swiper
-        modules={[Grid]}
+        scrollbar={{
+          hide: true,
+        }}
+        modules={[Scrollbar]}
         spaceBetween={10}
         slidesPerView={slidePreView}
         grid={{

@@ -81,6 +81,14 @@
   ],
   "node_modules/swiper/modules/grid.mjs": [
   ],
+  "node_modules/swiper/modules/scrollbar.css": [
+  ],
+  "node_modules/swiper/modules/scrollbar.mjs": [
+  ],
+  "node_modules/swiper/shared/classes-to-selector.mjs": [
+  ],
+  "node_modules/swiper/shared/create-element-if-not-defined.mjs": [
+  ],
   "node_modules/swiper/shared/ssr-window.esm.mjs": [
   ],
   "node_modules/swiper/shared/swiper-core.mjs": [

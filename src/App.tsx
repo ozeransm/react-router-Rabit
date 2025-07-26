@@ -79,7 +79,22 @@ export default function App({ products }: Products) {
 
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home products={productState} />} />
+          <Route
+            index
+            element={
+              <Home
+                products={productState}
+                card={card}
+                rows={rows}
+                setCard={setCard}
+                setProductState={setProductState}
+                setIsOpenModal={setIsOpenModal}
+                isOpenModal={isOpenModal}
+                url=""
+                endPoint=""
+              />
+            }
+          />
           <Route
             path="admin"
             element={

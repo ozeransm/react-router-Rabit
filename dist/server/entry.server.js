@@ -2,17 +2,18 @@ import * as jsxRuntime from "react/jsx-runtime";
 import { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
-import { Link, Outlet, Routes, Route } from "react-router-dom";
 import styledComponents from 'styled-components';
 const styled = styledComponents.default;
+import { Link, Outlet, Routes, Route } from "react-router-dom";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Grid } from "swiper/modules";
+import { Scrollbar, Grid } from "swiper/modules";
 import { useForm } from "react-hook-form";
 const jsx = jsxRuntime.jsx;
 const jsxs = jsxRuntime.jsxs;
 const swiper = "";
 const grid = "";
+const scrollbar = "";
 const CardWrapper = styled.div.withConfig({
   displayName: "Card__CardWrapper",
   componentId: "sc-h41vf0-0"
@@ -49,7 +50,7 @@ function Card({
     ] })
   ] });
 }
-const StyledBaseField$2 = styled("div").withConfig({
+const StyledBaseField$3 = styled("div").withConfig({
   displayName: "Cards__StyledBaseField",
   componentId: "sc-in0nuh-0"
 })(["border:1px solid lightblue;border-radius:10px;padding:40px;"]);
@@ -90,7 +91,9 @@ function Cards({
     setCard(newCard);
     setIsOpenModal(true);
   }
-  return /* @__PURE__ */ jsx(StyledBaseField$2, { children: /* @__PURE__ */ jsx(Swiper, { modules: [Grid], spaceBetween: 10, slidesPerView: slidePreView, grid: {
+  return /* @__PURE__ */ jsx(StyledBaseField$3, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
+    hide: true
+  }, modules: [Scrollbar], spaceBetween: 10, slidesPerView: slidePreView, grid: {
     rows: row,
     fill: "row"
   }, children: products.map((el) => /* @__PURE__ */ jsx(SwiperSlide, { onClick: () => handleModal(el.id), children: /* @__PURE__ */ jsx(Card, { product: {
@@ -101,7 +104,7 @@ function Cards({
     img: el.img ?? ""
   } }) }, el.id)) }) });
 }
-const StyledBaseField$1 = styled("div").withConfig({
+const StyledBaseField$2 = styled("div").withConfig({
   displayName: "Catalog__StyledBaseField",
   componentId: "sc-lby759-0"
 })(["width:90%;"]);
@@ -114,7 +117,7 @@ function Catalog({
   setIsOpenModal,
   isOpenModal
 }) {
-  return /* @__PURE__ */ jsxs(StyledBaseField$1, { children: [
+  return /* @__PURE__ */ jsxs(StyledBaseField$2, { children: [
     /* @__PURE__ */ jsx("h2", { children: "Catalog" }),
     /* @__PURE__ */ jsx(Cards, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "" })
   ] });
@@ -311,7 +314,7 @@ function Modal({
 }
 const url = "https://soft-rabit.onrender.com";
 const endPoint = "upload";
-const StyledBaseField = styled("div").withConfig({
+const StyledBaseField$1 = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",
   componentId: "sc-1rnwr9c-0"
 })(["display:flex;flex-direction:column;justify-content:center;align-items:center;"]);
@@ -326,40 +329,53 @@ function Admin({
 }) {
   return /* @__PURE__ */ jsxs("div", { children: [
     isOpenModal && /* @__PURE__ */ jsx(Modal, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint }),
-    /* @__PURE__ */ jsxs(StyledBaseField, { children: [
+    /* @__PURE__ */ jsxs(StyledBaseField$1, { children: [
       /* @__PURE__ */ jsx("h2", { children: "Administrator" }),
       /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint }),
       /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint })
     ] })
   ] });
 }
+const StyledBaseField = styled.div.withConfig({
+  displayName: "Home__StyledBaseField",
+  componentId: "sc-rf26ej-0"
+})(["width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}"]);
 function Home({
-  products
+  products,
+  rows
 }) {
+  let row = 5;
+  let slidePreView = 2;
+  switch (rows) {
+    case 3:
+      slidePreView = 1;
+      row = 5;
+      break;
+    case 2:
+      slidePreView = 3;
+      row = 3;
+      break;
+    case 1:
+      slidePreView = 5;
+      row = 5;
+      break;
+    default:
+      slidePreView = 1;
+  }
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx("h2", { children: "Home" }),
-    /* @__PURE__ */ jsx("div", { children: products.map((p) => /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsxs("h3", { children: [
-        "Name: ",
-        p.name
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "id: ",
-        p.id
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Description: ",
-        p.description
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Price: ",
-        p.price
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "images: ",
-        p.img
-      ] })
-    ] }, p.id)) })
+    /* @__PURE__ */ jsx(StyledBaseField, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
+      hide: true
+    }, modules: [Scrollbar, Grid], slidesPerView: slidePreView, spaceBetween: 20, grid: {
+      rows: row,
+      fill: "row"
+    }, children: products.map((p) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(Card, { product: {
+      id: p.id ?? "",
+      name: p.name ?? "",
+      description: p.description ?? "",
+      price: p.price ?? "",
+      img: p.img ?? ""
+    } }) }, p.id)) }) })
   ] });
 }
 function Orders() {
@@ -430,7 +446,7 @@ function App({
     /* @__PURE__ */ jsx("p", { children: "This is great for search engines that need to index this page. It's also great for users because server-rendered pages tend to load more quickly on mobile devices and over slow networks." }),
     /* @__PURE__ */ jsx("p", { children: "Another thing to notice is that when you click one of the links below and navigate to a different URL, then hit the refresh button on your browser, the server is able to generate the HTML markup for that page as well because you're using React Router on the server. This creates a seamless experience both for your users navigating around your site and for developers on your team who get to use the same routing library in both places." }),
     /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
-      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState }) }),
+      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "" }) }),
       /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "" }) }),
       /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "contacts", element: /* @__PURE__ */ jsx(Contacts, {}) }),
