@@ -178,11 +178,11 @@ function MyForm({
         formData.append("files", file);
       });
     }
-    await fetch(`http://${url2}/${endPoint2}`, {
+    await fetch(`https://${url2}/${endPoint2}`, {
       method: "POST",
       body: formData
     });
-    const response = await fetch(`http://${url2}/all`, {
+    const response = await fetch(`https://${url2}/all`, {
       method: "GET"
     });
     const product = await response.json();
@@ -309,7 +309,7 @@ function Modal({
     ] })
   ] }) });
 }
-const url = "localhost:3000";
+const url = "react-router-rabit.onrender.com";
 const endPoint = "upload";
 const StyledBaseField = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",
