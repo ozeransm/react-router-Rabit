@@ -24,9 +24,6 @@ let vite;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function resolve(p) {
-  return path.resolve(__dirname, p);
-}
 // Створення застосунку
 const app = express();
 /**

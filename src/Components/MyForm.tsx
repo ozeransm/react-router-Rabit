@@ -84,11 +84,11 @@ export default function MyForm({
       });
     }
     // надсилаємо на бекенд
-    await fetch(`http://${url}/${endPoint}`, {
+    await fetch(`https://${url}/${endPoint}`, {
       method: 'POST',
       body: formData,
     });
-    const response = await fetch(`http://${url}/all`, {
+    const response = await fetch(`https://${url}/all`, {
       method: 'GET',
     });
     const product = await response.json();
