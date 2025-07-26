@@ -21,4 +21,4 @@ React, React Router, Styled-components, Swiper, Node.js, Express, Multer, Cloudi
 
 ## Preview
 
-Open this example on [Render.com](https://react-router-rabit.onrender.com):
+Open this example on [Render.com](https://soft-rabit.onrender.com/):
