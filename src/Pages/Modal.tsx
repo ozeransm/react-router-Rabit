@@ -143,6 +143,32 @@ export default function Modal({
   setIsOpenModal,
   isOpenModal,
 }: AppProps) {
+    const {
+    register,
+    reset,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data)
+    // let newImg=[...card.img.split(',')];
+    let newImg=["a","b","c","d","f"];
+    for (let i = 0; i < data.deletePhotos.length; i++) {
+     console.log("kjsdfkjsd",+data.deletePhotos[i])
+      newImg.splice(+data.deletePhotos[i], 1);
+    } 
+    newImg=[newImg[+data.selectedPhoto], ...newImg.filter((_, i) => i !== +data.selectedPhoto)];
+    console.log(newImg);
+    // setCard({
+    //   id: card.id,
+    //   name: card.name,
+    //   description: card.description,
+    //   price: card.price,
+    //   img: newImg.join(','),
+    // });
+    reset();
+  }
   function handleClose() {
     setIsOpenModal(false);
   }
@@ -172,10 +198,6 @@ export default function Modal({
     setProductState(initialData);
     setIsOpenModal(false);
   }
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    console.log('Форма відправлена', e.currentTarget);
-  }
   return (
     <StyledOverlay>
       <StyledModal>
@@ -183,7 +205,7 @@ export default function Modal({
 
         <Card product={card} />
         <SwiperContainer>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Swiper
               scrollbar={{
                 hide: true,
@@ -203,20 +225,22 @@ export default function Modal({
                   <SrtyledDivImg>
                     <label>
                       <StyledInput
-                        type="checkbox"
-                        name="myCheckbox"
-                        value={idx}
-                        defaultChecked={false}
+                      type='checkbox'
+                      value={idx}
+                      disabled={Number(watch('selectedPhoto')) === idx}
+                      {...register('deletePhotos')}
+                        
                       />
                       Delete Photo
                     </label>
                     <StyledImg src={src} alt={card.name} />
                     <label>
                       <StyledInput
-                        type="radio"
-                        name="option"
-                        value={idx}
-                        defaultChecked={idx === 0}
+                      type='radio'
+                      value={idx}
+                      disabled={Number(watch('selectedPhoto')) === idx}
+                      defaultChecked={idx === 0}
+                        {...register('selectedPhoto')}
                       />
                       {idx === 0 && 'General Photo'}
                     </label>
