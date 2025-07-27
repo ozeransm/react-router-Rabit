@@ -50,7 +50,7 @@ export default function indexRouter(vite) {
   });
 
   // GET: Отримати всі продукти
-  router.get('/', async (req, res, next) => {
+  router.get('*', async (req, res, next) => {
     const url = req.originalUrl;
     try {
       const product = await Product.findAll();
@@ -144,9 +144,9 @@ export default function indexRouter(vite) {
   });
   router.use(express.static(clientPath));
   
-  router.get('*', (req, res) => {
-    res.sendFile(path.join(clientPath, 'index.html'));
-  });
+  // router.get('*', (req, res) => {
+  //   res.sendFile(path.join(clientPath, 'index.html'));
+  // });
 
   return router; // 👈 обов'язково поверни
 }
