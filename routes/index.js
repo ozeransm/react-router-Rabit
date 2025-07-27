@@ -50,7 +50,7 @@ export default function indexRouter(vite) {
   });
 
   // GET: Отримати всі продукти
-  router.get('*', async (req, res, next) => {
+  router.get('/', async (req, res, next) => {
     const url = req.originalUrl;
     try {
       const product = await Product.findAll();
