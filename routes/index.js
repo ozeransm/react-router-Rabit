@@ -142,6 +142,9 @@ export default function indexRouter(vite) {
       next(error);
     }
   });
+  router.get('*', (req, res) => {
+    res.sendFile(path.join(clientPath, 'index.html'));
+  });
   router.use(express.static(clientPath));
 
   return router; // 👈 обов'язково поверни
