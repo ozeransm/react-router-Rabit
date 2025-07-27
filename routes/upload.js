@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', upload.array('files', 15), async (req, res) => {
-  console.log('kasjhkjashdkjhaskjdhk');
   const files = fs.readdirSync(uploadDir);
   const urlAllImg = [];
 

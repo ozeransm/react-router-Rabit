@@ -10,7 +10,7 @@ const StyledBaseField = styled('div')`
   /* border: 1px solid lightblue;
   border-radius: 10px;
   padding: 40px; */
-    width: 100%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto; /* центрування */
   padding: 1rem;

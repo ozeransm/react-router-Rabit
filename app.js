@@ -72,7 +72,10 @@ app.use('/', indexRouter(vite));
 app.use('/all', indexRouterAll);
 app.use('/upload', uploadRouter);
 // app.use('/users', usersRouter);
-
+app.get('*', (req, res) => {
+  res.redirect('/');
+  // res.sendFile(path.join(clientPath, 'index.html'));
+});
 // Обробка 404
 app.use((req, res, next) => {
   next(createError(404));

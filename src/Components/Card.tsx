@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import type { CardProps } from 'type';
+import styled from 'styled-components';
 
 const CardWrapper = styled.div`
   max-width: 340px;
@@ -48,7 +48,7 @@ const ProductPrice = styled.p`
 export default function Card({ product }: CardProps) {
   return (
     <CardWrapper>
-      <StyledImg src={product.img} alt={product.name} />
+      <StyledImg src={product.img.split(',')[0]} alt={product.name} />
       <ProductId>ID: {product.id}</ProductId>
       <ProductName>{product.name}</ProductName>
       <ProductPrice>${product.price}</ProductPrice>

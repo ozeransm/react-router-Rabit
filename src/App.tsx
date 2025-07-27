@@ -6,8 +6,7 @@ import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
 import { useEffect, useState } from 'react';
-import type { CardProducts, Products } from '../type/index';
-import styled from 'styled-components';
+import type { Products } from '../type/index';
 
 export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);

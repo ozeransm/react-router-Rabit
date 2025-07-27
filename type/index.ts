@@ -5,6 +5,8 @@ export type Inputs = {
   name: string;
   price: string;
   description: string;
+  deletePhotos: string[];
+  selectedPhoto: string;
 };
 export type Product = {
   id: string;

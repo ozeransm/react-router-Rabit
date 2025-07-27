@@ -1,8 +1,14 @@
 import MyForm from '../Components/MyForm';
 import Card from '../Components/Card';
 import styled from 'styled-components';
-import type { AppProps, Product } from 'type';
-
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import type { AppProps, Inputs, Product } from 'type';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Grid, Scrollbar } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/grid';
+import type { ReactEventHandler } from 'react';
 const StyledOverlay = styled.div`
   position: fixed;
   inset: 0;
@@ -67,8 +73,10 @@ const StyledButtonClose = styled.button`
 `;
 
 const StyledFormWrapper = styled.div`
+  margin: 40px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 `;
 
@@ -87,6 +95,43 @@ const StyledDeleteButton = styled.button`
   &:hover {
     background-color: #d9363e;
   }
+`;
+const SwiperContainer = styled.div`
+  margin: 30px;
+  width: 100%;
+  max-width: 720px;
+  height: 300px; /* або інша висота */
+  margin: 0 auto;
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain; /* або cover, залежно від бажаного вигляду */
+  }
+`;
+const SrtyledDivImg = styled.div`
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+`;
+const StyledImg = styled.img`
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 12px;
+`;
+const StyledInput = styled.input`
+  display: block;
+`;
+const StyledInputButton = styled.input`
+  display: block;
+  margin: 30px;
 `;
 export default function Modal({
   products,
@@ -127,13 +172,61 @@ export default function Modal({
     setProductState(initialData);
     setIsOpenModal(false);
   }
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log('Форма відправлена', e.currentTarget);
+  }
   return (
     <StyledOverlay>
       <StyledModal>
         <StyledButtonClose onClick={handleClose}>×</StyledButtonClose>
 
         <Card product={card} />
-
+        <SwiperContainer>
+          <form onSubmit={handleSubmit}>
+            <Swiper
+              scrollbar={{
+                hide: true,
+                draggable: true,
+              }}
+              modules={[Scrollbar, Grid, Autoplay]}
+              autoplay={{ delay: 2500, disableOnInteraction: true }}
+              slidesPerView={3}
+              spaceBetween={20}
+              grid={{
+                rows: 1,
+                fill: 'row',
+              }}
+            >
+              {card.img.split(',').map((src, idx) => (
+                <SwiperSlide key={idx}>
+                  <SrtyledDivImg>
+                    <label>
+                      <StyledInput
+                        type="checkbox"
+                        name="myCheckbox"
+                        value={idx}
+                        defaultChecked={false}
+                      />
+                      Delete Photo
+                    </label>
+                    <StyledImg src={src} alt={card.name} />
+                    <label>
+                      <StyledInput
+                        type="radio"
+                        name="option"
+                        value={idx}
+                        defaultChecked={idx === 0}
+                      />
+                      {idx === 0 && 'General Photo'}
+                    </label>
+                  </SrtyledDivImg>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <StyledInputButton type="submit" value="Changed" />
+          </form>
+        </SwiperContainer>
         <StyledFormWrapper>
           <MyForm
             products={products}

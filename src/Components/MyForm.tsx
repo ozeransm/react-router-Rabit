@@ -94,6 +94,7 @@ export default function MyForm({
     const product = await response.json();
     const initialData = product.initialData.map((el: Product) => {
       const { id, name, price, description, img } = el;
+
       return { id, name, price, description, img };
     });
 
