@@ -7,9 +7,30 @@ import 'swiper/css/scrollbar';
 import { Grid, Scrollbar } from 'swiper/modules';
 import Card from './Card';
 const StyledBaseField = styled('div')`
-  border: 1px solid lightblue;
+  /* border: 1px solid lightblue;
   border-radius: 10px;
-  padding: 40px;
+  padding: 40px; */
+    width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* центрування */
+  padding: 1rem;
+  box-sizing: border-box;
+
+  .swiper {
+    width: 100%;
+    height: auto;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .swiper-scrollbar {
+    margin-top: 8px;
+  }
 `;
 
 export default function Cards({
@@ -57,7 +78,7 @@ export default function Cards({
         scrollbar={{
           hide: true,
         }}
-        modules={[Scrollbar]}
+        modules={[Scrollbar, Grid]}
         spaceBetween={10}
         slidesPerView={slidePreView}
         grid={{

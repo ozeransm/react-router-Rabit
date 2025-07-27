@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import 'swiper/css/scrollbar';
 import Card from '../Components/Card';
-import { Scrollbar } from 'swiper/modules';
+import { Grid, Scrollbar } from 'swiper/modules';
 import 'swiper/css/grid';
-import { Grid } from 'swiper/modules';
 import type { AppProps } from 'type';
 import styled from 'styled-components';
 const StyledBaseField = styled.div`

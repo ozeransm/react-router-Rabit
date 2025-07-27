@@ -53,7 +53,7 @@ function Card({
 const StyledBaseField$3 = styled("div").withConfig({
   displayName: "Cards__StyledBaseField",
   componentId: "sc-in0nuh-0"
-})(["border:1px solid lightblue;border-radius:10px;padding:40px;"]);
+})(["width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}"]);
 function Cards({
   products,
   card,
@@ -93,7 +93,7 @@ function Cards({
   }
   return /* @__PURE__ */ jsx(StyledBaseField$3, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
     hide: true
-  }, modules: [Scrollbar], spaceBetween: 10, slidesPerView: slidePreView, grid: {
+  }, modules: [Scrollbar, Grid], spaceBetween: 10, slidesPerView: slidePreView, grid: {
     rows: row,
     fill: "row"
   }, children: products.map((el) => /* @__PURE__ */ jsx(SwiperSlide, { onClick: () => handleModal(el.id), children: /* @__PURE__ */ jsx(Card, { product: {
@@ -312,7 +312,7 @@ function Modal({
     ] })
   ] }) });
 }
-const url = "https://soft-rabit.onrender.com";
+const url = "http://localhost:3000";
 const endPoint = "upload";
 const StyledBaseField$1 = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",
