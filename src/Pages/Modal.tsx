@@ -151,22 +151,41 @@ export default function Modal({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
-    // let newImg=[...card.img.split(',')];
-    let newImg=["a","b","c","d","f"];
+    let newImg=[...card.img.split(',')];
+    // let newImg=['a','b','c','d','f']
     for (let i = 0; i < data.deletePhotos.length; i++) {
-     console.log("kjsdfkjsd",+data.deletePhotos[i])
-      newImg.splice(+data.deletePhotos[i], 1);
-    } 
+     if(+data.deletePhotos[i]===+data.selectedPhoto)continue;
+     newImg[+data.deletePhotos[i]]='';
+    }
     newImg=[newImg[+data.selectedPhoto], ...newImg.filter((_, i) => i !== +data.selectedPhoto)];
-    console.log(newImg);
-    // setCard({
-    //   id: card.id,
-    //   name: card.name,
-    //   description: card.description,
-    //   price: card.price,
-    //   img: newImg.join(','),
-    // });
+    newImg=newImg.filter(item => item && item.trim()); 
+    setCard({
+      id: card.id,
+      name: card.name,
+      description: card.description,
+      price: card.price,
+      img: newImg.join(','),
+    });
+    
+    const formData = new FormData();
+    formData.append('img', newImg.join(','));
+    formData.append('id', card.id);
+
+    await fetch(`${url}/admin`, {
+      method: 'POST',
+      body: formData,
+    });
+    const response = await fetch(`${url}/all`, {
+      method: 'GET',
+    });
+    const product = await response.json();
+    const initialData = product.initialData.map((el: Product) => {
+    const { id, name, price, description, img } = el;
+
+      return { id, name, price, description, img };
+    });
+
+    setProductState(initialData);
     reset();
   }
   function handleClose() {
@@ -227,7 +246,7 @@ export default function Modal({
                       <StyledInput
                       type='checkbox'
                       value={idx}
-                      disabled={Number(watch('selectedPhoto')) === idx}
+                      // disabled={Number(watch('selectedPhoto')) === idx}
                       {...register('deletePhotos')}
                         
                       />
@@ -238,7 +257,7 @@ export default function Modal({
                       <StyledInput
                       type='radio'
                       value={idx}
-                      disabled={Number(watch('selectedPhoto')) === idx}
+                      // disabled={Number(watch('selectedPhoto')) === idx}
                       defaultChecked={idx === 0}
                         {...register('selectedPhoto')}
                       />
