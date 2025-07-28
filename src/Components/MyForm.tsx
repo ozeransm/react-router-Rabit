@@ -29,6 +29,7 @@ const StyledFormField = styled('input')`
   }
 `;
 const StyledFormTextArea = styled('textarea')`
+  display: block;
   margin: 5px;
   width: 200px;
   @media (min-width: 480px) {
@@ -36,6 +37,7 @@ const StyledFormTextArea = styled('textarea')`
   }
 `;
 const StyledButton = styled('input')`
+  width: 150px;
   margin: 10px;
   display: block;
 `;
@@ -125,7 +127,11 @@ export default function MyForm({
           placeholder="Description"
           rows={5}
         />
-        <StyledFormFile type="file" name="files" accept=".jpg" multiple />
+        {endPoint === 'upload' ? (
+          <StyledFormFile type="file" name="files" accept=".jpg" multiple />
+        ) : (
+          ''
+        )}
         {errors.description && <span>This field description is required</span>}
         <StyledButton type="submit" />
       </StyledForm>
