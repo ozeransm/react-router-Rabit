@@ -143,7 +143,7 @@ export default function Modal({
   setIsOpenModal,
   isOpenModal,
 }: AppProps) {
-    const {
+  const {
     register,
     reset,
     handleSubmit,
@@ -151,14 +151,17 @@ export default function Modal({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    let newImg=[...card.img.split(',')];
+    let newImg = [...card.img.split(',')];
     // let newImg=['a','b','c','d','f']
     for (let i = 0; i < data.deletePhotos.length; i++) {
-     if(+data.deletePhotos[i]===+data.selectedPhoto)continue;
-     newImg[+data.deletePhotos[i]]='';
+      if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
+      newImg[+data.deletePhotos[i]] = '';
     }
-    newImg=[newImg[+data.selectedPhoto], ...newImg.filter((_, i) => i !== +data.selectedPhoto)];
-    newImg=newImg.filter(item => item && item.trim()); 
+    newImg = [
+      newImg[+data.selectedPhoto],
+      ...newImg.filter((_, i) => i !== +data.selectedPhoto),
+    ];
+    newImg = newImg.filter((item) => item && item.trim());
     setCard({
       id: card.id,
       name: card.name,
@@ -166,7 +169,7 @@ export default function Modal({
       price: card.price,
       img: newImg.join(','),
     });
-    
+
     const formData = new FormData();
     formData.append('img', newImg.join(','));
     formData.append('id', card.id);
@@ -180,14 +183,14 @@ export default function Modal({
     });
     const product = await response.json();
     const initialData = product.initialData.map((el: Product) => {
-    const { id, name, price, description, img } = el;
+      const { id, name, price, description, img } = el;
 
       return { id, name, price, description, img };
     });
 
     setProductState(initialData);
     reset();
-  }
+  };
   function handleClose() {
     setIsOpenModal(false);
   }
@@ -244,21 +247,20 @@ export default function Modal({
                   <SrtyledDivImg>
                     <label>
                       <StyledInput
-                      type='checkbox'
-                      value={idx}
-                      // disabled={Number(watch('selectedPhoto')) === idx}
-                      {...register('deletePhotos')}
-                        
+                        type="checkbox"
+                        value={idx}
+                        // disabled={Number(watch('selectedPhoto')) === idx}
+                        {...register('deletePhotos')}
                       />
                       Delete Photo
                     </label>
                     <StyledImg src={src} alt={card.name} />
                     <label>
                       <StyledInput
-                      type='radio'
-                      value={idx}
-                      // disabled={Number(watch('selectedPhoto')) === idx}
-                      defaultChecked={idx === 0}
+                        type="radio"
+                        value={idx}
+                        // disabled={Number(watch('selectedPhoto')) === idx}
+                        defaultChecked={idx === 0}
                         {...register('selectedPhoto')}
                       />
                       {idx === 0 && 'General Photo'}

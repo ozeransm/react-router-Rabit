@@ -1,67 +1,134 @@
 {
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/cjs/react-dom.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react-jsx-runtime.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react.development.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/jsx-runtime.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/cjs/scheduler.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/index.js?commonjs-module": [],
-  "\u0000commonjsHelpers.js": [],
-  "\u0000react/jsx-runtime": [],
-  "\u0000vite/modulepreload-polyfill": [],
-  "index.html": [],
-  "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js": [],
-  "node_modules/@emotion/memoize/dist/emotion-memoize.esm.js": [],
-  "node_modules/@emotion/stylis/dist/stylis.browser.esm.js": [],
-  "node_modules/@emotion/unitless/dist/unitless.browser.esm.js": [],
-  "node_modules/@remix-run/router/dist/router.js": [],
-  "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js": [],
-  "node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js": [],
-  "node_modules/hoist-non-react-statics/node_modules/react-is/index.js": [],
-  "node_modules/react-dom/cjs/react-dom.development.js": [],
-  "node_modules/react-dom/client.js": [],
-  "node_modules/react-dom/index.js": [],
-  "node_modules/react-hook-form/dist/index.esm.mjs": [],
-  "node_modules/react-is/cjs/react-is.development.js": [],
-  "node_modules/react-is/index.js": [],
-  "node_modules/react-router-dom/dist/index.js": [],
-  "node_modules/react-router/dist/index.js": [],
-  "node_modules/react/cjs/react-jsx-runtime.development.js": [],
-  "node_modules/react/cjs/react.development.js": [],
-  "node_modules/react/index.js": [],
-  "node_modules/react/jsx-runtime.js": [],
-  "node_modules/scheduler/cjs/scheduler.development.js": [],
-  "node_modules/scheduler/index.js": [],
-  "node_modules/styled-components/dist/styled-components.browser.esm.js": [],
-  "node_modules/swiper/modules/grid.css": [],
-  "node_modules/swiper/modules/grid.mjs": [],
-  "node_modules/swiper/modules/scrollbar.css": [],
-  "node_modules/swiper/modules/scrollbar.mjs": [],
-  "node_modules/swiper/shared/classes-to-selector.mjs": [],
-  "node_modules/swiper/shared/create-element-if-not-defined.mjs": [],
-  "node_modules/swiper/shared/ssr-window.esm.mjs": [],
-  "node_modules/swiper/shared/swiper-core.mjs": [],
-  "node_modules/swiper/shared/update-on-virtual-data.mjs": [],
-  "node_modules/swiper/shared/update-swiper.mjs": [],
-  "node_modules/swiper/shared/utils.mjs": [],
-  "node_modules/swiper/swiper-react.mjs": [],
-  "node_modules/swiper/swiper.css": [],
-  "src/App.tsx": [],
-  "src/Components/Card.tsx": [],
-  "src/Components/Cards.tsx": [],
-  "src/Components/MyForm.tsx": [],
-  "src/Pages/Admin.tsx": [],
-  "src/Pages/Catalog.tsx": [],
-  "src/Pages/Contacts.tsx": [],
-  "src/Pages/Home.tsx": [],
-  "src/Pages/Layout.tsx": [],
-  "src/Pages/Modal.tsx": [],
-  "src/Pages/NoMatch.tsx": [],
-  "src/Pages/Orders.tsx": [],
-  "src/entry.client.tsx": []
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/index.js?commonjs-module": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/cjs/react-dom.development.js?commonjs-exports": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/index.js?commonjs-module": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/index.js?commonjs-module": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react-jsx-runtime.development.js?commonjs-exports": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react.development.js?commonjs-module": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/index.js?commonjs-module": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/jsx-runtime.js?commonjs-module": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/cjs/scheduler.development.js?commonjs-exports": [
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/index.js?commonjs-module": [
+  ],
+  "\u0000commonjsHelpers.js": [
+  ],
+  "\u0000react/jsx-runtime": [
+  ],
+  "\u0000vite/modulepreload-polyfill": [
+  ],
+  "index.html": [
+  ],
+  "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js": [
+  ],
+  "node_modules/@emotion/memoize/dist/emotion-memoize.esm.js": [
+  ],
+  "node_modules/@emotion/stylis/dist/stylis.browser.esm.js": [
+  ],
+  "node_modules/@emotion/unitless/dist/unitless.browser.esm.js": [
+  ],
+  "node_modules/@remix-run/router/dist/router.js": [
+  ],
+  "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js": [
+  ],
+  "node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js": [
+  ],
+  "node_modules/hoist-non-react-statics/node_modules/react-is/index.js": [
+  ],
+  "node_modules/react-dom/cjs/react-dom.development.js": [
+  ],
+  "node_modules/react-dom/client.js": [
+  ],
+  "node_modules/react-dom/index.js": [
+  ],
+  "node_modules/react-hook-form/dist/index.esm.mjs": [
+  ],
+  "node_modules/react-is/cjs/react-is.development.js": [
+  ],
+  "node_modules/react-is/index.js": [
+  ],
+  "node_modules/react-router-dom/dist/index.js": [
+  ],
+  "node_modules/react-router/dist/index.js": [
+  ],
+  "node_modules/react/cjs/react-jsx-runtime.development.js": [
+  ],
+  "node_modules/react/cjs/react.development.js": [
+  ],
+  "node_modules/react/index.js": [
+  ],
+  "node_modules/react/jsx-runtime.js": [
+  ],
+  "node_modules/scheduler/cjs/scheduler.development.js": [
+  ],
+  "node_modules/scheduler/index.js": [
+  ],
+  "node_modules/styled-components/dist/styled-components.browser.esm.js": [
+  ],
+  "node_modules/swiper/modules/autoplay.mjs": [
+  ],
+  "node_modules/swiper/modules/grid.css": [
+  ],
+  "node_modules/swiper/modules/grid.mjs": [
+  ],
+  "node_modules/swiper/modules/scrollbar.css": [
+  ],
+  "node_modules/swiper/modules/scrollbar.mjs": [
+  ],
+  "node_modules/swiper/shared/classes-to-selector.mjs": [
+  ],
+  "node_modules/swiper/shared/create-element-if-not-defined.mjs": [
+  ],
+  "node_modules/swiper/shared/ssr-window.esm.mjs": [
+  ],
+  "node_modules/swiper/shared/swiper-core.mjs": [
+  ],
+  "node_modules/swiper/shared/update-on-virtual-data.mjs": [
+  ],
+  "node_modules/swiper/shared/update-swiper.mjs": [
+  ],
+  "node_modules/swiper/shared/utils.mjs": [
+  ],
+  "node_modules/swiper/swiper-react.mjs": [
+  ],
+  "node_modules/swiper/swiper.css": [
+  ],
+  "src/App.tsx": [
+  ],
+  "src/Components/Card.tsx": [
+  ],
+  "src/Components/Cards.tsx": [
+  ],
+  "src/Components/MyForm.tsx": [
+  ],
+  "src/Pages/Admin.tsx": [
+  ],
+  "src/Pages/Catalog.tsx": [
+  ],
+  "src/Pages/Contacts.tsx": [
+  ],
+  "src/Pages/Home.tsx": [
+  ],
+  "src/Pages/Layout.tsx": [
+  ],
+  "src/Pages/Modal.tsx": [
+  ],
+  "src/Pages/NoMatch.tsx": [
+  ],
+  "src/Pages/Orders.tsx": [
+  ],
+  "src/entry.client.tsx": [
+  ]
 }

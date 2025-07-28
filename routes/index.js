@@ -110,7 +110,7 @@ export default function indexRouter(vite) {
           name: req.body.name,
           price: req.body.price,
           description: req.body.description,
-          img: req.body.img
+          img: req.body.img,
         });
       }
 
