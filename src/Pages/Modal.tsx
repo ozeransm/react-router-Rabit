@@ -152,7 +152,6 @@ export default function Modal({
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     let newImg = [...card.img.split(',')];
-    // let newImg=['a','b','c','d','f']
     for (let i = 0; i < data.deletePhotos.length; i++) {
       if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
       newImg[+data.deletePhotos[i]] = '';
@@ -162,13 +161,6 @@ export default function Modal({
       ...newImg.filter((_, i) => i !== +data.selectedPhoto),
     ];
     newImg = newImg.filter((item) => item && item.trim());
-    setCard({
-      id: card.id,
-      name: card.name,
-      description: card.description,
-      price: card.price,
-      img: newImg.join(','),
-    });
 
     const formData = new FormData();
     formData.append('img', newImg.join(','));
@@ -176,6 +168,49 @@ export default function Modal({
 
     await fetch(`${url}/admin`, {
       method: 'POST',
+      body: formData,
+    });
+    
+    const response = await fetch(`${url}/all`, {
+      method: 'GET',
+    });
+    const product = await response.json();
+    const initialData = product.initialData.map((el: Product) => {
+      const { id, name, price, description, img } = el;
+
+      return { id, name, price, description, img };
+    });
+    const imgFiles = await addPictures(formData);
+    
+    // setCard({
+    //   id: card.id,
+    //   name: card.name,
+    //   description: card.description,
+    //   price: card.price,
+    //   img: newImg.join(','),
+    // });
+    setProductState(initialData);
+    reset();
+  };
+
+  async function addPictures(formData: FormData): Promise<FormData>{
+    
+    const filesInput = document.querySelector<HTMLInputElement>(
+      'input[name="files"]'
+    );
+    if (filesInput?.files) {
+      Array.from(filesInput.files).forEach((file) => {
+        formData.append('files', file);
+      });
+    }
+    if (!filesInput?.files || filesInput.files.length === 0) {
+    console.warn('Файли не вибрано — запит не буде надіслано');
+    return formData; // або return null, якщо хочеш
+    }
+    
+    // надсилаємо на бекенд
+    await fetch(`${url}/upload/${card.id}`, {
+      method: 'PATCH',
       body: formData,
     });
     const response = await fetch(`${url}/all`, {
@@ -189,8 +224,9 @@ export default function Modal({
     });
 
     setProductState(initialData);
-    reset();
-  };
+    return formData;
+  }
+
   function handleClose() {
     setIsOpenModal(false);
   }
@@ -269,6 +305,7 @@ export default function Modal({
                 </SwiperSlide>
               ))}
             </Swiper>
+            <input type='file' name="files" accept=".jpg" multiple />
             <StyledInputButton type="submit" value="Changed" />
           </form>
         </SwiperContainer>
