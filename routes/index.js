@@ -101,6 +101,7 @@ export default function indexRouter(vite) {
   // POST: Оновити продукт за id
   router.post('/admin', async (req, res, next) => {
     const { id } = req.body;
+
     try {
       const ProductId = await Product.findByPk(id);
 

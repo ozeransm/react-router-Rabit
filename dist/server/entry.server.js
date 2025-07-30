@@ -307,7 +307,16 @@ function Modal({
     await addPictures(formData);
     await fetch(`${url2}/admin`, {
       method: "POST",
-      body: formData
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: card.id,
+        name: card.name,
+        price: card.price,
+        description: card.description,
+        img: newImg.join(",")
+      })
     });
     const response = await fetch(`${url2}/all`, {
       method: "GET"
@@ -447,7 +456,7 @@ function Modal({
     ] })
   ] }) });
 }
-const url = "https://soft-rabit.onrender.com";
+const url = "http://localhost:3000";
 const endPoint = "upload";
 const StyledBaseField$1 = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",

@@ -168,12 +168,19 @@ export default function Modal({
     formData.append('price', card.price);
     formData.append('description', card.description);
     formData.append('img', newImg.join(','));
-
     await addPictures(formData);
-
     await fetch(`${url}/admin`, {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: card.id,
+        name: card.name,
+        price: card.price,
+        description: card.description,
+        img: newImg.join(','),
+      }),
     });
 
     const response = await fetch(`${url}/all`, {
