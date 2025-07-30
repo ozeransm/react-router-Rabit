@@ -456,7 +456,7 @@ function Modal({
     ] })
   ] }) });
 }
-const url = "http://localhost:3000";
+const url = "https://soft-rabit.onrender.com";
 const endPoint = "upload";
 const StyledBaseField$1 = styled("div").withConfig({
   displayName: "Admin__StyledBaseField",
