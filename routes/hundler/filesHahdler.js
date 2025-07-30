@@ -3,8 +3,8 @@ import fs from 'fs';
 import { uploadDir } from '../../type/const.js';
 import cloudinary from '../../cloudinary/index.js';
 
-export default async function filesHandler(){
-const files = fs.readdirSync(uploadDir);
+export default async function filesHandler() {
+  const files = fs.readdirSync(uploadDir);
   const urlAllImg = [];
 
   if (files.length === 0) {
@@ -40,5 +40,5 @@ const files = fs.readdirSync(uploadDir);
   } catch (error) {
     console.error('Error clearing the uploads directory:', error.message);
   }
-return urlAllImg;
+  return urlAllImg;
 }

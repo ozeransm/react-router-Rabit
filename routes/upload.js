@@ -14,29 +14,26 @@ router.post('/', upload.array('files', 15), async (req, res) => {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    img: img.join(',')
+    img: img.join(','),
   });
   res.status(200).json({
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    img: img.join(',')
+    img: img.join(','),
   });
 });
 
-router.patch('/:id', upload.array('files', 15), async (req, res)=>{
+router.patch('/:id', upload.array('files', 15), async (req, res) => {
   const img = await filesHandler();
-  const imgOld=req.body.img+','+img.join(',');
+  const imgOld = req.body.img + ',' + img.join(',');
   try {
-    await Product.update(
-      { img: imgOld },
-      { where: { id: req.params.id } }
-    );
+    await Product.update({ img: imgOld }, { where: { id: req.params.id } });
 
-    res.status(200).json({ message: "new pictures added" });
+    res.status(200).json({ message: 'new pictures added' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "update error" });
+    res.status(500).json({ error: 'update error' });
   }
-})
+});
 export default router;

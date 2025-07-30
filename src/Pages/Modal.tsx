@@ -163,14 +163,19 @@ export default function Modal({
     newImg = newImg.filter((item) => item && item.trim());
 
     const formData = new FormData();
-    formData.append('img', newImg.join(','));
     formData.append('id', card.id);
+    formData.append('name', card.name);
+    formData.append('price', card.price);
+    formData.append('description', card.description);
+    formData.append('img', newImg.join(','));
+
+    await addPictures(formData);
 
     await fetch(`${url}/admin`, {
       method: 'POST',
       body: formData,
     });
-    
+
     const response = await fetch(`${url}/all`, {
       method: 'GET',
     });
@@ -180,21 +185,13 @@ export default function Modal({
 
       return { id, name, price, description, img };
     });
-    const imgFiles = await addPictures(formData);
-    
-    // setCard({
-    //   id: card.id,
-    //   name: card.name,
-    //   description: card.description,
-    //   price: card.price,
-    //   img: newImg.join(','),
-    // });
+
+    setCard(initialData.find((el: Product) => el.id === card.id));
     setProductState(initialData);
     reset();
   };
 
-  async function addPictures(formData: FormData): Promise<FormData>{
-    
+  async function addPictures(formData: FormData): Promise<FormData> {
     const filesInput = document.querySelector<HTMLInputElement>(
       'input[name="files"]'
     );
@@ -204,10 +201,10 @@ export default function Modal({
       });
     }
     if (!filesInput?.files || filesInput.files.length === 0) {
-    console.warn('Файли не вибрано — запит не буде надіслано');
-    return formData; // або return null, якщо хочеш
+      console.warn('Файли не вибрано — запит не буде надіслано');
+      return formData; // або return null, якщо хочеш
     }
-    
+
     // надсилаємо на бекенд
     await fetch(`${url}/upload/${card.id}`, {
       method: 'PATCH',
@@ -285,7 +282,6 @@ export default function Modal({
                       <StyledInput
                         type="checkbox"
                         value={idx}
-                        // disabled={Number(watch('selectedPhoto')) === idx}
                         {...register('deletePhotos')}
                       />
                       Delete Photo
@@ -295,7 +291,6 @@ export default function Modal({
                       <StyledInput
                         type="radio"
                         value={idx}
-                        // disabled={Number(watch('selectedPhoto')) === idx}
                         defaultChecked={idx === 0}
                         {...register('selectedPhoto')}
                       />
@@ -305,7 +300,7 @@ export default function Modal({
                 </SwiperSlide>
               ))}
             </Swiper>
-            <input type='file' name="files" accept=".jpg" multiple />
+            <input type="file" name="files" accept=".jpg" multiple />
             <StyledInputButton type="submit" value="Changed" />
           </form>
         </SwiperContainer>

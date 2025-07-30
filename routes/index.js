@@ -45,7 +45,6 @@ export default function indexRouter(vite) {
 
   router.use((req, res, next) => {
     console.log('Запит:', req.url, clientPath);
-
     next();
   });
 
@@ -100,11 +99,11 @@ export default function indexRouter(vite) {
   });
 
   // POST: Оновити продукт за id
-  router.post('/admin', upload.none(), async (req, res, next) => {
+  router.post('/admin', async (req, res, next) => {
     const { id } = req.body;
-
     try {
       const ProductId = await Product.findByPk(id);
+
       if (ProductId) {
         await ProductId.update({
           name: req.body.name,
