@@ -8,7 +8,7 @@ import { Autoplay, Grid, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/grid';
-import type { ReactEventHandler } from 'react';
+
 const StyledOverlay = styled.div`
   position: fixed;
   inset: 0;
@@ -151,7 +151,7 @@ export default function Modal({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    let newImg = [...card.img.split(',')];
+    let newImg = [...card.img];
     for (let i = 0; i < data.deletePhotos.length; i++) {
       if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
       newImg[+data.deletePhotos[i]] = '';
@@ -168,7 +168,7 @@ export default function Modal({
     formData.append('price', card.price);
     formData.append('description', card.description);
     formData.append('img', newImg.join(','));
-    await addPictures(formData);
+
     await fetch(`${url}/admin`, {
       method: 'POST',
       headers: {
@@ -179,9 +179,10 @@ export default function Modal({
         name: card.name,
         price: card.price,
         description: card.description,
-        img: newImg.join(','),
+        img: newImg,
       }),
     });
+    await addPictures(formData);
 
     const response = await fetch(`${url}/all`, {
       method: 'GET',
@@ -214,7 +215,7 @@ export default function Modal({
 
     // надсилаємо на бекенд
     await fetch(`${url}/upload/${card.id}`, {
-      method: 'PATCH',
+      method: 'POST',
       body: formData,
     });
     const response = await fetch(`${url}/all`, {
@@ -255,7 +256,7 @@ export default function Modal({
       name: '',
       description: '',
       price: '',
-      img: '',
+      img: [],
     });
     setProductState(initialData);
     setIsOpenModal(false);
@@ -282,7 +283,7 @@ export default function Modal({
                 fill: 'row',
               }}
             >
-              {card.img.split(',').map((src, idx) => (
+              {card.img.map((src, idx) => (
                 <SwiperSlide key={idx}>
                   <SrtyledDivImg>
                     <label>

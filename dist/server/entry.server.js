@@ -38,7 +38,7 @@ function Card({
   product
 }) {
   return /* @__PURE__ */ jsxs(CardWrapper, { children: [
-    /* @__PURE__ */ jsx(StyledImg$1, { src: product.img.split(",")[0], alt: product.name }),
+    /* @__PURE__ */ jsx(StyledImg$1, { src: product.img[0], alt: product.name }),
     /* @__PURE__ */ jsxs(ProductId, { children: [
       "ID: ",
       product.id
@@ -290,7 +290,7 @@ function Modal({
     }
   } = useForm();
   const onSubmit = async (data) => {
-    let newImg = [...card.img.split(",")];
+    let newImg = [...card.img];
     for (let i = 0; i < data.deletePhotos.length; i++) {
       if (+data.deletePhotos[i] === +data.selectedPhoto)
         continue;
@@ -304,7 +304,6 @@ function Modal({
     formData.append("price", card.price);
     formData.append("description", card.description);
     formData.append("img", newImg.join(","));
-    await addPictures(formData);
     await fetch(`${url2}/admin`, {
       method: "POST",
       headers: {
@@ -315,9 +314,10 @@ function Modal({
         name: card.name,
         price: card.price,
         description: card.description,
-        img: newImg.join(",")
+        img: newImg
       })
     });
+    await addPictures(formData);
     const response = await fetch(`${url2}/all`, {
       method: "GET"
     });
@@ -354,7 +354,7 @@ function Modal({
       return formData;
     }
     await fetch(`${url2}/upload/${card.id}`, {
-      method: "PATCH",
+      method: "POST",
       body: formData
     });
     const response = await fetch(`${url2}/all`, {
@@ -418,7 +418,7 @@ function Modal({
       name: "",
       description: "",
       price: "",
-      img: ""
+      img: []
     });
     setProductState(initialData);
     setIsOpenModal(false);
@@ -436,7 +436,7 @@ function Modal({
       }, slidesPerView: 3, spaceBetween: 20, grid: {
         rows: 1,
         fill: "row"
-      }, children: card.img.split(",").map((src, idx) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsxs(SrtyledDivImg, { children: [
+      }, children: card.img.map((src, idx) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsxs(SrtyledDivImg, { children: [
         /* @__PURE__ */ jsxs("label", { children: [
           /* @__PURE__ */ jsx(StyledInput, { type: "checkbox", value: idx, ...register("deletePhotos") }),
           "Delete Photo"

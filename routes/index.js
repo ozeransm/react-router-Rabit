@@ -43,10 +43,10 @@ export default function indexRouter(vite) {
     }
   }
 
-  router.use((req, res, next) => {
-    console.log('Запит:', req.url, clientPath);
-    next();
-  });
+  // router.use((req, res, next) => {
+  //   console.log('Запит:', req.url, clientPath);
+  //   next();
+  // });
 
   // GET: Отримати всі продукти
   router.get('/', async (req, res, next) => {

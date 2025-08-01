@@ -10,25 +10,41 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.array('files', 15), async (req, res) => {
   const img = await filesHandler();
+
   await Product.create({
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    img: img.join(','),
+    img,
   });
   res.status(200).json({
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    img: img.join(','),
+    img,
   });
 });
 
-router.patch('/:id', upload.array('files', 15), async (req, res) => {
+router.post('/:id', upload.array('files', 15), async (req, res) => {
+  const id = +req.params.id;
+  const imgOld = req.body.img.split(',');
   const img = await filesHandler();
-  const imgOld = req.body.img + ',' + img.join(',');
+  const image = [...img, ...imgOld];
+  console.log('asasdfafdsafdfdsds', id, image);
   try {
-    await Product.update({ img: imgOld }, { where: { id: req.params.id } });
+    //
+    await Product.update(
+      {
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        img: image,
+      },
+      {
+        where: { id },
+        logging: console.log,
+      }
+    );
 
     res.status(200).json({ message: 'new pictures added' });
   } catch (err) {

@@ -13,7 +13,7 @@ export type Product = {
   name: string;
   price: string;
   description: string;
-  img: string;
+  img: string[];
 };
 export type AppProps = {
   products: Product[];
