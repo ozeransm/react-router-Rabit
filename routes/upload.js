@@ -2,6 +2,7 @@ import express from 'express';
 import { upload } from '../type/const.js';
 import Product from '../database/model.js';
 import filesHandler from './hundler/filesHahdler.js';
+import cloudinary from '../cloudinary/index.js';
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -52,9 +53,16 @@ router.post('/:id', upload.array('files', 15), async (req, res) => {
   }
 });
 
-router.delete('cloudinary/:id', (req, res)=>{
-console.log("hdagshdgkajsgdakjsfkgajh", req.params.id, req.body.img);
-res.status(200).json({message: "image deleted"})
+router.delete('/cloudinary', (req, res) => {
+  const url = req.body.img;
+  cloudinary.uploader.destroy(
+    `rabit/${url.split('/').pop().split('.')[0]}`,
+    function (error, result) {
+      console.log(result, error);
+    }
+  );
+
+  res.status(200).json({ message: 'image deleted' });
 });
 
 export default router;

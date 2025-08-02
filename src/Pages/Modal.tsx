@@ -159,15 +159,14 @@ export default function Modal({
     let newImg = [...card.img];
     for (let i = 0; i < data.deletePhotos.length; i++) {
       if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
-      await fetch(`${url}/upload/cloudinary/${card.id}`,{
+      await fetch(`${url}/upload/cloudinary`, {
         method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        img: card.img[+data.deletePhotos[i]],
-        
-      }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          img: card.img[+data.deletePhotos[i]],
+        }),
       });
       newImg[+data.deletePhotos[i]] = '';
     }
@@ -258,10 +257,31 @@ export default function Modal({
       },
       body: JSON.stringify({ id: card.id }),
     });
+    // const response = await fetch(`${url}/all`, {
+    //   method: 'GET',
+    // });
+    // const product = await response.json();
+    // const initialData = product.initialData.map((el: Product) => {
+    //   const { id, name, price, description, img } = el;
+    //   return { id, name, price, description, img };
+    // });
     const response = await fetch(`${url}/all`, {
       method: 'GET',
     });
-    const product = await response.json();
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Сервер повернув помилку:', response.status, text);
+      return;
+    }
+
+    let product;
+    try {
+      product = await response.json();
+    } catch (e) {
+      console.error('Не вдалося розпарсити JSON:', e);
+      return;
+    }
     const initialData = product.initialData.map((el: Product) => {
       const { id, name, price, description, img } = el;
       return { id, name, price, description, img };
@@ -324,10 +344,14 @@ export default function Modal({
               ))}
             </Swiper>
             <StyledFieldButton>
-                <StyledInputButton type="file" name="files" accept=".jpg" multiple />
-                <StyledInputButton type="submit" value="Changed" />
+              <StyledInputButton
+                type="file"
+                name="files"
+                accept=".jpg"
+                multiple
+              />
+              <StyledInputButton type="submit" value="Changed" />
             </StyledFieldButton>
-            
           </form>
         </SwiperContainer>
         <StyledFormWrapper>

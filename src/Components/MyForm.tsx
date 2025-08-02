@@ -45,13 +45,13 @@ const StyledFormFile = styled('input')`
   margin: 10px;
   display: block;
 `;
-const StyledNameForm=styled.h2`
-margin: 0;
-padding: 0;
+const StyledNameForm = styled.h2`
+  margin: 0;
+  padding: 0;
 `;
 const StyledBaseForm = styled.div`
-margin: 25px;
-padding: 10px;
+  margin: 25px;
+  padding: 10px;
 `;
 
 export default function MyForm({
@@ -113,7 +113,11 @@ export default function MyForm({
   };
   return (
     <StyledBaseForm>
-      {endPoint === 'upload' ? <StyledNameForm>Create new card</StyledNameForm> : <StyledNameForm>Update card</StyledNameForm>}
+      {endPoint === 'upload' ? (
+        <StyledNameForm>Create new card</StyledNameForm>
+      ) : (
+        <StyledNameForm>Update card</StyledNameForm>
+      )}
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <div>
           {/* register your input into the hook by invoking the "register" function */}

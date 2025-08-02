@@ -5,7 +5,7 @@ import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { isProduction } from '../type/const.js';
-import { upload } from '../type/const.js';
+
 function resolve(p) {
   return path.resolve(process.cwd(), p);
 }
@@ -47,9 +47,69 @@ export default function indexRouter(vite) {
   //   console.log('Запит:', req.url, clientPath);
   //   next();
   // });
+  router.get('/all', async (req, res, next) => {
+    try {
+      const product = await Product.findAll();
+      const initialData = product.map((el) => {
+        const { id, name, price, description, img } = el.dataValues;
+        return { id, name, price, description, img };
+      });
 
-  // GET: Отримати всі продукти
-  router.get('/', async (req, res, next) => {
+      res.status(200).json({
+        status: 'ok',
+        initialData,
+      });
+    } catch (err) {
+      next(err);
+    }
+  });
+  // POST: Оновити продукт за id
+  router.post('/admin', async (req, res, next) => {
+    const { id } = req.body;
+
+    try {
+      const ProductId = await Product.findByPk(id);
+
+      if (ProductId) {
+        await ProductId.update({
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+          img: req.body.img,
+        });
+      }
+
+      res.status(200).json({ status: 'ok' });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // DELETE: Видалити продукт + зображення з Cloudinary
+  router.delete('/', async (req, res, next) => {
+    const { id } = req.body;
+
+    try {
+      const ProductId = await Product.findByPk(id);
+      if (ProductId) {
+        await ProductId.destroy();
+        await Promise.all(
+          ProductId.img.map(async (url) => {
+            const publicId = `rabit/${url.split('/').pop().split('.')[0]}`;
+            await cloudinary.uploader.destroy(publicId);
+            console.log(`Deleted image with public ID: ${publicId}`);
+          })
+        );
+      }
+
+      res.status(200).json({ status: 'ok' });
+    } catch (error) {
+      console.error('Error deleting images from Cloudinary:', error);
+      next(error);
+    }
+  });
+  // GET
+  router.get('*', async (req, res, next) => {
     const url = req.originalUrl;
     try {
       const product = await Product.findAll();
@@ -98,51 +158,6 @@ export default function indexRouter(vite) {
     }
   });
 
-  // POST: Оновити продукт за id
-  router.post('/admin', async (req, res, next) => {
-    const { id } = req.body;
-
-    try {
-      const ProductId = await Product.findByPk(id);
-
-      if (ProductId) {
-        await ProductId.update({
-          name: req.body.name,
-          price: req.body.price,
-          description: req.body.description,
-          img: req.body.img,
-        });
-      }
-
-      res.status(200).json({ status: 'ok' });
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  // DELETE: Видалити продукт + зображення з Cloudinary
-  router.delete('/', async (req, res, next) => {
-    const { id } = req.body;
-
-    try {
-      const ProductId = await Product.findByPk(id);
-      if (ProductId) {
-        await ProductId.destroy();
-        await Promise.all(
-          ProductId.img.split(',').map(async (url) => {
-            const publicId = `rabit/${url.split('/').pop().split('.')[0]}`;
-            await cloudinary.uploader.destroy(publicId);
-            console.log(`Deleted image with public ID: ${publicId}`);
-          })
-        );
-      }
-
-      res.status(200).json({ status: 'ok' });
-    } catch (error) {
-      console.error('Error deleting images from Cloudinary:', error);
-      next(error);
-    }
-  });
   router.use(express.static(clientPath));
 
   return router; // 👈 обов'язково поверни

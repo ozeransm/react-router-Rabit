@@ -6,18 +6,18 @@ import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
 import { useEffect, useState } from 'react';
-import type { Products } from '../type/index';
+import type { Product, Products } from '../type/index';
 
 export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [card, setCard] = useState({
+  const [card, setCard] = useState<Product>({
     id: '',
     name: '',
     description: '',
     price: '',
-    img: '',
+    img: [],
   });
 
   const [hydrated, setHydrated] = useState(false);
