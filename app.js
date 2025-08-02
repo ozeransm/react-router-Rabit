@@ -53,8 +53,8 @@ sequelize
   });
 
 // Публічна папка
-const publicDir = path.join(__dirname, 'public');
-app.use('/public', express.static(publicDir));
+const publicDir = path.join(__dirname, 'dist/client');
+app.use('/dist/client', express.static(publicDir));
 
 // Середовища
 app.use(logger('dev'));

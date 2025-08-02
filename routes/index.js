@@ -108,7 +108,7 @@ export default function indexRouter(vite) {
       next(error);
     }
   });
-
+  // router.use(express.static(clientPath));
   // GET
   router.get('*', async (req, res, next) => {
     const url = req.originalUrl;
