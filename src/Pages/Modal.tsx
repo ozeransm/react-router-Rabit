@@ -257,14 +257,7 @@ export default function Modal({
       },
       body: JSON.stringify({ id: card.id }),
     });
-    // const response = await fetch(`${url}/all`, {
-    //   method: 'GET',
-    // });
-    // const product = await response.json();
-    // const initialData = product.initialData.map((el: Product) => {
-    //   const { id, name, price, description, img } = el;
-    //   return { id, name, price, description, img };
-    // });
+    
     const response = await fetch(`${url}/all`, {
       method: 'GET',
     });
