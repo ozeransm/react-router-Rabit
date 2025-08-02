@@ -30,7 +30,6 @@ router.post('/:id', upload.array('files', 15), async (req, res) => {
   const imgOld = req.body.img.split(',');
   const img = await filesHandler();
   const image = [...img, ...imgOld];
-  console.log('asasdfafdsafdfdsds', id, image);
   try {
     //
     await Product.update(
@@ -52,4 +51,10 @@ router.post('/:id', upload.array('files', 15), async (req, res) => {
     res.status(500).json({ error: 'update error' });
   }
 });
+
+router.delete('cloudinary/:id', (req, res)=>{
+console.log("hdagshdgkajsgdakjsfkgajh", req.params.id, req.body.img);
+res.status(200).json({message: "image deleted"})
+});
+
 export default router;

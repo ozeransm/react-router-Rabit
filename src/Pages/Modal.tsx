@@ -133,6 +133,11 @@ const StyledInputButton = styled.input`
   display: block;
   margin: 30px;
 `;
+const StyledFieldButton = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+`;
 export default function Modal({
   products,
   card,
@@ -154,6 +159,16 @@ export default function Modal({
     let newImg = [...card.img];
     for (let i = 0; i < data.deletePhotos.length; i++) {
       if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
+      await fetch(`${url}/upload/cloudinary/${card.id}`,{
+        method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        img: card.img[+data.deletePhotos[i]],
+        
+      }),
+      });
       newImg[+data.deletePhotos[i]] = '';
     }
     newImg = [
@@ -308,8 +323,11 @@ export default function Modal({
                 </SwiperSlide>
               ))}
             </Swiper>
-            <input type="file" name="files" accept=".jpg" multiple />
-            <StyledInputButton type="submit" value="Changed" />
+            <StyledFieldButton>
+                <StyledInputButton type="file" name="files" accept=".jpg" multiple />
+                <StyledInputButton type="submit" value="Changed" />
+            </StyledFieldButton>
+            
           </form>
         </SwiperContainer>
         <StyledFormWrapper>

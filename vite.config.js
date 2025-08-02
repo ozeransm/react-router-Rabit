@@ -12,7 +12,7 @@ export default defineConfig({
     port: 3000,
     historyApiFallback: true, // Для SPA роутінгу у dev
     allowedHosts: ['react-router-rabit.onrender.com'],
-    middlewareMode: true,
+    // middlewareMode: true,
   },
   plugins: [
     rollupReplace({

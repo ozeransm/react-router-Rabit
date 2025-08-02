@@ -45,6 +45,14 @@ const StyledFormFile = styled('input')`
   margin: 10px;
   display: block;
 `;
+const StyledNameForm=styled.h2`
+margin: 0;
+padding: 0;
+`;
+const StyledBaseForm = styled.div`
+margin: 25px;
+padding: 10px;
+`;
 
 export default function MyForm({
   products,
@@ -104,8 +112,8 @@ export default function MyForm({
     reset();
   };
   return (
-    <div>
-      {endPoint === 'upload' ? <h2>Create new card</h2> : <h2>Update card</h2>}
+    <StyledBaseForm>
+      {endPoint === 'upload' ? <StyledNameForm>Create new card</StyledNameForm> : <StyledNameForm>Update card</StyledNameForm>}
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <div>
           {/* register your input into the hook by invoking the "register" function */}
@@ -135,6 +143,6 @@ export default function MyForm({
         {errors.description && <span>This field description is required</span>}
         <StyledButton type="submit" />
       </StyledForm>
-    </div>
+    </StyledBaseForm>
   );
 }
