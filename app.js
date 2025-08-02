@@ -5,8 +5,6 @@ import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
-import fs from 'fs/promises';
-import { resolve } from 'path';
 // Імпорт маршрутів
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
