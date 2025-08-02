@@ -4,7 +4,8 @@ import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { isProduction } from '../type/const.js';
-
+import multer from 'multer';
+const upload = multer();
 function resolve(p) {
   return path.resolve(process.cwd(), p);
 }
@@ -33,7 +34,7 @@ export default function indexRouter(vite) {
     }
   });
   // POST: Оновити продукт за id
-  router.post('/admin', async (req, res, next) => {
+  router.post('/admin', upload.none(), async (req, res, next) => {
     const { id } = req.body;
 
     try {
