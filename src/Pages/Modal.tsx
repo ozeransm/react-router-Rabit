@@ -257,7 +257,7 @@ export default function Modal({
       },
       body: JSON.stringify({ id: card.id }),
     });
-    
+
     const response = await fetch(`${url}/all`, {
       method: 'GET',
     });
