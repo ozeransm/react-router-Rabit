@@ -1,5 +1,4 @@
 import express from 'express';
-import cards from './main.js';
 import Product from '../database/model.js';
 import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
@@ -12,36 +11,6 @@ function resolve(p) {
 const clientPath = resolve('dist/client');
 export default function indexRouter(vite) {
   const router = express.Router();
-
-  // Асинхронна функція для оновлення або видалення карток
-  async function writeF(body, del = 0) {
-    const fileJson = await cards.readFJ();
-
-    switch (del) {
-      case 0:
-        if (fileJson.cards.find((el) => el.id === `toy-${body.id}`)) {
-          fileJson.cards[body.id].name = body.name;
-          fileJson.cards[body.id].price = body.price;
-          fileJson.cards[body.id].description =
-            body.description || 'description';
-          cards.writeFJ(fileJson);
-        }
-        break;
-      case 1:
-        const newFileJson = fileJson.cards.filter(
-          (el) => el.id !== `toy-${body.id}`
-        );
-        cards.writeFJ({
-          cards: newFileJson.map((el, i) => {
-            el.id = `toy-${i}`;
-            return el;
-          }),
-        });
-        break;
-      default:
-        break;
-    }
-  }
 
   // router.use((req, res, next) => {
   //   console.log('Запит:', req.url, clientPath);
@@ -108,9 +77,9 @@ export default function indexRouter(vite) {
       next(error);
     }
   });
-  // router.use(express.static(clientPath));
+  //
   // GET
-  router.get('*', async (req, res, next) => {
+  router.get('/', async (req, res, next) => {
     const url = req.originalUrl;
     try {
       const product = await Product.findAll();
@@ -158,6 +127,6 @@ export default function indexRouter(vite) {
       res.status(500).end(error.stack);
     }
   });
-
+  router.use(express.static(clientPath));
   return router; // 👈 обов'язково поверни
 }

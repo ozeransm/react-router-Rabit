@@ -1,10 +1,10 @@
 import express from 'express';
 import createError from 'http-errors';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
+import fs from 'fs/promises';
 // Імпорт маршрутів
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -19,9 +19,10 @@ import Product from './database/model.js';
 //імпорт реакт
 let root = process.cwd();
 let vite;
-// __dirname заміна в ES-модулях
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+function resolve(p) {
+  return path.resolve(process.cwd(), p);
+}
 
 // Створення застосунку
 const app = express();
@@ -54,7 +55,6 @@ sequelize
 
 // Публічна папка
 // const publicDir = path.join(__dirname, 'dist/client');
-// console.log(publicDir);
 // app.use('/dist/client', express.static(publicDir));
 
 // Середовища
@@ -68,9 +68,55 @@ app.use(cookieParser());
 // Маршрути
 
 app.use('/', indexRouter(vite));
-// app.use('/', indexRouter(vite));
 app.use('/upload', uploadRouter);
 // app.use('/users', usersRouter);
+
+app.get('*', async (req, res, next) => {
+  const url = req.originalUrl;
+  try {
+    const product = await Product.findAll();
+
+    let template;
+    let render;
+
+    if (!isProduction) {
+      template = await fs.readFile(resolve('index.html'), 'utf8');
+      template = await vite.transformIndexHtml(url, template);
+      render = await vite
+        .ssrLoadModule('src/entry.server.tsx')
+        .then((m) => m.render);
+    } else {
+      template = await fs.readFile(resolve('dist/client/index.html'), 'utf8');
+      const serverEntry = await import(resolve('dist/server/entry.server.js'));
+      render = serverEntry.render;
+    }
+
+    const initialData = product.map((el) => {
+      const { id, name, price, description, img } = el.dataValues;
+      return { id, name, price, description, img };
+    });
+
+    const jsonString = JSON.stringify(initialData);
+    const { html, styleTags } = render(url, initialData);
+
+    const htmlNew = template
+      .replace('<!--app-html-->', html)
+      .replace('</head>', `${styleTags}</head>`)
+      .replace(
+        '</body>',
+        `<script>window.__INITIAL_PRODUCTS__ = ${jsonString}</script></body>`
+      );
+
+    res.setHeader('Content-Type', 'text/html');
+    res.status(200).end(htmlNew);
+  } catch (error) {
+    if (!isProduction && vite?.ssrFixStacktrace) {
+      vite.ssrFixStacktrace(error);
+    }
+    console.error(error.stack);
+    res.status(500).end(error.stack);
+  }
+});
 
 // Обробка 404
 app.use((req, res, next) => {
