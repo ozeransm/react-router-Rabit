@@ -7,7 +7,8 @@ import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
 import { useEffect, useState } from 'react';
 import type { Product, Products } from '../type/index';
-
+import Login from './Pages/Login';
+const url = import.meta.env.VITE_API_URL;
 export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
@@ -89,8 +90,24 @@ export default function App({ products }: Products) {
                 setProductState={setProductState}
                 setIsOpenModal={setIsOpenModal}
                 isOpenModal={isOpenModal}
-                url=""
+                url={url}
                 endPoint=""
+              />
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Login
+                products={productState}
+                card={card}
+                rows={rows}
+                setCard={setCard}
+                setProductState={setProductState}
+                setIsOpenModal={setIsOpenModal}
+                isOpenModal={isOpenModal}
+                url={url}
+                endPoint="users"
               />
             }
           />
@@ -105,7 +122,7 @@ export default function App({ products }: Products) {
                 setProductState={setProductState}
                 setIsOpenModal={setIsOpenModal}
                 isOpenModal={isOpenModal}
-                url=""
+                url={url}
                 endPoint=""
               />
             }

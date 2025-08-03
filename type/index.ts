@@ -7,6 +7,8 @@ export type Inputs = {
   description: string;
   deletePhotos: string[];
   selectedPhoto: string;
+  login: string;
+  password: string;
 };
 export type Product = {
   id: string;

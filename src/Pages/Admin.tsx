@@ -3,7 +3,6 @@ import Catalog from './Catalog';
 import type { Product, AppProps, Inputs } from '../../type/index';
 import Modal from './Modal';
 import MyForm from '../Components/MyForm';
-const url = import.meta.env.VITE_API_URL;
 const endPoint = 'upload';
 const StyledBaseField = styled('div')`
   display: flex;
@@ -16,6 +15,7 @@ export default function Admin({
   products,
   card,
   rows,
+  url,
   setCard,
   setProductState,
   setIsOpenModal,

@@ -69,7 +69,7 @@ app.use(cookieParser());
 
 app.use('/', indexRouter(vite));
 app.use('/upload', uploadRouter);
-// app.use('/users', usersRouter);
+app.use('/users', usersRouter);
 
 app.get('*', async (req, res, next) => {
   const url = req.originalUrl;

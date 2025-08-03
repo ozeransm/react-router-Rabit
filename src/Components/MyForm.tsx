@@ -85,7 +85,7 @@ export default function MyForm({
       price: data.price,
       img: card.img,
     });
-    
+
     const filesInput = document.querySelector<HTMLInputElement>(
       'input[name="files"]'
     );
