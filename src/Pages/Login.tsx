@@ -78,7 +78,6 @@ export default function Login({ url, endPoint }: AppProps) {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    
     const response = await fetch(`${url}/${endPoint}`, {
       method: 'GET',
     });

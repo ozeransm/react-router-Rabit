@@ -1,5 +1,5 @@
 import express from 'express';
-import Product from '../database/model.js';
+import Product from '../database/modelProducts.js';
 import cloudinary from '../cloudinary/index.js';
 import fs from 'fs/promises';
 import path from 'path';

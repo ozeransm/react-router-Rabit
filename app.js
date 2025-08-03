@@ -14,7 +14,7 @@ import sequelize from './database/db.js';
 import { isProduction } from './type/const.js';
 
 import compression from 'compression';
-import Product from './database/model.js';
+import Product from './database/modelProducts.js';
 
 //імпорт реакт
 let root = process.cwd();

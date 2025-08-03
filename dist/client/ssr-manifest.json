@@ -1,68 +1,206 @@
 {
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/cjs/react-dom.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react-jsx-runtime.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react.development.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/index.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/jsx-runtime.js?commonjs-module": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/cjs/scheduler.development.js?commonjs-exports": [],
-  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/index.js?commonjs-module": [],
-  "\u0000commonjsHelpers.js": [],
-  "\u0000react/jsx-runtime": [],
-  "\u0000vite/modulepreload-polyfill": [],
-  "index.html": [],
-  "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js": [],
-  "node_modules/@emotion/memoize/dist/emotion-memoize.esm.js": [],
-  "node_modules/@emotion/stylis/dist/stylis.browser.esm.js": [],
-  "node_modules/@emotion/unitless/dist/unitless.browser.esm.js": [],
-  "node_modules/@remix-run/router/dist/router.js": [],
-  "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js": [],
-  "node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js": [],
-  "node_modules/hoist-non-react-statics/node_modules/react-is/index.js": [],
-  "node_modules/react-dom/cjs/react-dom.development.js": [],
-  "node_modules/react-dom/client.js": [],
-  "node_modules/react-dom/index.js": [],
-  "node_modules/react-hook-form/dist/index.esm.mjs": [],
-  "node_modules/react-is/cjs/react-is.development.js": [],
-  "node_modules/react-is/index.js": [],
-  "node_modules/react-router-dom/dist/index.js": [],
-  "node_modules/react-router/dist/index.js": [],
-  "node_modules/react/cjs/react-jsx-runtime.development.js": [],
-  "node_modules/react/cjs/react.development.js": [],
-  "node_modules/react/index.js": [],
-  "node_modules/react/jsx-runtime.js": [],
-  "node_modules/scheduler/cjs/scheduler.development.js": [],
-  "node_modules/scheduler/index.js": [],
-  "node_modules/styled-components/dist/styled-components.browser.esm.js": [],
-  "node_modules/swiper/modules/autoplay.mjs": [],
-  "node_modules/swiper/modules/grid.css": [],
-  "node_modules/swiper/modules/grid.mjs": [],
-  "node_modules/swiper/modules/scrollbar.css": [],
-  "node_modules/swiper/modules/scrollbar.mjs": [],
-  "node_modules/swiper/shared/classes-to-selector.mjs": [],
-  "node_modules/swiper/shared/create-element-if-not-defined.mjs": [],
-  "node_modules/swiper/shared/ssr-window.esm.mjs": [],
-  "node_modules/swiper/shared/swiper-core.mjs": [],
-  "node_modules/swiper/shared/update-on-virtual-data.mjs": [],
-  "node_modules/swiper/shared/update-swiper.mjs": [],
-  "node_modules/swiper/shared/utils.mjs": [],
-  "node_modules/swiper/swiper-react.mjs": [],
-  "node_modules/swiper/swiper.css": [],
-  "src/App.tsx": [],
-  "src/Components/Card.tsx": [],
-  "src/Components/Cards.tsx": [],
-  "src/Components/MyForm.tsx": [],
-  "src/Pages/Admin.tsx": [],
-  "src/Pages/Catalog.tsx": [],
-  "src/Pages/Contacts.tsx": [],
-  "src/Pages/Home.tsx": [],
-  "src/Pages/Layout.tsx": [],
-  "src/Pages/Modal.tsx": [],
-  "src/Pages/NoMatch.tsx": [],
-  "src/Pages/Orders.tsx": [],
-  "src/entry.client.tsx": []
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/hoist-non-react-statics/node_modules/react-is/index.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/cjs/react-dom.development.js?commonjs-exports": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-dom/index.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/cjs/react-is.development.js?commonjs-exports": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react-is/index.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react-jsx-runtime.development.js?commonjs-exports": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/cjs/react.development.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/index.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/react/jsx-runtime.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/cjs/scheduler.development.js?commonjs-exports": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/index.js?commonjs-module": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000commonjsHelpers.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000react/jsx-runtime": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000vite/modulepreload-polyfill": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "img/Copilot_20250803_110344.png": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "index.html": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/@emotion/memoize/dist/emotion-memoize.esm.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/@emotion/stylis/dist/stylis.browser.esm.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/@emotion/unitless/dist/unitless.browser.esm.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/@remix-run/router/dist/router.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/hoist-non-react-statics/node_modules/react-is/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-dom/cjs/react-dom.development.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-dom/client.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-dom/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-hook-form/dist/index.esm.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-is/cjs/react-is.development.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-is/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-router-dom/dist/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-router/dist/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react/cjs/react-jsx-runtime.development.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react/cjs/react.development.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react/jsx-runtime.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/scheduler/cjs/scheduler.development.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/scheduler/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/styled-components/dist/styled-components.browser.esm.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/modules/autoplay.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/modules/grid.css": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/modules/grid.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/modules/scrollbar.css": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/modules/scrollbar.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/classes-to-selector.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/create-element-if-not-defined.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/ssr-window.esm.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/swiper-core.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/update-on-virtual-data.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/update-swiper.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/shared/utils.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/swiper-react.mjs": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/swiper/swiper.css": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/App.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/Card.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/Cards.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/MyForm.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Admin.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Catalog.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Contacts.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Home.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Layout.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Login.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Modal.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/NoMatch.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Orders.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/entry.client.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ]
 }

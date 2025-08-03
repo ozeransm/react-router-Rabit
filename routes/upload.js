@@ -1,6 +1,6 @@
 import express from 'express';
 import { upload } from '../type/const.js';
-import Product from '../database/model.js';
+import Product from '../database/modelProducts.js';
 import filesHandler from './hundler/filesHahdler.js';
 import cloudinary from '../cloudinary/index.js';
 const router = express.Router();
