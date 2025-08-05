@@ -9,6 +9,8 @@ export type Inputs = {
   selectedPhoto: string;
   login: string;
   password: string;
+  descriptionUser: string;
+  email: string;
 };
 export type Product = {
   id: string;
