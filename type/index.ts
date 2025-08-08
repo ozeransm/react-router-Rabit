@@ -11,6 +11,7 @@ export type Inputs = {
   password: string;
   descriptionUser: string;
   email: string;
+  role: string;
 };
 export type Product = {
   id: string;

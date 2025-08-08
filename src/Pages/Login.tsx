@@ -19,34 +19,33 @@ const StaticBackground = styled.div`
   background-size: 450px;
   z-index: -1;
 `;
-export default function Login(
-  { 
-    url,
-    endPoint,
-    products,
-    card,
-    rows,
-    setCard,
-    setProductState,
-    setIsOpenModal,
-    isOpenModal,  
-  }: AppProps) {
+export default function Login({
+  url,
+  endPoint,
+  products,
+  card,
+  rows,
+  setCard,
+  setProductState,
+  setIsOpenModal,
+  isOpenModal,
+}: AppProps) {
   return (
     <>
       <StaticBackground />
 
       <StyledBaseField>
         <h2>Login</h2>
-        <UsersForm 
-                products={products}
-                card={card}
-                rows={rows}
-                setCard={setCard}
-                setProductState={setProductState}
-                setIsOpenModal={setIsOpenModal}
-                isOpenModal={isOpenModal}
-                url={url}
-                endPoint="users"
+        <UsersForm
+          products={products}
+          card={card}
+          rows={rows}
+          setCard={setCard}
+          setProductState={setProductState}
+          setIsOpenModal={setIsOpenModal}
+          isOpenModal={isOpenModal}
+          url={url}
+          endPoint="users"
         />
       </StyledBaseField>
     </>
