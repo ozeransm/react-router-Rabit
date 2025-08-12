@@ -851,7 +851,7 @@ function Login({
     ] })
   ] });
 }
-const url = "http://localhost:3000";
+const url = "https://soft-rabit.onrender.com";
 function App({
   products
 }) {
