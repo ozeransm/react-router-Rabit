@@ -1,62 +1,70 @@
-import * as jsxRuntime from 'react/jsx-runtime';
-import { useState, useEffect } from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server.mjs';
-import { Link, Outlet, Routes, Route } from 'react-router-dom';
+import * as jsxRuntime from "react/jsx-runtime";
+import { useState, useEffect } from "react";
+import ReactDOMServer from "react-dom/server";
+import { StaticRouter } from "react-router-dom/server.mjs";
+import { Link, Outlet, useNavigate, Routes, Route } from "react-router-dom";
 import styledComponents from 'styled-components';
 const styled = styledComponents.default;
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar, Grid, Autoplay } from 'swiper/modules';
-import { useForm } from 'react-hook-form';
+import { ServerStyleSheet, StyleSheetManager } from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar, Grid, Autoplay } from "swiper/modules";
+import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
+import { useJwt } from "react-jwt";
 const Fragment = jsxRuntime.Fragment;
 const jsx = jsxRuntime.jsx;
 const jsxs = jsxRuntime.jsxs;
-const swiper = '';
-const grid = '';
-const scrollbar = '';
+const swiper = "";
+const grid = "";
+const scrollbar = "";
 const CardWrapper = styled.div.withConfig({
-  displayName: 'Card__CardWrapper',
-  componentId: 'sc-h41vf0-0',
-})([
-  'max-width:340px;background:#fff;border-radius:16px;padding:16px;margin:12px auto;box-shadow:0 8px 16px rgba(0,0,0,0.1);transition:transform 0.2s ease,box-shadow 0.3s ease;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}',
-]);
+  displayName: "Card__CardWrapper",
+  componentId: "sc-h41vf0-0"
+})(["max-width:340px;background:#fff;border-radius:16px;padding:16px;margin:12px auto;box-shadow:0 8px 16px rgba(0,0,0,0.1);transition:transform 0.2s ease,box-shadow 0.3s ease;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}"]);
 const StyledImg$1 = styled.img.withConfig({
-  displayName: 'Card__StyledImg',
-  componentId: 'sc-h41vf0-1',
-})(['width:100%;border-radius:12px;display:block;margin-bottom:12px;']);
+  displayName: "Card__StyledImg",
+  componentId: "sc-h41vf0-1"
+})(["width:100%;border-radius:12px;display:block;margin-bottom:12px;"]);
 const ProductId = styled.p.withConfig({
-  displayName: 'Card__ProductId',
-  componentId: 'sc-h41vf0-2',
-})(['font-size:0.8rem;color:#888;margin:4px 0;']);
+  displayName: "Card__ProductId",
+  componentId: "sc-h41vf0-2"
+})(["font-size:0.8rem;color:#888;margin:4px 0;"]);
 const ProductName = styled.p.withConfig({
-  displayName: 'Card__ProductName',
-  componentId: 'sc-h41vf0-3',
-})(['font-size:1.2rem;font-weight:600;color:#333;margin:4px 0;']);
+  displayName: "Card__ProductName",
+  componentId: "sc-h41vf0-3"
+})(["font-size:1.2rem;font-weight:600;color:#333;margin:4px 0;"]);
 const ProductPrice = styled.p.withConfig({
-  displayName: 'Card__ProductPrice',
-  componentId: 'sc-h41vf0-4',
-})(['font-size:1.1rem;font-weight:bold;color:#007b55;margin:4px 0 12px 0;']);
-function Card({ product }) {
-  return /* @__PURE__ */ jsxs(CardWrapper, {
-    children: [
-      /* @__PURE__ */ jsx(StyledImg$1, {
-        src: product.img[0],
-        alt: product.name,
-      }),
-      /* @__PURE__ */ jsxs(ProductId, { children: ['ID: ', product.id] }),
-      /* @__PURE__ */ jsx(ProductName, { children: product.name }),
-      /* @__PURE__ */ jsxs(ProductPrice, { children: ['$', product.price] }),
-    ],
-  });
+  displayName: "Card__ProductPrice",
+  componentId: "sc-h41vf0-4"
+})(["font-size:1.1rem;font-weight:bold;color:#007b55;margin:4px 0 12px 0;"]);
+function Card({
+  product
+}) {
+  return /* @__PURE__ */ jsxs(CardWrapper, { children: [
+    /* @__PURE__ */ jsx(StyledImg$1, { src: product.img[0], alt: product.name }),
+    /* @__PURE__ */ jsxs(ProductId, { children: [
+      "ID: ",
+      product.id
+    ] }),
+    /* @__PURE__ */ jsx(ProductName, { children: product.name }),
+    /* @__PURE__ */ jsxs(ProductPrice, { children: [
+      "$",
+      product.price
+    ] })
+  ] });
 }
-const StyledBaseField$4 = styled('div').withConfig({
-  displayName: 'Cards__StyledBaseField',
-  componentId: 'sc-in0nuh-0',
-})([
-  'width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}',
-]);
-function Cards({ products, card, rows, setCard, setIsOpenModal, isOpenModal }) {
+const StyledBaseField$4 = styled("div").withConfig({
+  displayName: "Cards__StyledBaseField",
+  componentId: "sc-in0nuh-0"
+})(["width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}"]);
+function Cards({
+  products,
+  card,
+  rows,
+  setCard,
+  setIsOpenModal,
+  isOpenModal
+}) {
   let row = 3;
   let slidePreView = 1;
   switch (rows) {
@@ -77,52 +85,32 @@ function Cards({ products, card, rows, setCard, setIsOpenModal, isOpenModal }) {
   }
   function handleModal(id) {
     const newCard = products.find((el) => el.id === id) ?? {
-      id: '',
-      name: '',
-      description: '',
-      price: '',
-      img: '',
+      id: "",
+      name: "",
+      description: "",
+      price: "",
+      img: [""]
     };
     setCard(newCard);
     setIsOpenModal(true);
   }
-  return /* @__PURE__ */ jsx(StyledBaseField$4, {
-    children: /* @__PURE__ */ jsx(Swiper, {
-      scrollbar: {
-        hide: true,
-      },
-      modules: [Scrollbar, Grid],
-      spaceBetween: 10,
-      slidesPerView: slidePreView,
-      grid: {
-        rows: row,
-        fill: 'row',
-      },
-      children: products.map((el) =>
-        /* @__PURE__ */ jsx(
-          SwiperSlide,
-          {
-            onClick: () => handleModal(el.id),
-            children: /* @__PURE__ */ jsx(Card, {
-              product: {
-                id: el.id ?? '',
-                name: el.name ?? '',
-                description: el.description ?? '',
-                price: el.price ?? '',
-                img: el.img ?? '',
-              },
-            }),
-          },
-          el.id
-        )
-      ),
-    }),
-  });
+  return /* @__PURE__ */ jsx(StyledBaseField$4, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
+    hide: true
+  }, modules: [Scrollbar, Grid], spaceBetween: 10, slidesPerView: slidePreView, grid: {
+    rows: row,
+    fill: "row"
+  }, children: products.map((el) => /* @__PURE__ */ jsx(SwiperSlide, { onClick: () => handleModal(el.id), children: /* @__PURE__ */ jsx(Card, { product: {
+    id: el.id ?? "",
+    name: el.name ?? "",
+    description: el.description ?? "",
+    price: el.price ?? "",
+    img: el.img ?? ""
+  } }) }, el.id)) }) });
 }
-const StyledBaseField$3 = styled('div').withConfig({
-  displayName: 'Catalog__StyledBaseField',
-  componentId: 'sc-lby759-0',
-})(['width:90%;']);
+const StyledBaseField$3 = styled("div").withConfig({
+  displayName: "Catalog__StyledBaseField",
+  componentId: "sc-lby759-0"
+})(["width:90%;"]);
 function Catalog({
   products,
   card,
@@ -131,58 +119,44 @@ function Catalog({
   setProductState,
   setIsOpenModal,
   isOpenModal,
+  isAuth,
+  setAuth,
+  token,
+  isExpired
 }) {
-  return /* @__PURE__ */ jsxs(StyledBaseField$3, {
-    children: [
-      /* @__PURE__ */ jsx('h2', { children: 'Catalog' }),
-      /* @__PURE__ */ jsx(Cards, {
-        products,
-        card,
-        rows,
-        setCard,
-        setProductState,
-        setIsOpenModal,
-        isOpenModal,
-        url: '',
-        endPoint: '',
-      }),
-    ],
-  });
+  return /* @__PURE__ */ jsxs(StyledBaseField$3, { children: [
+    /* @__PURE__ */ jsx("h2", { children: "Catalog" }),
+    /* @__PURE__ */ jsx(Cards, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "", isAuth, setAuth, token, isExpired })
+  ] });
 }
-const StyledForm = styled('form').withConfig({
-  displayName: 'MyForm__StyledForm',
-  componentId: 'sc-1ycmc8g-0',
-})([
-  'margin:30px;align-items:center;border:1px solid lightblue;border-radius:10px;padding:20px;display:flex;justify-content:center;flex-wrap:wrap;@media (min-width:480px){padding:40px;}@media (min-width:600px){width:500px;}',
-]);
-const StyledFormField = styled('input').withConfig({
-  displayName: 'MyForm__StyledFormField',
-  componentId: 'sc-1ycmc8g-1',
-})([
-  'margin:5px;width:150px;@media (max-width:480px){width:200px;display:block;}',
-]);
-const StyledFormTextArea = styled('textarea').withConfig({
-  displayName: 'MyForm__StyledFormTextArea',
-  componentId: 'sc-1ycmc8g-2',
-})([
-  'display:block;margin:5px;width:200px;@media (min-width:480px){width:320px;}',
-]);
-const StyledButton$1 = styled('input').withConfig({
-  displayName: 'MyForm__StyledButton',
-  componentId: 'sc-1ycmc8g-3',
-})(['width:150px;margin:10px;display:block;']);
-const StyledFormFile = styled('input').withConfig({
-  displayName: 'MyForm__StyledFormFile',
-  componentId: 'sc-1ycmc8g-4',
-})(['margin:10px;display:block;']);
+const StyledForm$1 = styled("form").withConfig({
+  displayName: "MyForm__StyledForm",
+  componentId: "sc-1ycmc8g-0"
+})(["margin:30px;align-items:center;border:1px solid lightblue;border-radius:10px;padding:20px;display:flex;justify-content:center;flex-wrap:wrap;@media (min-width:480px){padding:40px;}@media (min-width:600px){width:500px;}"]);
+const StyledFormField = styled("input").withConfig({
+  displayName: "MyForm__StyledFormField",
+  componentId: "sc-1ycmc8g-1"
+})(["margin:5px;width:150px;@media (max-width:480px){width:200px;display:block;}"]);
+const StyledFormTextArea = styled("textarea").withConfig({
+  displayName: "MyForm__StyledFormTextArea",
+  componentId: "sc-1ycmc8g-2"
+})(["display:block;margin:5px;width:200px;@media (min-width:480px){width:320px;}"]);
+const StyledButton$1 = styled("input").withConfig({
+  displayName: "MyForm__StyledButton",
+  componentId: "sc-1ycmc8g-3"
+})(["width:150px;margin:10px;display:block;"]);
+const StyledFormFile = styled("input").withConfig({
+  displayName: "MyForm__StyledFormFile",
+  componentId: "sc-1ycmc8g-4"
+})(["margin:10px;display:block;"]);
 const StyledNameForm = styled.h2.withConfig({
-  displayName: 'MyForm__StyledNameForm',
-  componentId: 'sc-1ycmc8g-5',
-})(['margin:0;padding:0;']);
+  displayName: "MyForm__StyledNameForm",
+  componentId: "sc-1ycmc8g-5"
+})(["margin:0;padding:0;"]);
 const StyledBaseForm = styled.div.withConfig({
-  displayName: 'MyForm__StyledBaseForm',
-  componentId: 'sc-1ycmc8g-6',
-})(['margin:25px;padding:10px;']);
+  displayName: "MyForm__StyledBaseForm",
+  componentId: "sc-1ycmc8g-6"
+})(["margin:25px;padding:10px;"]);
 function MyForm({
   products,
   card,
@@ -192,168 +166,137 @@ function MyForm({
   setIsOpenModal,
   isOpenModal,
   url: url2,
-  endPoint: endPoint2,
+  endPoint: endPoint2
 }) {
   const {
     register,
     reset,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {
+      errors
+    }
   } = useForm();
   const onSubmit = async (data) => {
     const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('price', data.price);
-    formData.append('description', data.description);
-    formData.append('id', card.id);
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("id", card.id);
     setCard({
       id: card.id,
       name: data.name,
       description: data.description,
       price: data.price,
-      img: card.img,
+      img: card.img
     });
     const filesInput = document.querySelector('input[name="files"]');
     if (filesInput == null ? void 0 : filesInput.files) {
       Array.from(filesInput.files).forEach((file) => {
-        formData.append('files', file);
+        formData.append("files", file);
       });
     }
     await fetch(`${url2}/${endPoint2}`, {
-      method: 'POST',
-      body: formData,
+      method: "POST",
+      body: formData
     });
     const response = await fetch(`${url2}/all`, {
-      method: 'GET',
+      method: "GET"
     });
     const product = await response.json();
     const initialData = product.initialData.map((el) => {
-      const { id, name, price, description, img } = el;
+      const {
+        id,
+        name,
+        price,
+        description,
+        img
+      } = el;
       return {
         id,
         name,
         price,
         description,
-        img,
+        img
       };
     });
     setProductState(initialData);
     reset();
   };
-  return /* @__PURE__ */ jsxs(StyledBaseForm, {
-    children: [
-      endPoint2 === 'upload'
-        ? /* @__PURE__ */ jsx(StyledNameForm, { children: 'Create new card' })
-        : /* @__PURE__ */ jsx(StyledNameForm, { children: 'Update card' }),
-      /* @__PURE__ */ jsxs(StyledForm, {
-        onSubmit: handleSubmit(onSubmit),
-        children: [
-          /* @__PURE__ */ jsxs('div', {
-            children: [
-              /* @__PURE__ */ jsx(StyledFormField, {
-                ...register('name', {
-                  required: true,
-                }),
-                placeholder: 'Name',
-              }),
-              errors.name &&
-                /* @__PURE__ */ jsx('span', {
-                  children: 'This field name is required',
-                }),
-              /* @__PURE__ */ jsx(StyledFormField, {
-                ...register('price', {
-                  required: true,
-                }),
-                placeholder: 'Price',
-              }),
-              errors.price &&
-                /* @__PURE__ */ jsx('span', {
-                  children: 'This field price is required',
-                }),
-            ],
-          }),
-          /* @__PURE__ */ jsx(StyledFormTextArea, {
-            ...register('description', {
-              required: true,
-            }),
-            placeholder: 'Description',
-            rows: 5,
-          }),
-          endPoint2 === 'upload'
-            ? /* @__PURE__ */ jsx(StyledFormFile, {
-                type: 'file',
-                name: 'files',
-                accept: '.jpg',
-                multiple: true,
-              })
-            : '',
-          errors.description &&
-            /* @__PURE__ */ jsx('span', {
-              children: 'This field description is required',
-            }),
-          /* @__PURE__ */ jsx(StyledButton$1, { type: 'submit' }),
-        ],
-      }),
-    ],
-  });
+  return /* @__PURE__ */ jsxs(StyledBaseForm, { children: [
+    endPoint2 === "upload" ? /* @__PURE__ */ jsx(StyledNameForm, { children: "Create new card" }) : /* @__PURE__ */ jsx(StyledNameForm, { children: "Update card" }),
+    /* @__PURE__ */ jsxs(StyledForm$1, { onSubmit: handleSubmit(onSubmit), children: [
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx(StyledFormField, { ...register("name", {
+          required: true
+        }), placeholder: "Name" }),
+        errors.name && /* @__PURE__ */ jsx("span", { children: "This field name is required" }),
+        /* @__PURE__ */ jsx(StyledFormField, { ...register("price", {
+          required: true
+        }), placeholder: "Price" }),
+        errors.price && /* @__PURE__ */ jsx("span", { children: "This field price is required" })
+      ] }),
+      /* @__PURE__ */ jsx(StyledFormTextArea, { ...register("description", {
+        required: true
+      }), placeholder: "Description", rows: 5 }),
+      endPoint2 === "upload" ? /* @__PURE__ */ jsx(StyledFormFile, { type: "file", name: "files", accept: ".jpg", multiple: true }) : "",
+      errors.description && /* @__PURE__ */ jsx("span", { children: "This field description is required" }),
+      /* @__PURE__ */ jsx(StyledButton$1, { type: "submit" })
+    ] })
+  ] });
+}
+const StyledButtonClose$1 = styled.button.withConfig({
+  displayName: "ButtonClose__StyledButtonClose",
+  componentId: "sc-12icmn2-0"
+})(["position:absolute;top:16px;right:20px;font-size:24px;color:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;&:hover{color:#333;}"]);
+function ButtonClose({
+  setIsOpenModal
+}) {
+  function handleClose() {
+    setIsOpenModal(false);
+  }
+  return /* @__PURE__ */ jsx(StyledButtonClose$1, { onClick: handleClose, children: "×" });
 }
 const StyledOverlay = styled.div.withConfig({
-  displayName: 'Modal__StyledOverlay',
-  componentId: 'sc-1pc8fcs-0',
-})([
-  'position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;',
-]);
+  displayName: "Modal__StyledOverlay",
+  componentId: "sc-1pc8fcs-0"
+})(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;"]);
 const StyledModal = styled.div.withConfig({
-  displayName: 'Modal__StyledModal',
-  componentId: 'sc-1pc8fcs-1',
-})([
-  'background:#ffffff;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.2);padding:32px;width:90%;max-width:720px;max-height:90vh;overflow-y:auto;position:relative;display:flex;flex-direction:column;gap:24px;animation:fadeIn 0.3s ease-in-out;@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}&::-webkit-scrollbar{width:8px;}&::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px;}',
-]);
-const StyledButtonClose = styled.button.withConfig({
-  displayName: 'Modal__StyledButtonClose',
-  componentId: 'sc-1pc8fcs-2',
-})([
-  'position:absolute;top:16px;right:20px;font-size:24px;color:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;&:hover{color:#333;}',
-]);
+  displayName: "Modal__StyledModal",
+  componentId: "sc-1pc8fcs-1"
+})(["background:#ffffff;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.2);padding:32px;width:90%;max-width:720px;max-height:90vh;overflow-y:auto;position:relative;display:flex;flex-direction:column;gap:24px;animation:fadeIn 0.3s ease-in-out;@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}&::-webkit-scrollbar{width:8px;}&::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px;}"]);
 const StyledFormWrapper = styled.div.withConfig({
-  displayName: 'Modal__StyledFormWrapper',
-  componentId: 'sc-1pc8fcs-3',
-})([
-  'margin:40px;display:flex;flex-direction:column;align-items:center;gap:20px;',
-]);
-const StyledDeleteButton = styled.button.withConfig({
-  displayName: 'Modal__StyledDeleteButton',
-  componentId: 'sc-1pc8fcs-4',
-})([
-  'align-self:center;padding:10px 24px;background-color:#ff4d4f;border:none;border-radius:8px;color:white;font-weight:bold;font-size:16px;cursor:pointer;transition:background-color 0.2s;&:hover{background-color:#d9363e;}',
-]);
+  displayName: "Modal__StyledFormWrapper",
+  componentId: "sc-1pc8fcs-2"
+})(["margin:40px;display:flex;flex-direction:column;align-items:center;gap:20px;"]);
+const StyledDeleteButton$1 = styled.button.withConfig({
+  displayName: "Modal__StyledDeleteButton",
+  componentId: "sc-1pc8fcs-3"
+})(["align-self:center;padding:10px 24px;background-color:#ff4d4f;border:none;border-radius:8px;color:white;font-weight:bold;font-size:16px;cursor:pointer;transition:background-color 0.2s;&:hover{background-color:#d9363e;}"]);
 const SwiperContainer = styled.div.withConfig({
-  displayName: 'Modal__SwiperContainer',
-  componentId: 'sc-1pc8fcs-5',
-})([
-  'margin:30px;width:100%;max-width:720px;height:300px;margin:0 auto;.swiper-slide{display:flex;justify-content:center;align-items:center;}.swiper-slide img{width:70%;height:70%;object-fit:contain;}',
-]);
+  displayName: "Modal__SwiperContainer",
+  componentId: "sc-1pc8fcs-4"
+})(["margin:30px;width:100%;max-width:720px;height:300px;margin:0 auto;.swiper-slide{display:flex;justify-content:center;align-items:center;}.swiper-slide img{width:70%;height:70%;object-fit:contain;}"]);
 const SrtyledDivImg = styled.div.withConfig({
-  displayName: 'Modal__SrtyledDivImg',
-  componentId: 'sc-1pc8fcs-6',
-})(['width:100%;height:auto;margin-bottom:15px;']);
+  displayName: "Modal__SrtyledDivImg",
+  componentId: "sc-1pc8fcs-5"
+})(["width:100%;height:auto;margin-bottom:15px;"]);
 const StyledImg = styled.img.withConfig({
-  displayName: 'Modal__StyledImg',
-  componentId: 'sc-1pc8fcs-7',
-})(['width:100%;border-radius:12px;display:block;margin-bottom:12px;']);
-const StyledInput = styled.input.withConfig({
-  displayName: 'Modal__StyledInput',
-  componentId: 'sc-1pc8fcs-8',
-})(['display:block;']);
+  displayName: "Modal__StyledImg",
+  componentId: "sc-1pc8fcs-6"
+})(["width:100%;border-radius:12px;display:block;margin-bottom:12px;"]);
+const StyledInput$1 = styled.input.withConfig({
+  displayName: "Modal__StyledInput",
+  componentId: "sc-1pc8fcs-7"
+})(["display:block;"]);
 const StyledInputButton = styled.input.withConfig({
-  displayName: 'Modal__StyledInputButton',
-  componentId: 'sc-1pc8fcs-9',
-})(['display:block;margin:30px;']);
+  displayName: "Modal__StyledInputButton",
+  componentId: "sc-1pc8fcs-8"
+})(["display:block;margin:30px;"]);
 const StyledFieldButton = styled.div.withConfig({
-  displayName: 'Modal__StyledFieldButton',
-  componentId: 'sc-1pc8fcs-10',
-})(['display:flex;flex-wrap:wrap;justify-content:start;']);
+  displayName: "Modal__StyledFieldButton",
+  componentId: "sc-1pc8fcs-9"
+})(["display:flex;flex-wrap:wrap;justify-content:start;"]);
 function Modal({
   products,
   card,
@@ -363,66 +306,76 @@ function Modal({
   setProductState,
   setIsOpenModal,
   isOpenModal,
+  isAuth,
+  token,
+  setAuth,
+  isExpired
 }) {
   const {
     register,
     reset,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {
+      errors
+    }
   } = useForm();
   const onSubmit = async (data) => {
     let newImg = [...card.img];
     for (let i = 0; i < data.deletePhotos.length; i++) {
-      if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
+      if (+data.deletePhotos[i] === +data.selectedPhoto)
+        continue;
       await fetch(`${url2}/upload/cloudinary`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          img: card.img[+data.deletePhotos[i]],
-        }),
+          img: card.img[+data.deletePhotos[i]]
+        })
       });
-      newImg[+data.deletePhotos[i]] = '';
+      newImg[+data.deletePhotos[i]] = "";
     }
-    newImg = [
-      newImg[+data.selectedPhoto],
-      ...newImg.filter((_, i) => i !== +data.selectedPhoto),
-    ];
+    newImg = [newImg[+data.selectedPhoto], ...newImg.filter((_, i) => i !== +data.selectedPhoto)];
     newImg = newImg.filter((item) => item && item.trim());
     const formData = new FormData();
-    formData.append('id', card.id);
-    formData.append('name', card.name);
-    formData.append('price', card.price);
-    formData.append('description', card.description);
-    formData.append('img', newImg.join(','));
+    formData.append("id", card.id);
+    formData.append("name", card.name);
+    formData.append("price", card.price);
+    formData.append("description", card.description);
+    formData.append("img", newImg.join(","));
     await fetch(`${url2}/admin`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         id: card.id,
         name: card.name,
         price: card.price,
         description: card.description,
-        img: newImg,
-      }),
+        img: newImg
+      })
     });
     await addPictures(formData);
     const response = await fetch(`${url2}/all`, {
-      method: 'GET',
+      method: "GET"
     });
     const product = await response.json();
     const initialData = product.initialData.map((el) => {
-      const { id, name, price, description, img } = el;
+      const {
+        id,
+        name,
+        price,
+        description,
+        img
+      } = el;
       return {
         id,
         name,
         price,
         description,
-        img,
+        img
       };
     });
     setCard(initialData.find((el) => el.id === card.id));
@@ -433,198 +386,131 @@ function Modal({
     const filesInput = document.querySelector('input[name="files"]');
     if (filesInput == null ? void 0 : filesInput.files) {
       Array.from(filesInput.files).forEach((file) => {
-        formData.append('files', file);
+        formData.append("files", file);
       });
     }
-    if (
-      !(filesInput == null ? void 0 : filesInput.files) ||
-      filesInput.files.length === 0
-    ) {
-      console.warn('Файли не вибрано — запит не буде надіслано');
+    if (!(filesInput == null ? void 0 : filesInput.files) || filesInput.files.length === 0) {
+      console.warn("Файли не вибрано — запит не буде надіслано");
       return formData;
     }
     await fetch(`${url2}/upload/${card.id}`, {
-      method: 'POST',
-      body: formData,
+      method: "POST",
+      body: formData
     });
     const response = await fetch(`${url2}/all`, {
-      method: 'GET',
+      method: "GET"
     });
     const product = await response.json();
     const initialData = product.initialData.map((el) => {
-      const { id, name, price, description, img } = el;
+      const {
+        id,
+        name,
+        price,
+        description,
+        img
+      } = el;
       return {
         id,
         name,
         price,
         description,
-        img,
+        img
       };
     });
     setProductState(initialData);
     return formData;
   }
-  function handleClose() {
-    setIsOpenModal(false);
-  }
   async function handleDel() {
     await fetch(`${url2}/`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        id: card.id,
-      }),
+        id: card.id
+      })
     });
     const response = await fetch(`${url2}/all`, {
-      method: 'GET',
+      method: "GET"
     });
     if (!response.ok) {
       const text = await response.text();
-      console.error('Сервер повернув помилку:', response.status, text);
+      console.error("Сервер повернув помилку:", response.status, text);
       return;
     }
     let product;
     try {
       product = await response.json();
     } catch (e) {
-      console.error('Не вдалося розпарсити JSON:', e);
+      console.error("Не вдалося розпарсити JSON:", e);
       return;
     }
     const initialData = product.initialData.map((el) => {
-      const { id, name, price, description, img } = el;
+      const {
+        id,
+        name,
+        price,
+        description,
+        img
+      } = el;
       return {
         id,
         name,
         price,
         description,
-        img,
+        img
       };
     });
     setCard({
-      id: '',
-      name: '',
-      description: '',
-      price: '',
-      img: [],
+      id: "",
+      name: "",
+      description: "",
+      price: "",
+      img: []
     });
     setProductState(initialData);
     setIsOpenModal(false);
   }
-  return /* @__PURE__ */ jsx(StyledOverlay, {
-    children: /* @__PURE__ */ jsxs(StyledModal, {
-      children: [
-        /* @__PURE__ */ jsx(StyledButtonClose, {
-          onClick: handleClose,
-          children: '×',
-        }),
-        /* @__PURE__ */ jsx(Card, { product: card }),
-        /* @__PURE__ */ jsx(SwiperContainer, {
-          children: /* @__PURE__ */ jsxs('form', {
-            onSubmit: handleSubmit(onSubmit),
-            children: [
-              /* @__PURE__ */ jsx(Swiper, {
-                scrollbar: {
-                  hide: true,
-                  draggable: true,
-                },
-                modules: [Scrollbar, Grid, Autoplay],
-                autoplay: {
-                  delay: 2500,
-                  disableOnInteraction: true,
-                },
-                slidesPerView: 3,
-                spaceBetween: 20,
-                grid: {
-                  rows: 1,
-                  fill: 'row',
-                },
-                children: card.img.map((src, idx) =>
-                  /* @__PURE__ */ jsx(
-                    SwiperSlide,
-                    {
-                      children: /* @__PURE__ */ jsxs(SrtyledDivImg, {
-                        children: [
-                          /* @__PURE__ */ jsxs('label', {
-                            children: [
-                              /* @__PURE__ */ jsx(StyledInput, {
-                                type: 'checkbox',
-                                value: idx,
-                                ...register('deletePhotos'),
-                              }),
-                              'Delete Photo',
-                            ],
-                          }),
-                          /* @__PURE__ */ jsx(StyledImg, {
-                            src,
-                            alt: card.name,
-                          }),
-                          /* @__PURE__ */ jsxs('label', {
-                            children: [
-                              /* @__PURE__ */ jsx(StyledInput, {
-                                type: 'radio',
-                                value: idx,
-                                defaultChecked: idx === 0,
-                                ...register('selectedPhoto'),
-                              }),
-                              idx === 0 && 'General Photo',
-                            ],
-                          }),
-                        ],
-                      }),
-                    },
-                    idx
-                  )
-                ),
-              }),
-              /* @__PURE__ */ jsxs(StyledFieldButton, {
-                children: [
-                  /* @__PURE__ */ jsx(StyledInputButton, {
-                    type: 'file',
-                    name: 'files',
-                    accept: '.jpg',
-                    multiple: true,
-                  }),
-                  /* @__PURE__ */ jsx(StyledInputButton, {
-                    type: 'submit',
-                    value: 'Changed',
-                  }),
-                ],
-              }),
-            ],
-          }),
-        }),
-        /* @__PURE__ */ jsxs(StyledFormWrapper, {
-          children: [
-            /* @__PURE__ */ jsx(MyForm, {
-              products,
-              card,
-              rows,
-              setCard,
-              setProductState,
-              setIsOpenModal,
-              isOpenModal,
-              url: url2,
-              endPoint: 'admin',
-            }),
-            /* @__PURE__ */ jsx(StyledDeleteButton, {
-              onClick: handleDel,
-              children: '🗑 Delete Card',
-            }),
-          ],
-        }),
-      ],
-    }),
-  });
+  return /* @__PURE__ */ jsx(StyledOverlay, { children: /* @__PURE__ */ jsxs(StyledModal, { children: [
+    /* @__PURE__ */ jsx(ButtonClose, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "", setAuth, isAuth, token, isExpired }),
+    /* @__PURE__ */ jsx(Card, { product: card }),
+    /* @__PURE__ */ jsx(SwiperContainer, { children: /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [
+      /* @__PURE__ */ jsx(Swiper, { scrollbar: {
+        hide: true,
+        draggable: true
+      }, modules: [Scrollbar, Grid, Autoplay], autoplay: {
+        delay: 2500,
+        disableOnInteraction: true
+      }, slidesPerView: 3, spaceBetween: 20, grid: {
+        rows: 1,
+        fill: "row"
+      }, children: card.img.map((src, idx) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsxs(SrtyledDivImg, { children: [
+        /* @__PURE__ */ jsxs("label", { children: [
+          /* @__PURE__ */ jsx(StyledInput$1, { type: "checkbox", value: idx, ...register("deletePhotos") }),
+          "Delete Photo"
+        ] }),
+        /* @__PURE__ */ jsx(StyledImg, { src, alt: card.name }),
+        /* @__PURE__ */ jsxs("label", { children: [
+          /* @__PURE__ */ jsx(StyledInput$1, { type: "radio", value: idx, defaultChecked: idx === 0, ...register("selectedPhoto") }),
+          idx === 0 && "General Photo"
+        ] })
+      ] }) }, idx)) }),
+      /* @__PURE__ */ jsxs(StyledFieldButton, { children: [
+        /* @__PURE__ */ jsx(StyledInputButton, { type: "file", name: "files", accept: ".jpg", multiple: true }),
+        /* @__PURE__ */ jsx(StyledInputButton, { type: "submit", value: "Changed" })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxs(StyledFormWrapper, { children: [
+      /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, isExpired }),
+      /* @__PURE__ */ jsx(StyledDeleteButton$1, { onClick: handleDel, children: "🗑 Delete Card" })
+    ] })
+  ] }) });
 }
-const endPoint = 'upload';
-const StyledBaseField$2 = styled('div').withConfig({
-  displayName: 'Admin__StyledBaseField',
-  componentId: 'sc-1rnwr9c-0',
-})([
-  'display:flex;flex-direction:column;justify-content:center;align-items:center;',
-]);
+const endPoint = "upload";
+const StyledBaseField$2 = styled("div").withConfig({
+  displayName: "Admin__StyledBaseField",
+  componentId: "sc-1rnwr9c-0"
+})(["display:flex;flex-direction:column;justify-content:center;align-items:center;"]);
 function Admin({
   products,
   card,
@@ -634,58 +520,28 @@ function Admin({
   setProductState,
   setIsOpenModal,
   isOpenModal,
+  setAuth,
+  isAuth,
+  token,
+  isExpired
 }) {
-  return /* @__PURE__ */ jsxs('div', {
-    children: [
-      isOpenModal &&
-        /* @__PURE__ */ jsx(Modal, {
-          products,
-          card,
-          rows,
-          setCard,
-          setProductState,
-          setIsOpenModal,
-          isOpenModal,
-          url: url2,
-          endPoint,
-        }),
-      /* @__PURE__ */ jsxs(StyledBaseField$2, {
-        children: [
-          /* @__PURE__ */ jsx('h2', { children: 'Administrator' }),
-          /* @__PURE__ */ jsx(Catalog, {
-            products,
-            card,
-            rows,
-            setCard,
-            setProductState,
-            setIsOpenModal,
-            isOpenModal,
-            url: url2,
-            endPoint,
-          }),
-          /* @__PURE__ */ jsx(MyForm, {
-            products,
-            card,
-            rows,
-            setCard,
-            setProductState,
-            setIsOpenModal,
-            isOpenModal,
-            url: url2,
-            endPoint,
-          }),
-        ],
-      }),
-    ],
-  });
+  return isAuth && /* @__PURE__ */ jsxs("div", { children: [
+    isOpenModal && /* @__PURE__ */ jsx(Modal, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired }),
+    /* @__PURE__ */ jsxs(StyledBaseField$2, { children: [
+      /* @__PURE__ */ jsx("h2", { children: "Administrator" }),
+      /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired }),
+      /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired })
+    ] })
+  ] });
 }
 const StyledBaseField$1 = styled.div.withConfig({
-  displayName: 'Home__StyledBaseField',
-  componentId: 'sc-rf26ej-0',
-})([
-  'width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}',
-]);
-function Home({ products, rows }) {
+  displayName: "Home__StyledBaseField",
+  componentId: "sc-rf26ej-0"
+})(["width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}"]);
+function Home({
+  products,
+  rows
+}) {
   let row = 5;
   let slidePreView = 2;
   switch (rows) {
@@ -704,237 +560,365 @@ function Home({ products, rows }) {
     default:
       slidePreView = 1;
   }
-  return /* @__PURE__ */ jsxs('div', {
-    children: [
-      /* @__PURE__ */ jsx('h2', { children: 'Home' }),
-      /* @__PURE__ */ jsx(StyledBaseField$1, {
-        children: /* @__PURE__ */ jsx(Swiper, {
-          scrollbar: {
-            hide: true,
-            draggable: true,
-          },
-          modules: [Scrollbar, Grid, Autoplay],
-          autoplay: {
-            delay: 2500,
-            disableOnInteraction: true,
-          },
-          slidesPerView: slidePreView,
-          spaceBetween: 20,
-          grid: {
-            rows: row,
-            fill: 'row',
-          },
-          children: products.map((p) =>
-            /* @__PURE__ */ jsx(
-              SwiperSlide,
-              {
-                children: /* @__PURE__ */ jsx(Card, {
-                  product: {
-                    id: p.id ?? '',
-                    name: p.name ?? '',
-                    description: p.description ?? '',
-                    price: p.price ?? '',
-                    img: p.img ?? '',
-                  },
-                }),
-              },
-              p.id
-            )
-          ),
-        }),
-      }),
-    ],
-  });
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("h2", { children: "Home" }),
+    /* @__PURE__ */ jsx(StyledBaseField$1, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
+      hide: true,
+      draggable: true
+    }, modules: [Scrollbar, Grid, Autoplay], autoplay: {
+      delay: 2500,
+      disableOnInteraction: true
+    }, slidesPerView: slidePreView, spaceBetween: 20, grid: {
+      rows: row,
+      fill: "row"
+    }, children: products.map((p) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(Card, { product: {
+      id: p.id ?? "",
+      name: p.name ?? "",
+      description: p.description ?? "",
+      price: p.price ?? "",
+      img: p.img ?? ""
+    } }) }, p.id)) }) })
+  ] });
 }
 function Orders() {
-  return /* @__PURE__ */ jsx('div', {
-    children: /* @__PURE__ */ jsx('h2', { children: 'Orders' }),
-  });
+  return /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("h2", { children: "Orders" }) });
 }
 function Contacts() {
-  return /* @__PURE__ */ jsx('div', {
-    children: /* @__PURE__ */ jsx('h2', { children: 'Contacts' }),
-  });
+  return /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("h2", { children: "Contacts" }) });
 }
 function NoMatch() {
-  return /* @__PURE__ */ jsxs('div', {
-    children: [
-      /* @__PURE__ */ jsx('h2', { children: 'Nothing to see here!' }),
-      /* @__PURE__ */ jsx('p', {
-        children: /* @__PURE__ */ jsx(Link, {
-          to: '/',
-          children: 'Go to the home page',
-        }),
-      }),
-    ],
-  });
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("h2", { children: "Nothing to see here!" }),
+    /* @__PURE__ */ jsx("p", { children: /* @__PURE__ */ jsx(Link, { to: "/", children: "Go to the home page" }) })
+  ] });
 }
 function Layout() {
-  return /* @__PURE__ */ jsxs('div', {
-    children: [
-      /* @__PURE__ */ jsx('nav', {
-        children: /* @__PURE__ */ jsxs('ul', {
-          children: [
-            /* @__PURE__ */ jsx('li', {
-              children: /* @__PURE__ */ jsx(Link, {
-                to: '/',
-                children: 'Home',
-              }),
-            }),
-            /* @__PURE__ */ jsx('li', {
-              children: /* @__PURE__ */ jsx(Link, {
-                to: '/login',
-                children: 'Login',
-              }),
-            }),
-            /* @__PURE__ */ jsx('li', {
-              children: /* @__PURE__ */ jsx(Link, {
-                to: '/admin',
-                children: 'Admin',
-              }),
-            }),
-            /* @__PURE__ */ jsx('li', {
-              children: /* @__PURE__ */ jsx(Link, {
-                to: '/orders',
-                children: 'Orders',
-              }),
-            }),
-            /* @__PURE__ */ jsx('li', {
-              children: /* @__PURE__ */ jsx(Link, {
-                to: '/contacts',
-                children: 'Contacts',
-              }),
-            }),
-            /* @__PURE__ */ jsx('li', {
-              children: /* @__PURE__ */ jsx(Link, {
-                to: '/nothing-here',
-                children: 'Nothing Here',
-              }),
-            }),
-          ],
-        }),
-      }),
-      /* @__PURE__ */ jsx('hr', {}),
-      /* @__PURE__ */ jsx(Outlet, {}),
-    ],
-  });
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("nav", { children: /* @__PURE__ */ jsxs("ul", { children: [
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/", children: "Home" }) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/login", children: "Login" }) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/admin", children: "Admin" }) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/orders", children: "Orders" }) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/contacts", children: "Contacts" }) }),
+      /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/nothing-here", children: "Nothing Here" }) })
+    ] }) }),
+    /* @__PURE__ */ jsx("hr", {}),
+    /* @__PURE__ */ jsx(Outlet, {})
+  ] });
 }
-const keyIcon = '/assets/Copilot_20250803_110344-af9a649f.png';
-const StyledBaseField = styled.div.withConfig({
-  displayName: 'Login__StyledBaseField',
-  componentId: 'sc-49vdt4-0',
-})([
-  'display:flex;flex-direction:column;align-items:center;min-height:100vh;padding-top:40px;h2{font-size:24px;margin-bottom:24px;text-align:center;color:#333;}form{display:flex;flex-direction:column;gap:16px;padding:32px;border:1px solid #ccc;border-radius:12px;background-color:#f9f9f9;box-shadow:0 4px 12px rgba(0,0,0,0.1);width:300px;}input{width:95%;padding:10px;font-size:14px;border:1px solid #aaa;border-radius:8px;}span{font-size:12px;color:red;}',
-]);
+const keyIcon = "/assets/Copilot_20250803_110344-af9a649f.png";
+const ReactToastify = "";
+const StyledButtonClose = styled.button.withConfig({
+  displayName: "UsersForm__StyledButtonClose",
+  componentId: "sc-w5oi9h-0"
+})(["position:absolute;top:5px;right:5px;font-size:24px;color:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;&:hover{color:#333;}"]);
+const StyledBase = styled.div.withConfig({
+  displayName: "UsersForm__StyledBase",
+  componentId: "sc-w5oi9h-1"
+})(["display:flex;flex-direction:column;align-items:center;min-height:100vh;padding-top:20px;"]);
 const StyledButton = styled.input.withConfig({
-  displayName: 'Login__StyledButton',
-  componentId: 'sc-49vdt4-1',
-})([
-  'padding:10px;font-size:14px;background-color:#007bff;color:#fff;border:none;border-radius:8px;cursor:pointer;transition:background-color 0.3s ease;&:hover{background-color:#0056b3;}',
-]);
-const StaticBackground = styled.div.withConfig({
-  displayName: 'Login__StaticBackground',
-  componentId: 'sc-49vdt4-2',
-})(
-  [
-    'position:absolute;width:100vw;height:100vh;background-image:url(',
-    ');background-repeat:repeat;background-size:450px;z-index:-1;',
-  ],
-  keyIcon
-);
-function Login({ url: url2, endPoint: endPoint2 }) {
+  displayName: "UsersForm__StyledButton",
+  componentId: "sc-w5oi9h-2"
+})(["align-self:center;padding:10px 24px;width:150px;height:40px;background-color:#007bff;border:none;border-radius:8px;color:white;font-weight:bold;font-size:14px;cursor:pointer;transition:background-color 0.3s ease;&:hover{background-color:#0056b3;}"]);
+const StyledDeleteButton = styled.button.withConfig({
+  displayName: "UsersForm__StyledDeleteButton",
+  componentId: "sc-w5oi9h-3"
+})(["align-self:center;padding:10px 24px;width:150px;height:40px;background-color:#ff4d4f;border:none;border-radius:8px;color:white;font-weight:bold;font-size:14px;cursor:pointer;transition:background-color 0.3s ease;&:hover{background-color:#d9363e;}"]);
+const StyledForm = styled.form.withConfig({
+  displayName: "UsersForm__StyledForm",
+  componentId: "sc-w5oi9h-4"
+})(["position:relative;display:flex;flex-direction:column;gap:16px;padding:32px;border:1px solid #ccc;border-radius:12px;background-color:#f9f9f9;box-shadow:0 4px 12px rgba(0,0,0,0.1);width:300px;"]);
+const StyledInput = styled.input.withConfig({
+  displayName: "UsersForm__StyledInput",
+  componentId: "sc-w5oi9h-5"
+})(["width:95%;padding:10px;font-size:14px;border:1px solid #aaa;border-radius:8px;"]);
+const StyledSpan = styled.span.withConfig({
+  displayName: "UsersForm__StyledSpan",
+  componentId: "sc-w5oi9h-6"
+})(["font-size:12px;color:red;"]);
+const StyledDiv = styled.div.withConfig({
+  displayName: "UsersForm__StyledDiv",
+  componentId: "sc-w5oi9h-7"
+})(["position:relative;width:100%;"]);
+const StyledSelect = styled.select.withConfig({
+  displayName: "UsersForm__StyledSelect",
+  componentId: "sc-w5oi9h-8"
+})(["width:95%;padding:10px;font-size:14px;border:1px solid #aaa;border-radius:8px;background-color:white;color:black;"]);
+function UsersForm({
+  url: url2,
+  endPoint: endPoint2,
+  isAuth,
+  isExpired,
+  token,
+  setAuth
+}) {
   const [showPassword, setShowPassword] = useState(false);
+  const [isRegistration, setRegistrtion] = useState(false);
+  const [errorRegistration, setErrorRegistration] = useState(0);
+  const navigate = useNavigate();
+  useEffect(() => {
+    switch (errorRegistration) {
+      case 1:
+        toast.success("Login or Password correct!");
+        break;
+      case 2:
+        toast.error("Login or Password incorrect!");
+        break;
+      case 3:
+        toast.success("New user created!");
+        break;
+      case 4:
+        toast.info("Login successful");
+        break;
+      case 5:
+        toast.info("user deleted");
+        break;
+    }
+  }, [errorRegistration]);
   const {
     register,
     reset,
     handleSubmit,
+    getValues,
     watch,
-    formState: { errors },
+    formState: {
+      errors
+    }
   } = useForm();
   const onSubmit = async (data) => {
-    const response = await fetch(`${url2}/${endPoint2}`, {
-      method: 'GET',
-    });
-    const users = await response.json();
-    console.log('ksadfjhskdjfh', data.login, data.password, users);
+    if (isRegistration) {
+      setRegistrtion(false);
+      try {
+        const result = await fetch(`${url2}/${endPoint2}/root/10`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: data.login,
+            password: data.password,
+            description: data.descriptionUser,
+            email: data.email,
+            role: data.role
+          })
+        });
+        const res = await result.json();
+        res.auth ? setErrorRegistration(3) : setErrorRegistration(0);
+      } catch (err) {
+        console.log("error", err);
+      }
+    }
+    if (data.login === "root") {
+      try {
+        const result = await fetch(`${url2}/${endPoint2}/root/1`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: data.login,
+            password: data.password,
+            description: data.descriptionUser,
+            email: data.email,
+            role: data.role
+          })
+        });
+        const res = await result.json();
+        res.auth ? setRegistrtion(true) : setRegistrtion(false);
+        res.auth ? setErrorRegistration(1) : setErrorRegistration(2);
+      } catch (err) {
+        console.log("error", err);
+      }
+    } else {
+      try {
+        const result = await fetch(`${url2}/${endPoint2}/root/20`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: data.login,
+            password: data.password,
+            description: data.descriptionUser,
+            email: data.email,
+            role: data.role
+          })
+        });
+        const res = await result.json();
+        res.auth ? setErrorRegistration(4) : setErrorRegistration(2);
+        localStorage.setItem("token", res.token);
+        setAuth(isExpired);
+        res.auth && navigate("/admin");
+      } catch (err) {
+        console.log("error", err);
+      }
+    }
+    reset();
   };
-  return /* @__PURE__ */ jsxs(Fragment, {
-    children: [
-      /* @__PURE__ */ jsx(StaticBackground, {}),
-      /* @__PURE__ */ jsxs(StyledBaseField, {
-        children: [
-          /* @__PURE__ */ jsx('h2', { children: 'Login' }),
-          /* @__PURE__ */ jsxs('form', {
-            onSubmit: handleSubmit(onSubmit),
-            children: [
-              /* @__PURE__ */ jsx('input', {
-                ...register('login', {
-                  required: true,
-                }),
-                type: 'login',
-                placeholder: 'login',
-              }),
-              errors.login &&
-                /* @__PURE__ */ jsx('span', {
-                  children: 'This field is required',
-                }),
-              /* @__PURE__ */ jsxs('div', {
-                style: {
-                  position: 'relative',
-                  width: '100%',
-                },
-                children: [
-                  /* @__PURE__ */ jsx('input', {
-                    ...register('password', {
-                      required: true,
-                    }),
-                    type: showPassword ? 'text' : 'password',
-                    name: 'password',
-                    placeholder: 'Password',
-                  }),
-                  /* @__PURE__ */ jsx('span', {
-                    onClick: () => setShowPassword(!showPassword),
-                    style: {
-                      position: 'absolute',
-                      right: '10px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      cursor: 'pointer',
-                      fontSize: '24px',
-                    },
-                    children: !showPassword ? '🙈' : '👁️',
-                  }),
-                ],
-              }),
-              errors.password &&
-                /* @__PURE__ */ jsx('span', {
-                  children: 'This field is required',
-                }),
-              /* @__PURE__ */ jsx(StyledButton, { type: 'submit' }),
-            ],
-          }),
-        ],
-      }),
-    ],
-  });
+  async function handleDel() {
+    try {
+      const result = await fetch(`${url2}/${endPoint2}/${getValues("login")}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          pass: getValues("password")
+        })
+      });
+      const res = await result.json();
+      res.auth ? setErrorRegistration(5) : setErrorRegistration(2);
+    } catch (err) {
+      console.log("error", err);
+    }
+    reset();
+  }
+  function handleClose() {
+    setRegistrtion(false);
+  }
+  return /* @__PURE__ */ jsxs(StyledBase, { children: [
+    /* @__PURE__ */ jsx(ToastContainer, {}),
+    !isRegistration || /* @__PURE__ */ jsx("h3", { children: "Create or delete user " }),
+    /* @__PURE__ */ jsxs(StyledForm, { onSubmit: handleSubmit(onSubmit), children: [
+      !isRegistration || /* @__PURE__ */ jsx(StyledButtonClose, { type: "button", onClick: handleClose, children: "×" }),
+      /* @__PURE__ */ jsx(StyledInput, { ...register("login", {
+        required: true
+      }), type: "login", placeholder: "login" }),
+      errors.login && /* @__PURE__ */ jsx("span", { children: "This field is required" }),
+      /* @__PURE__ */ jsxs(StyledDiv, { children: [
+        /* @__PURE__ */ jsx(StyledInput, { ...register("password", {
+          required: true
+        }), type: showPassword ? "text" : "password", name: "password", placeholder: "Password" }),
+        /* @__PURE__ */ jsx(StyledSpan, { onClick: () => setShowPassword(!showPassword), style: {
+          position: "absolute",
+          right: "10px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          cursor: "pointer",
+          fontSize: "24px"
+        }, children: !showPassword ? "🙈" : "👁️" })
+      ] }),
+      errors.password && /* @__PURE__ */ jsx("span", { children: "This field is required" }),
+      !isRegistration || /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(StyledInput, { ...register("email", {
+          required: true
+        }), type: "email", placeholder: "email" }),
+        errors.email && /* @__PURE__ */ jsx("span", { children: "This field is required" }),
+        /* @__PURE__ */ jsx(StyledInput, { ...register("descriptionUser", {
+          required: true
+        }), type: "text", placeholder: "description" }),
+        errors.descriptionUser && /* @__PURE__ */ jsx("span", { children: "This field is required" }),
+        /* @__PURE__ */ jsx("label", { htmlFor: "role", children: "Select role" }),
+        /* @__PURE__ */ jsxs(StyledSelect, { id: "role", name: "role", children: [
+          /* @__PURE__ */ jsx("option", { value: "root", children: "Root" }),
+          /* @__PURE__ */ jsx("option", { value: "admin", children: "Admin" }),
+          /* @__PURE__ */ jsx("option", { value: "user", children: "User" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx(StyledButton, { type: "submit", value: !isRegistration ? "Send" : "Create User" }),
+      !isRegistration || /* @__PURE__ */ jsx(StyledDeleteButton, { type: "button", onClick: handleDel, value: "delete", children: "🗑 Delete Card" })
+    ] })
+  ] });
 }
-const url = 'https://soft-rabit.onrender.com';
-function App({ products }) {
+const StyledBaseField = styled.div.withConfig({
+  displayName: "Login__StyledBaseField",
+  componentId: "sc-49vdt4-0"
+})(["display:flex;flex-direction:column;align-items:center;min-height:100vh;padding-top:20px;"]);
+const StaticBackground = styled.div.withConfig({
+  displayName: "Login__StaticBackground",
+  componentId: "sc-49vdt4-1"
+})(["position:absolute;width:100vw;height:100vh;background-image:url(", ");background-repeat:repeat;background-size:450px;z-index:-1;"], keyIcon);
+function Login({
+  url: url2,
+  endPoint: endPoint2,
+  products,
+  card,
+  rows,
+  setCard,
+  setProductState,
+  setIsOpenModal,
+  setAuth,
+  isOpenModal,
+  isAuth,
+  token,
+  isExpired
+}) {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(StaticBackground, {}),
+    /* @__PURE__ */ jsxs(StyledBaseField, { children: [
+      /* @__PURE__ */ jsx("h2", { children: "Login" }),
+      /* @__PURE__ */ jsx(UsersForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "users", isAuth, setAuth, token, isExpired })
+    ] })
+  ] });
+}
+const url = "http://localhost:3000";
+function App({
+  products
+}) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [token, setToken] = useState({
+    id: "",
+    email: "",
+    name: "",
+    role: "",
+    description: "",
+    token: ""
+  });
+  const {
+    decodedToken,
+    isExpired
+  } = useJwt(token.token);
+  const [isAuth, setAuth] = useState(isExpired);
   const [card, setCard] = useState({
-    id: '',
-    name: '',
-    description: '',
-    price: '',
-    img: [],
+    id: "",
+    name: "",
+    description: "",
+    price: "",
+    img: []
   });
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
-    setProductState(products);
-    setHydrated(true);
-  }, []);
+    if (typeof window !== "undefined") {
+      setHydrated(true);
+      setProductState(products);
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken({
+          ...token,
+          token: storedToken
+        });
+      }
+    }
+  }, [products]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (decodedToken) {
+        try {
+          const response = await fetch(`${url}/users/${decodedToken.id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const userData = await response.json();
+          setToken((prevToken) => ({
+            ...prevToken,
+            ...userData.user
+          }));
+        } catch (error) {
+          console.error("error", error);
+        }
+      } else {
+        console.warn("cant decoding token");
+      }
+    };
+    fetchUser();
+  }, [decodedToken, isExpired]);
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
@@ -949,109 +933,36 @@ function App({ products }) {
       }
     }
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  if (!hydrated) return null;
-  return /* @__PURE__ */ jsxs('div', {
-    children: [
-      /* @__PURE__ */ jsx('h1', { children: 'Server Rendering Example' }),
-      /* @__PURE__ */ jsx('p', {
-        children:
-          "If you check out the HTML source of this page, you'll notice that it already contains the HTML markup of the app that was sent from the server!",
-      }),
-      /* @__PURE__ */ jsx('p', {
-        children:
-          "This is great for search engines that need to index this page. It's also great for users because server-rendered pages tend to load more quickly on mobile devices and over slow networks.",
-      }),
-      /* @__PURE__ */ jsx('p', {
-        children:
-          "Another thing to notice is that when you click one of the links below and navigate to a different URL, then hit the refresh button on your browser, the server is able to generate the HTML markup for that page as well because you're using React Router on the server. This creates a seamless experience both for your users navigating around your site and for developers on your team who get to use the same routing library in both places.",
-      }),
-      /* @__PURE__ */ jsx(Routes, {
-        children: /* @__PURE__ */ jsxs(Route, {
-          path: '/',
-          element: /* @__PURE__ */ jsx(Layout, {}),
-          children: [
-            /* @__PURE__ */ jsx(Route, {
-              index: true,
-              element: /* @__PURE__ */ jsx(Home, {
-                products: productState,
-                card,
-                rows,
-                setCard,
-                setProductState,
-                setIsOpenModal,
-                isOpenModal,
-                url,
-                endPoint: '',
-              }),
-            }),
-            /* @__PURE__ */ jsx(Route, {
-              path: 'login',
-              element: /* @__PURE__ */ jsx(Login, {
-                products: productState,
-                card,
-                rows,
-                setCard,
-                setProductState,
-                setIsOpenModal,
-                isOpenModal,
-                url,
-                endPoint: 'users',
-              }),
-            }),
-            /* @__PURE__ */ jsx(Route, {
-              path: 'admin',
-              element: /* @__PURE__ */ jsx(Admin, {
-                products: productState,
-                card,
-                rows,
-                setCard,
-                setProductState,
-                setIsOpenModal,
-                isOpenModal,
-                url,
-                endPoint: '',
-              }),
-            }),
-            /* @__PURE__ */ jsx(Route, {
-              path: 'orders',
-              element: /* @__PURE__ */ jsx(Orders, {}),
-            }),
-            /* @__PURE__ */ jsx(Route, {
-              path: 'contacts',
-              element: /* @__PURE__ */ jsx(Contacts, {}),
-            }),
-            /* @__PURE__ */ jsx(Route, {
-              path: '*',
-              element: /* @__PURE__ */ jsx(NoMatch, {}),
-            }),
-          ],
-        }),
-      }),
-    ],
-  });
+  if (!hydrated)
+    return null;
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("h1", { children: "Server Rendering Example" }),
+    /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
+      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired }) }),
+      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token: token.token, isExpired }) }),
+      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired }) }),
+      /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "contacts", element: /* @__PURE__ */ jsx(Contacts, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NoMatch, {}) })
+    ] }) })
+  ] });
 }
 function render(url2, products) {
   const sheet = new ServerStyleSheet();
   try {
-    const html = ReactDOMServer.renderToString(
-      /* @__PURE__ */ jsx(StyleSheetManager, {
-        sheet: sheet.instance,
-        children: /* @__PURE__ */ jsx(StaticRouter, {
-          location: url2,
-          children: /* @__PURE__ */ jsx(App, { products }),
-        }),
-      })
-    );
+    const html = ReactDOMServer.renderToString(/* @__PURE__ */ jsx(StyleSheetManager, { sheet: sheet.instance, children: /* @__PURE__ */ jsx(StaticRouter, { location: url2, children: /* @__PURE__ */ jsx(App, { products }) }) }));
     const styleTags = sheet.getStyleTags();
     return {
       html,
-      styleTags,
+      styleTags
     };
   } finally {
     sheet.seal();
   }
 }
-export { render };
+export {
+  render
+};

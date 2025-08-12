@@ -35,15 +35,21 @@
   "\u0000/home/serhii/Program/react-router/examples/ssr/node_modules/scheduler/index.js?commonjs-module": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
-  "\u0000commonjsHelpers.js": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "\u0000react/jsx-runtime": ["/assets/Copilot_20250803_110344-af9a649f.png"],
+  "\u0000commonjsHelpers.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "\u0000react/jsx-runtime": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
   "\u0000vite/modulepreload-polyfill": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "img/Copilot_20250803_110344.png": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
-  "index.html": ["/assets/Copilot_20250803_110344-af9a649f.png"],
+  "index.html": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
   "node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
@@ -57,6 +63,9 @@
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "node_modules/@remix-run/router/dist/router.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/clsx/dist/clsx.mjs": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js": [
@@ -86,10 +95,19 @@
   "node_modules/react-is/index.js": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
+  "node_modules/react-jwt/dist/index.modern.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
   "node_modules/react-router-dom/dist/index.js": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "node_modules/react-router/dist/index.js": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-toastify/dist/ReactToastify.css": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "node_modules/react-toastify/dist/index.mjs": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "node_modules/react/cjs/react-jsx-runtime.development.js": [
@@ -155,18 +173,52 @@
   "node_modules/swiper/swiper.css": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
-  "src/App.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Components/Card.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Components/Cards.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Components/MyForm.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Admin.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Catalog.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Contacts.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Home.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Layout.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Login.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Modal.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/NoMatch.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/Pages/Orders.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"],
-  "src/entry.client.tsx": ["/assets/Copilot_20250803_110344-af9a649f.png"]
+  "src/App.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/ButtonClose.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/Card.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/Cards.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/MyForm.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/UsersForm.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Admin.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Catalog.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Contacts.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Home.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Layout.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Login.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Modal.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/NoMatch.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/Orders.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/entry.client.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ]
 }
