@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import type { AppProps } from '../../type/index';
+import type { AppProps, Product } from '../../type/index';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/grid';
@@ -7,12 +7,9 @@ import 'swiper/css/scrollbar';
 import { Grid, Scrollbar } from 'swiper/modules';
 import Card from './Card';
 const StyledBaseField = styled('div')`
-  /* border: 1px solid lightblue;
-  border-radius: 10px;
-  padding: 40px; */
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto; /* центрування */
+  margin: 0 auto;
   padding: 1rem;
   box-sizing: border-box;
 
@@ -66,7 +63,7 @@ export default function Cards({
       name: '',
       description: '',
       price: '',
-      img: '',
+      img: [''],
     };
     setCard(newCard);
     setIsOpenModal(true);

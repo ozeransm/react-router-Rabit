@@ -8,6 +8,7 @@ import { Autoplay, Grid, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/grid';
+import ButtonClose from '../Components/ButtonClose';
 
 const StyledOverlay = styled.div`
   position: fixed;
@@ -53,22 +54,6 @@ const StyledModal = styled.div`
   &::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 4px;
-  }
-`;
-
-const StyledButtonClose = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  font-size: 24px;
-  color: #999;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #333;
   }
 `;
 
@@ -147,6 +132,10 @@ export default function Modal({
   setProductState,
   setIsOpenModal,
   isOpenModal,
+  isAuth,
+  token,
+  setAuth,
+  isExpired,
 }: AppProps) {
   const {
     register,
@@ -246,9 +235,6 @@ export default function Modal({
     return formData;
   }
 
-  function handleClose() {
-    setIsOpenModal(false);
-  }
   async function handleDel() {
     await fetch(`${url}/`, {
       method: 'DELETE',
@@ -292,8 +278,21 @@ export default function Modal({
   return (
     <StyledOverlay>
       <StyledModal>
-        <StyledButtonClose onClick={handleClose}>×</StyledButtonClose>
-
+        <ButtonClose
+          products={products}
+          card={card}
+          rows={rows}
+          setCard={setCard}
+          setProductState={setProductState}
+          setIsOpenModal={setIsOpenModal}
+          isOpenModal={isOpenModal}
+          url={url}
+          endPoint=""
+          setAuth={setAuth}
+          isAuth={isAuth}
+          token={token}
+          isExpired={isExpired}
+        />
         <Card product={card} />
         <SwiperContainer>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -358,6 +357,10 @@ export default function Modal({
             isOpenModal={isOpenModal}
             url={url}
             endPoint="admin"
+            isAuth={isAuth}
+            setAuth={setAuth}
+            token={token}
+            isExpired={isExpired}
           />
           <StyledDeleteButton onClick={handleDel}>
             🗑 Delete Card

@@ -1,15 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import type { AppProps, Inputs } from 'type';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
+const StyledButtonClose = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 24px;
+  color: #999;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #333;
+  }
+`;
 const StyledBase = styled.div`
   display: flex;
-  flex-direction: column; /* Зміна на колонку */
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding-top: 40px; /* Відступ згори */
+  padding-top: 20px;
 `;
 const StyledButton = styled.input`
   align-self: center;
@@ -48,6 +65,7 @@ const StyledDeleteButton = styled.button`
   }
 `;
 const StyledForm = styled.form`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -82,20 +100,74 @@ const StyledSelect = styled.select`
   background-color: white;
   color: black;
 `;
-export default function UsersForm({ url, endPoint }: AppProps) {
+
+export default function UsersForm({
+  url,
+  endPoint,
+  isAuth,
+  isExpired,
+  token,
+  setAuth,
+}: AppProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isRegistration, setRegistrtion] = useState(false);
-  const [errorRegistration, setErrorRegistration] = useState(false);
-  // toast.success('Login or Password corect!');
-  // toast.error('Login or Password incorrect!');
+  const [errorRegistration, setErrorRegistration] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    switch (errorRegistration) {
+      case 1:
+        toast.success('Login or Password correct!');
+        break;
+      case 2:
+        toast.error('Login or Password incorrect!');
+        break;
+      case 3:
+        toast.success('New user created!');
+        break;
+      case 4:
+        toast.info('Login successful');
+        break;
+      case 5:
+        toast.info('user deleted');
+        break;
+      default:
+        break;
+    }
+  }, [errorRegistration]);
+
   const {
     register,
     reset,
     handleSubmit,
+    getValues,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (isRegistration) {
+      setRegistrtion(false);
+
+      try {
+        const result = await fetch(`${url}/${endPoint}/root/10`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: data.login,
+            password: data.password,
+            description: data.descriptionUser,
+            email: data.email,
+            role: data.role,
+          }),
+        });
+        const res = await result.json();
+        res.auth ? setErrorRegistration(3) : setErrorRegistration(0);
+      } catch (err) {
+        console.log('error', err);
+      }
+    }
     if (data.login === 'root') {
       try {
         const result = await fetch(`${url}/${endPoint}/root/1`, {
@@ -113,9 +185,7 @@ export default function UsersForm({ url, endPoint }: AppProps) {
         });
         const res = await result.json();
         res.auth ? setRegistrtion(true) : setRegistrtion(false);
-        // res.auth
-        //       ? setErrorRegistration(true)
-        //       : setErrorRegistration(false);
+        res.auth ? setErrorRegistration(1) : setErrorRegistration(2);
       } catch (err) {
         console.log('error', err);
       }
@@ -135,42 +205,48 @@ export default function UsersForm({ url, endPoint }: AppProps) {
           }),
         });
         const res = await result.json();
-        console.log('gdsagafsdahsdhgf', res.auth);
+        res.auth ? setErrorRegistration(4) : setErrorRegistration(2);
+        localStorage.setItem('token', res.token);
+        setAuth(isExpired);
+
+        res.auth && navigate('/admin');
       } catch (err) {
         console.log('error', err);
       }
-
-      //   setRegistrtion(false);
-
-      //   try{
-
-      //     const result = await fetch(`${url}/${endPoint}/root/10`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     name: data.login,
-      //     password: data.password,
-      //     description: data.descriptionUser,
-      //     email: data.email,
-      //     role: data.role,
-      //   }),
-      // });
-      //   }catch(err){
-      //     console.log("error", err)
-      //   }
     }
 
     reset();
   };
 
-  function handleDel() {
-    console.log('sjkdfhkjashkdjhaskjd');
+  async function handleDel() {
+    try {
+      const result = await fetch(`${url}/${endPoint}/${getValues('login')}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pass: getValues('password') }),
+      });
+      const res = await result.json();
+      res.auth ? setErrorRegistration(5) : setErrorRegistration(2);
+    } catch (err) {
+      console.log('error', err);
+    }
+    reset();
+  }
+  function handleClose() {
+    setRegistrtion(false);
   }
   return (
     <StyledBase>
+      <ToastContainer />
+      {!isRegistration || <h3>Create or delete user </h3>}
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        {!isRegistration || (
+          <StyledButtonClose type="button" onClick={handleClose}>
+            ×
+          </StyledButtonClose>
+        )}
         <StyledInput
           {...register('login', { required: true })}
           type="login"
@@ -183,7 +259,6 @@ export default function UsersForm({ url, endPoint }: AppProps) {
             {...register('password', { required: true })}
             type={showPassword ? 'text' : 'password'}
             name="password"
-            // autoComplete="off"
             placeholder="Password"
           />
           <StyledSpan
@@ -224,13 +299,12 @@ export default function UsersForm({ url, endPoint }: AppProps) {
             </StyledSelect>
           </>
         )}
-        {/* <ToastContainer/> */}
         <StyledButton
           type="submit"
           value={!isRegistration ? 'Send' : 'Create User'}
         />
         {!isRegistration || (
-          <StyledDeleteButton onClick={handleDel}>
+          <StyledDeleteButton type="button" onClick={handleDel} value="delete">
             🗑 Delete Card
           </StyledDeleteButton>
         )}

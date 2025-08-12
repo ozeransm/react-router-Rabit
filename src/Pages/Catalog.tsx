@@ -14,6 +14,10 @@ export default function Catalog({
   setProductState,
   setIsOpenModal,
   isOpenModal,
+  isAuth,
+  setAuth,
+  token,
+  isExpired,
 }: AppProps) {
   return (
     <StyledBaseField>
@@ -28,6 +32,10 @@ export default function Catalog({
         isOpenModal={isOpenModal}
         url=""
         endPoint=""
+        isAuth={isAuth}
+        setAuth={setAuth}
+        token={token}
+        isExpired={isExpired}
       />
     </StyledBaseField>
   );

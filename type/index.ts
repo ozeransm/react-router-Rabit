@@ -25,8 +25,12 @@ export type AppProps = {
   card: Product;
   rows: number;
   isOpenModal: boolean;
+  isAuth: boolean;
   url: string;
   endPoint: string;
+  token: string;
+  isExpired: boolean;
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
   setCard: React.Dispatch<React.SetStateAction<Product>>;
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;

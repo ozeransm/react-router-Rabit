@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { isProduction } from '../type/const.js';
 import multer from 'multer';
+import auth from './handler/auth.js';
 const upload = multer();
 function resolve(p) {
   return path.resolve(process.cwd(), p);
@@ -17,7 +18,7 @@ export default function indexRouter(vite) {
   //   console.log('Запит:', req.url, clientPath);
   //   next();
   // });
-  router.get('/all', async (req, res, next) => {
+  router.get('/all', auth, async (req, res, next) => {
     try {
       const product = await Product.findAll();
       const initialData = product.map((el) => {
@@ -34,7 +35,7 @@ export default function indexRouter(vite) {
     }
   });
   // POST: Оновити продукт за id
-  router.post('/admin', upload.none(), async (req, res, next) => {
+  router.post('/admin', auth, upload.none(), async (req, res, next) => {
     const { id } = req.body;
 
     try {
