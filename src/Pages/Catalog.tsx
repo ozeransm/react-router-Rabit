@@ -18,6 +18,8 @@ export default function Catalog({
   setAuth,
   token,
   isExpired,
+  loading,
+  setLoading,
 }: AppProps) {
   return (
     <StyledBaseField>
@@ -36,6 +38,8 @@ export default function Catalog({
         setAuth={setAuth}
         token={token}
         isExpired={isExpired}
+        loading={loading}
+        setLoading={setLoading}
       />
     </StyledBaseField>
   );

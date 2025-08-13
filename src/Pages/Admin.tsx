@@ -24,6 +24,8 @@ export default function Admin({
   isAuth,
   token,
   isExpired,
+  loading,
+  setLoading,
 }: AppProps) {
   return (
     isAuth && (
@@ -43,6 +45,8 @@ export default function Admin({
             isAuth={isAuth}
             token={token}
             isExpired={isExpired}
+            loading={loading}
+            setLoading={setLoading}
           />
         )}
         <StyledBaseField>
@@ -61,6 +65,8 @@ export default function Admin({
             isAuth={isAuth}
             token={token}
             isExpired={isExpired}
+            loading={loading}
+            setLoading={setLoading}
           />
           <MyForm
             products={products}
@@ -76,6 +82,8 @@ export default function Admin({
             isAuth={isAuth}
             token={token}
             isExpired={isExpired}
+            loading={loading}
+            setLoading={setLoading}
           />
         </StyledBaseField>
       </div>

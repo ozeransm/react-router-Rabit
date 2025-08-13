@@ -21,6 +21,7 @@ export default function App({ products }: Products) {
   const [productState, setProductState] = useState(products);
   const [rows, setRows] = useState(2);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [token, setToken] = useState({
     id: '',
     email: '',
@@ -133,6 +134,8 @@ export default function App({ products }: Products) {
                 setAuth={setAuth}
                 token={token.token}
                 isExpired={isExpired}
+                loading={loading}
+                setLoading={setLoading}
               />
             }
           />
@@ -153,6 +156,8 @@ export default function App({ products }: Products) {
                 setAuth={setAuth}
                 token={token.token}
                 isExpired={isExpired}
+                loading={loading}
+                setLoading={setLoading}
               />
             }
           />
@@ -173,6 +178,8 @@ export default function App({ products }: Products) {
                 setAuth={setAuth}
                 token={token.token}
                 isExpired={isExpired}
+                loading={loading}
+                setLoading={setLoading}
               />
             }
           />

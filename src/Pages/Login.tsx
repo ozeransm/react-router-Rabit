@@ -33,6 +33,8 @@ export default function Login({
   isAuth,
   token,
   isExpired,
+  loading,
+  setLoading,
 }: AppProps) {
   return (
     <>
@@ -54,6 +56,8 @@ export default function Login({
           setAuth={setAuth}
           token={token}
           isExpired={isExpired}
+          loading={loading}
+          setLoading={setLoading}
         />
       </StyledBaseField>
     </>

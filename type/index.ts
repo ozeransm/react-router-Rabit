@@ -30,6 +30,8 @@ export type AppProps = {
   endPoint: string;
   token: string;
   isExpired: boolean;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setAuth: React.Dispatch<React.SetStateAction<boolean>>;
   setCard: React.Dispatch<React.SetStateAction<Product>>;
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;

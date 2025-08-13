@@ -5,7 +5,17 @@ import type { AppProps, Inputs } from 'type';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
+import { ClockLoader } from 'react-spinners';
+const StyledOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
 const StyledButtonClose = styled.button`
   position: absolute;
   top: 5px;
@@ -108,6 +118,7 @@ export default function UsersForm({
   isExpired,
   token,
   setAuth,
+  loading,
 }: AppProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isRegistration, setRegistrtion] = useState(false);
@@ -240,6 +251,17 @@ export default function UsersForm({
   return (
     <StyledBase>
       <ToastContainer />
+      {!loading || (
+        <StyledOverlay>
+          <ClockLoader
+            color="#1eec4b"
+            cssOverride={{}}
+            loading={loading}
+            size={70}
+            speedMultiplier={2}
+          />
+        </StyledOverlay>
+      )}
       {!isRegistration || <h3>Create or delete user </h3>}
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         {!isRegistration || (

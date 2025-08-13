@@ -9,8 +9,8 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/grid';
 import ButtonClose from '../Components/ButtonClose';
-
-const StyledOverlay = styled.div`
+import { ClockLoader } from 'react-spinners';
+const StyledOverlaySpiner = styled.div`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -19,6 +19,16 @@ const StyledOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 9999;
+`;
+const StyledOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
 `;
 
 const StyledModal = styled.div`
@@ -136,6 +146,8 @@ export default function Modal({
   token,
   setAuth,
   isExpired,
+  loading,
+  setLoading,
 }: AppProps) {
   const {
     register,
@@ -145,6 +157,7 @@ export default function Modal({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
     let newImg = [...card.img];
     for (let i = 0; i < data.deletePhotos.length; i++) {
       if (+data.deletePhotos[i] === +data.selectedPhoto) continue;
@@ -196,7 +209,7 @@ export default function Modal({
 
       return { id, name, price, description, img };
     });
-
+    setLoading(false);
     setCard(initialData.find((el: Product) => el.id === card.id));
     setProductState(initialData);
     reset();
@@ -276,78 +289,22 @@ export default function Modal({
     setIsOpenModal(false);
   }
   return (
-    <StyledOverlay>
-      <StyledModal>
-        <ButtonClose
-          products={products}
-          card={card}
-          rows={rows}
-          setCard={setCard}
-          setProductState={setProductState}
-          setIsOpenModal={setIsOpenModal}
-          isOpenModal={isOpenModal}
-          url={url}
-          endPoint=""
-          setAuth={setAuth}
-          isAuth={isAuth}
-          token={token}
-          isExpired={isExpired}
-        />
-        <Card product={card} />
-        <SwiperContainer>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Swiper
-              scrollbar={{
-                hide: true,
-                draggable: true,
-              }}
-              modules={[Scrollbar, Grid, Autoplay]}
-              autoplay={{ delay: 2500, disableOnInteraction: true }}
-              slidesPerView={3}
-              spaceBetween={20}
-              grid={{
-                rows: 1,
-                fill: 'row',
-              }}
-            >
-              {card.img.map((src, idx) => (
-                <SwiperSlide key={idx}>
-                  <SrtyledDivImg>
-                    <label>
-                      <StyledInput
-                        type="checkbox"
-                        value={idx}
-                        {...register('deletePhotos')}
-                      />
-                      Delete Photo
-                    </label>
-                    <StyledImg src={src} alt={card.name} />
-                    <label>
-                      <StyledInput
-                        type="radio"
-                        value={idx}
-                        defaultChecked={idx === 0}
-                        {...register('selectedPhoto')}
-                      />
-                      {idx === 0 && 'General Photo'}
-                    </label>
-                  </SrtyledDivImg>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <StyledFieldButton>
-              <StyledInputButton
-                type="file"
-                name="files"
-                accept=".jpg"
-                multiple
-              />
-              <StyledInputButton type="submit" value="Changed" />
-            </StyledFieldButton>
-          </form>
-        </SwiperContainer>
-        <StyledFormWrapper>
-          <MyForm
+    <>
+      {!loading || (
+        <StyledOverlaySpiner>
+          <ClockLoader
+            color="#1eec4b"
+            cssOverride={{}}
+            loading={loading}
+            size={70}
+            speedMultiplier={2}
+          />
+        </StyledOverlaySpiner>
+      )}
+
+      <StyledOverlay>
+        <StyledModal>
+          <ButtonClose
             products={products}
             card={card}
             rows={rows}
@@ -356,17 +313,91 @@ export default function Modal({
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
             url={url}
-            endPoint="admin"
-            isAuth={isAuth}
+            endPoint=""
             setAuth={setAuth}
+            isAuth={isAuth}
             token={token}
             isExpired={isExpired}
+            loading={loading}
+            setLoading={setLoading}
           />
-          <StyledDeleteButton onClick={handleDel}>
-            🗑 Delete Card
-          </StyledDeleteButton>
-        </StyledFormWrapper>
-      </StyledModal>
-    </StyledOverlay>
+          <Card product={card} />
+          <SwiperContainer>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Swiper
+                scrollbar={{
+                  hide: true,
+                  draggable: true,
+                }}
+                modules={[Scrollbar, Grid, Autoplay]}
+                autoplay={{ delay: 2500, disableOnInteraction: true }}
+                slidesPerView={3}
+                spaceBetween={20}
+                grid={{
+                  rows: 1,
+                  fill: 'row',
+                }}
+              >
+                {card.img.map((src, idx) => (
+                  <SwiperSlide key={idx}>
+                    <SrtyledDivImg>
+                      <label>
+                        <StyledInput
+                          type="checkbox"
+                          value={idx}
+                          {...register('deletePhotos')}
+                        />
+                        Delete Photo
+                      </label>
+                      <StyledImg src={src} alt={card.name} />
+                      <label>
+                        <StyledInput
+                          type="radio"
+                          value={idx}
+                          defaultChecked={idx === 0}
+                          {...register('selectedPhoto')}
+                        />
+                        {idx === 0 && 'General Photo'}
+                      </label>
+                    </SrtyledDivImg>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <StyledFieldButton>
+                <StyledInputButton
+                  type="file"
+                  name="files"
+                  accept=".jpg"
+                  multiple
+                />
+                <StyledInputButton type="submit" value="Changed" />
+              </StyledFieldButton>
+            </form>
+          </SwiperContainer>
+          <StyledFormWrapper>
+            <MyForm
+              products={products}
+              card={card}
+              rows={rows}
+              setCard={setCard}
+              setProductState={setProductState}
+              setIsOpenModal={setIsOpenModal}
+              isOpenModal={isOpenModal}
+              url={url}
+              endPoint="admin"
+              isAuth={isAuth}
+              setAuth={setAuth}
+              token={token}
+              isExpired={isExpired}
+              loading={loading}
+              setLoading={setLoading}
+            />
+            <StyledDeleteButton onClick={handleDel}>
+              🗑 Delete Card
+            </StyledDeleteButton>
+          </StyledFormWrapper>
+        </StyledModal>
+      </StyledOverlay>
+    </>
   );
 }
