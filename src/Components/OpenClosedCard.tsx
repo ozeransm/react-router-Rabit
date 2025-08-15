@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import type { ModalOpen } from 'type';
-
+import pathSvg from '../../img/icon.svg';
 const StyledField = styled.div`
   position: fixed;
   top: 20px;
@@ -34,11 +34,11 @@ export default function OpenClosedCard({
     <StyledField>
       {isOpenModal ? (
         <StyledSvg style={{ fill: '#1eec4b' }}>
-          <use xlinkHref="/img/icon.svg#icon-lock-open" />
+          <use xlinkHref={pathSvg+'#icon-lock-open'} />
         </StyledSvg>
       ) : (
         <StyledSvg style={{ fill: 'red' }}>
-          <use xlinkHref="/img/icon.svg#icon-lock-closed" />
+          <use xlinkHref={pathSvg+'#icon-lock-closed'} />
         </StyledSvg>
       )}
     </StyledField>

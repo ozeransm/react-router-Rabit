@@ -249,6 +249,7 @@ function MyForm({
     ] })
   ] });
 }
+const pathSvg = "/assets/icon-56ad9de6.svg";
 const StyledButtonClose = styled.button.withConfig({
   displayName: "ButtonClose__StyledButtonClose",
   componentId: "sc-12icmn2-0"
@@ -263,7 +264,7 @@ function ButtonClose({
   function handleClose() {
     setIsOpenModal(false);
   }
-  return /* @__PURE__ */ jsx(StyledButtonClose, { onClick: handleClose, children: /* @__PURE__ */ jsx(StyledSvg$1, { children: /* @__PURE__ */ jsx("use", { xlinkHref: "/img/icon.svg#icon-button-close" }) }) });
+  return /* @__PURE__ */ jsx(StyledButtonClose, { onClick: handleClose, children: /* @__PURE__ */ jsx(StyledSvg$1, { children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-button-close" }) }) });
 }
 const StyledOverlaySpiner = styled.div.withConfig({
   displayName: "ModalCreate__StyledOverlaySpiner",
@@ -941,9 +942,9 @@ function OpenClosedCard({
 }) {
   return /* @__PURE__ */ jsx(StyledField, { children: isOpenModal ? /* @__PURE__ */ jsx(StyledSvg, { style: {
     fill: "#1eec4b"
-  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: "/img/icon.svg#icon-lock-open" }) }) : /* @__PURE__ */ jsx(StyledSvg, { style: {
+  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-lock-open" }) }) : /* @__PURE__ */ jsx(StyledSvg, { style: {
     fill: "red"
-  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: "/img/icon.svg#icon-lock-closed" }) }) });
+  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-lock-closed" }) }) });
 }
 const url = "https://soft-rabit.onrender.com";
 function App({
