@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import Catalog from './Catalog';
 import type { AppProps } from '../../type/index';
-import Modal from './Modal';
+import ModalCreate from './ModalCreate';
 import MyForm from '../Components/MyForm';
+
 const endPoint = 'upload';
 const StyledBaseField = styled('div')`
   display: flex;
@@ -31,7 +32,7 @@ export default function Admin({
     isAuth && (
       <div>
         {isOpenModal && (
-          <Modal
+          <ModalCreate
             products={products}
             card={card}
             rows={rows}

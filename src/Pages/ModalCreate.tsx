@@ -2,7 +2,7 @@ import MyForm from '../Components/MyForm';
 import Card from '../Components/Card';
 import styled from 'styled-components';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import type { AppProps, Inputs, Product } from 'type';
+import type { AppProps, Inputs, ModalOpen, Product } from 'type';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Grid, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
@@ -10,6 +10,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/grid';
 import ButtonClose from '../Components/ButtonClose';
 import { ClockLoader } from 'react-spinners';
+
 const StyledOverlaySpiner = styled.div`
   position: fixed;
   inset: 0;
@@ -133,7 +134,7 @@ const StyledFieldButton = styled.div`
   flex-wrap: wrap;
   justify-content: start;
 `;
-export default function Modal({
+export default function ModalCreate({
   products,
   card,
   rows,
@@ -305,21 +306,8 @@ export default function Modal({
       <StyledOverlay>
         <StyledModal>
           <ButtonClose
-            products={products}
-            card={card}
-            rows={rows}
-            setCard={setCard}
-            setProductState={setProductState}
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
-            url={url}
-            endPoint=""
-            setAuth={setAuth}
-            isAuth={isAuth}
-            token={token}
-            isExpired={isExpired}
-            loading={loading}
-            setLoading={setLoading}
           />
           <Card product={card} />
           <SwiperContainer>

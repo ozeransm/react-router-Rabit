@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { ClockLoader } from 'react-spinners';
+import ButtonClose from './ButtonClose';
 const StyledOverlay = styled.div`
   position: fixed;
   inset: 0;
@@ -15,21 +16,6 @@ const StyledOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 9999;
-`;
-const StyledButtonClose = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 24px;
-  color: #999;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #333;
-  }
 `;
 const StyledBase = styled.div`
   display: flex;
@@ -245,9 +231,6 @@ export default function UsersForm({
     }
     reset();
   }
-  function handleClose() {
-    setRegistrtion(false);
-  }
   return (
     <StyledBase>
       <ToastContainer />
@@ -265,9 +248,10 @@ export default function UsersForm({
       {!isRegistration || <h3>Create or delete user </h3>}
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         {!isRegistration || (
-          <StyledButtonClose type="button" onClick={handleClose}>
-            ×
-          </StyledButtonClose>
+          <ButtonClose
+            setIsOpenModal={() => setRegistrtion(false)}
+            isOpenModal={isRegistration}
+          />
         )}
         <StyledInput
           {...register('login', { required: true })}

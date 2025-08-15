@@ -4,8 +4,11 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/grid';
 import { Autoplay, Grid, Scrollbar } from 'swiper/modules';
 import Card from '../Components/Card';
-import type { AppProps } from 'type';
+import type { AppProps, Product } from 'type';
 import styled from 'styled-components';
+import ModalView from './ModalView';
+import { useState } from 'react';
+
 const StyledBaseField = styled.div`
   width: 100%;
   max-width: 1200px;
@@ -29,7 +32,23 @@ const StyledBaseField = styled.div`
     margin-top: 8px;
   }
 `;
+
 export default function Home({ products, rows }: AppProps) {
+  const [isOpenModalView, setIsOpenModalView] = useState(false);
+  const [cardView, setCardview] = useState<Product>({
+    id: '',
+    name: '',
+    description: '',
+    price: '',
+    img: [],
+  });
+  function handleViewCard(id: string) {
+    const product = products.find((p) => p.id === id);
+    if (product) {
+      setCardview(product);
+    }
+    setIsOpenModalView(true);
+  }
   let row = 5;
   let slidePreView = 2;
   switch (rows) {
@@ -50,6 +69,14 @@ export default function Home({ products, rows }: AppProps) {
   }
   return (
     <div>
+      {!isOpenModalView || (
+        <ModalView
+          isOpenModal={isOpenModalView}
+          setIsOpenModal={setIsOpenModalView}
+          cardView={cardView}
+          setCardView={setCardview}
+        />
+      )}
       <h2>Home</h2>
       <StyledBaseField>
         <Swiper
@@ -67,7 +94,7 @@ export default function Home({ products, rows }: AppProps) {
           }}
         >
           {products.map((p) => (
-            <SwiperSlide key={p.id}>
+            <SwiperSlide key={p.id} onClick={() => handleViewCard(p.id)}>
               <Card
                 product={{
                   id: p.id ?? '',

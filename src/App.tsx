@@ -14,6 +14,7 @@ interface MyJwtPayload {
   exp: number;
 }
 import { useJwt } from 'react-jwt';
+import OpenClosedCard from './Components/OpenClosedCard';
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -114,7 +115,12 @@ export default function App({ products }: Products) {
   return (
     <div>
       <h1>Server Rendering Example</h1>
-
+      <OpenClosedCard
+        isOpenModal={isAuth}
+        setIsOpenModal={setAuth}
+        cardView={card}
+        setCardView={setCard}
+      />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route

@@ -20,6 +20,12 @@ export type Product = {
   description: string;
   img: string[];
 };
+export type ModalOpen = {
+  isOpenModal: boolean;
+  cardView?: Product;
+  setCardView?: React.Dispatch<React.SetStateAction<Product>>;
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export type AppProps = {
   products: Product[];
   card: Product;

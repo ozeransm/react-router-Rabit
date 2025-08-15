@@ -191,10 +191,16 @@
   "src/Components/Card.tsx": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
+  "src/Components/CardView.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
   "src/Components/Cards.tsx": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "src/Components/MyForm.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Components/OpenClosedCard.tsx": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "src/Components/UsersForm.tsx": [
@@ -218,7 +224,10 @@
   "src/Pages/Login.tsx": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
-  "src/Pages/Modal.tsx": [
+  "src/Pages/ModalCreate.tsx": [
+    "/assets/Copilot_20250803_110344-af9a649f.png"
+  ],
+  "src/Pages/ModalView.tsx": [
     "/assets/Copilot_20250803_110344-af9a649f.png"
   ],
   "src/Pages/NoMatch.tsx": [

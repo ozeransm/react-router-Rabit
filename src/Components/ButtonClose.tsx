@@ -1,23 +1,33 @@
 import styled from 'styled-components';
-import type { AppProps } from 'type';
+import type { AppProps, ModalOpen } from 'type';
 const StyledButtonClose = styled.button`
   position: absolute;
-  top: 16px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   font-size: 24px;
-  color: #999;
+  fill: #999;
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.2s;
-
+`;
+const StyledSvg = styled.svg`
+  width: 24px;
+  height: 24px;
   &:hover {
-    color: #333;
+    fill: #464545;
   }
 `;
-export default function ButtonClose({ setIsOpenModal }: AppProps) {
+export default function ButtonClose({ setIsOpenModal }: ModalOpen) {
   function handleClose() {
     setIsOpenModal(false);
   }
-  return <StyledButtonClose onClick={handleClose}>×</StyledButtonClose>;
+  return (
+    <StyledButtonClose onClick={handleClose}>
+      {/* × */}
+      <StyledSvg>
+        <use xlinkHref="/img/icon.svg#icon-button-close" />
+      </StyledSvg>
+    </StyledButtonClose>
+  );
 }

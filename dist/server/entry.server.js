@@ -249,63 +249,67 @@ function MyForm({
     ] })
   ] });
 }
-const StyledButtonClose$1 = styled.button.withConfig({
+const StyledButtonClose = styled.button.withConfig({
   displayName: "ButtonClose__StyledButtonClose",
   componentId: "sc-12icmn2-0"
-})(["position:absolute;top:16px;right:20px;font-size:24px;color:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;&:hover{color:#333;}"]);
+})(["position:absolute;top:10px;right:10px;font-size:24px;fill:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;"]);
+const StyledSvg$1 = styled.svg.withConfig({
+  displayName: "ButtonClose__StyledSvg",
+  componentId: "sc-12icmn2-1"
+})(["width:24px;height:24px;&:hover{fill:#464545;}"]);
 function ButtonClose({
   setIsOpenModal
 }) {
   function handleClose() {
     setIsOpenModal(false);
   }
-  return /* @__PURE__ */ jsx(StyledButtonClose$1, { onClick: handleClose, children: "×" });
+  return /* @__PURE__ */ jsx(StyledButtonClose, { onClick: handleClose, children: /* @__PURE__ */ jsx(StyledSvg$1, { children: /* @__PURE__ */ jsx("use", { xlinkHref: "/img/icon.svg#icon-button-close" }) }) });
 }
 const StyledOverlaySpiner = styled.div.withConfig({
-  displayName: "Modal__StyledOverlaySpiner",
-  componentId: "sc-1pc8fcs-0"
+  displayName: "ModalCreate__StyledOverlaySpiner",
+  componentId: "sc-fgugp0-0"
 })(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;"]);
-const StyledOverlay$1 = styled.div.withConfig({
-  displayName: "Modal__StyledOverlay",
-  componentId: "sc-1pc8fcs-1"
+const StyledOverlay$2 = styled.div.withConfig({
+  displayName: "ModalCreate__StyledOverlay",
+  componentId: "sc-fgugp0-1"
 })(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9998;"]);
 const StyledModal = styled.div.withConfig({
-  displayName: "Modal__StyledModal",
-  componentId: "sc-1pc8fcs-2"
+  displayName: "ModalCreate__StyledModal",
+  componentId: "sc-fgugp0-2"
 })(["background:#ffffff;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.2);padding:32px;width:90%;max-width:720px;max-height:90vh;overflow-y:auto;position:relative;display:flex;flex-direction:column;gap:24px;animation:fadeIn 0.3s ease-in-out;@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}&::-webkit-scrollbar{width:8px;}&::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px;}"]);
 const StyledFormWrapper = styled.div.withConfig({
-  displayName: "Modal__StyledFormWrapper",
-  componentId: "sc-1pc8fcs-3"
+  displayName: "ModalCreate__StyledFormWrapper",
+  componentId: "sc-fgugp0-3"
 })(["margin:40px;display:flex;flex-direction:column;align-items:center;gap:20px;"]);
 const StyledDeleteButton$1 = styled.button.withConfig({
-  displayName: "Modal__StyledDeleteButton",
-  componentId: "sc-1pc8fcs-4"
+  displayName: "ModalCreate__StyledDeleteButton",
+  componentId: "sc-fgugp0-4"
 })(["align-self:center;padding:10px 24px;background-color:#ff4d4f;border:none;border-radius:8px;color:white;font-weight:bold;font-size:16px;cursor:pointer;transition:background-color 0.2s;&:hover{background-color:#d9363e;}"]);
 const SwiperContainer = styled.div.withConfig({
-  displayName: "Modal__SwiperContainer",
-  componentId: "sc-1pc8fcs-5"
+  displayName: "ModalCreate__SwiperContainer",
+  componentId: "sc-fgugp0-5"
 })(["margin:30px;width:100%;max-width:720px;height:300px;margin:0 auto;.swiper-slide{display:flex;justify-content:center;align-items:center;}.swiper-slide img{width:70%;height:70%;object-fit:contain;}"]);
 const SrtyledDivImg = styled.div.withConfig({
-  displayName: "Modal__SrtyledDivImg",
-  componentId: "sc-1pc8fcs-6"
+  displayName: "ModalCreate__SrtyledDivImg",
+  componentId: "sc-fgugp0-6"
 })(["width:100%;height:auto;margin-bottom:15px;"]);
 const StyledImg = styled.img.withConfig({
-  displayName: "Modal__StyledImg",
-  componentId: "sc-1pc8fcs-7"
+  displayName: "ModalCreate__StyledImg",
+  componentId: "sc-fgugp0-7"
 })(["width:100%;border-radius:12px;display:block;margin-bottom:12px;"]);
 const StyledInput$1 = styled.input.withConfig({
-  displayName: "Modal__StyledInput",
-  componentId: "sc-1pc8fcs-8"
+  displayName: "ModalCreate__StyledInput",
+  componentId: "sc-fgugp0-8"
 })(["display:block;"]);
 const StyledInputButton = styled.input.withConfig({
-  displayName: "Modal__StyledInputButton",
-  componentId: "sc-1pc8fcs-9"
+  displayName: "ModalCreate__StyledInputButton",
+  componentId: "sc-fgugp0-9"
 })(["display:block;margin:30px;"]);
 const StyledFieldButton = styled.div.withConfig({
-  displayName: "Modal__StyledFieldButton",
-  componentId: "sc-1pc8fcs-10"
+  displayName: "ModalCreate__StyledFieldButton",
+  componentId: "sc-fgugp0-10"
 })(["display:flex;flex-wrap:wrap;justify-content:start;"]);
-function Modal({
+function ModalCreate({
   products,
   card,
   rows,
@@ -485,8 +489,8 @@ function Modal({
   }
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     !loading || /* @__PURE__ */ jsx(StyledOverlaySpiner, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
-    /* @__PURE__ */ jsx(StyledOverlay$1, { children: /* @__PURE__ */ jsxs(StyledModal, { children: [
-      /* @__PURE__ */ jsx(ButtonClose, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "", setAuth, isAuth, token, isExpired, loading, setLoading }),
+    /* @__PURE__ */ jsx(StyledOverlay$2, { children: /* @__PURE__ */ jsxs(StyledModal, { children: [
+      /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal, isOpenModal }),
       /* @__PURE__ */ jsx(Card, { product: card }),
       /* @__PURE__ */ jsx(SwiperContainer, { children: /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [
         /* @__PURE__ */ jsx(Swiper, { scrollbar: {
@@ -543,13 +547,49 @@ function Admin({
   setLoading
 }) {
   return isAuth && /* @__PURE__ */ jsxs("div", { children: [
-    isOpenModal && /* @__PURE__ */ jsx(Modal, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading }),
+    isOpenModal && /* @__PURE__ */ jsx(ModalCreate, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading }),
     /* @__PURE__ */ jsxs(StyledBaseField$2, { children: [
       /* @__PURE__ */ jsx("h2", { children: "Administrator" }),
       /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading }),
       /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading })
     ] })
   ] });
+}
+const StyledField$1 = styled.div.withConfig({
+  displayName: "CardView__StyledField",
+  componentId: "sc-ver2da-0"
+})(["display:flex;flex-direction:column;align-items:center;background:linear-gradient(145deg,#f0f0f0,#ffffff);border:1px solid #ddd;padding:24px;border-radius:12px;box-shadow:0 8px 16px rgba(0,0,0,0.1);width:320px;margin:30px auto;position:relative;transition:transform 0.3s ease;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}h1{font-size:1.5rem;margin-bottom:8px;color:#333;}h2{font-size:1.2rem;margin-bottom:4px;color:#555;}p{font-size:1rem;margin:4px 0;color:#666;}img{width:100%;height:auto;border-radius:8px;margin-top:12px;object-fit:cover;box-shadow:0 4px 8px rgba(0,0,0,0.05);}"]);
+function CardView({
+  isOpenModal,
+  cardView,
+  setCardView,
+  setIsOpenModal
+}) {
+  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs(StyledField$1, { children: [
+    /* @__PURE__ */ jsx("h1", { children: "Card" }),
+    /* @__PURE__ */ jsx("h2", { children: cardView == null ? void 0 : cardView.name }),
+    /* @__PURE__ */ jsx("p", { children: cardView == null ? void 0 : cardView.description }),
+    /* @__PURE__ */ jsxs("p", { children: [
+      "Price: ",
+      cardView == null ? void 0 : cardView.price
+    ] }),
+    /* @__PURE__ */ jsx("img", { src: cardView == null ? void 0 : cardView.img[0], alt: cardView == null ? void 0 : cardView.name, style: {
+      width: "100%"
+    } }),
+    /* @__PURE__ */ jsx(ButtonClose, { isOpenModal, setIsOpenModal })
+  ] }) });
+}
+const StyledOverlay$1 = styled.div.withConfig({
+  displayName: "ModalView__StyledOverlay",
+  componentId: "sc-r0zy7f-0"
+})(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9998;"]);
+function ModalView({
+  isOpenModal,
+  cardView,
+  setCardView,
+  setIsOpenModal
+}) {
+  return /* @__PURE__ */ jsx(StyledOverlay$1, { children: /* @__PURE__ */ jsx(CardView, { isOpenModal, cardView, setCardView, setIsOpenModal }) });
 }
 const StyledBaseField$1 = styled.div.withConfig({
   displayName: "Home__StyledBaseField",
@@ -559,6 +599,21 @@ function Home({
   products,
   rows
 }) {
+  const [isOpenModalView, setIsOpenModalView] = useState(false);
+  const [cardView, setCardview] = useState({
+    id: "",
+    name: "",
+    description: "",
+    price: "",
+    img: []
+  });
+  function handleViewCard(id) {
+    const product = products.find((p) => p.id === id);
+    if (product) {
+      setCardview(product);
+    }
+    setIsOpenModalView(true);
+  }
   let row = 5;
   let slidePreView = 2;
   switch (rows) {
@@ -578,6 +633,7 @@ function Home({
       slidePreView = 1;
   }
   return /* @__PURE__ */ jsxs("div", { children: [
+    !isOpenModalView || /* @__PURE__ */ jsx(ModalView, { isOpenModal: isOpenModalView, setIsOpenModal: setIsOpenModalView, cardView, setCardView: setCardview }),
     /* @__PURE__ */ jsx("h2", { children: "Home" }),
     /* @__PURE__ */ jsx(StyledBaseField$1, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
       hide: true,
@@ -588,7 +644,7 @@ function Home({
     }, slidesPerView: slidePreView, spaceBetween: 20, grid: {
       rows: row,
       fill: "row"
-    }, children: products.map((p) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(Card, { product: {
+    }, children: products.map((p) => /* @__PURE__ */ jsx(SwiperSlide, { onClick: () => handleViewCard(p.id), children: /* @__PURE__ */ jsx(Card, { product: {
       id: p.id ?? "",
       name: p.name ?? "",
       description: p.description ?? "",
@@ -629,41 +685,37 @@ const StyledOverlay = styled.div.withConfig({
   displayName: "UsersForm__StyledOverlay",
   componentId: "sc-w5oi9h-0"
 })(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;"]);
-const StyledButtonClose = styled.button.withConfig({
-  displayName: "UsersForm__StyledButtonClose",
-  componentId: "sc-w5oi9h-1"
-})(["position:absolute;top:5px;right:5px;font-size:24px;color:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;&:hover{color:#333;}"]);
 const StyledBase = styled.div.withConfig({
   displayName: "UsersForm__StyledBase",
-  componentId: "sc-w5oi9h-2"
+  componentId: "sc-w5oi9h-1"
 })(["display:flex;flex-direction:column;align-items:center;min-height:100vh;padding-top:20px;"]);
 const StyledButton = styled.input.withConfig({
   displayName: "UsersForm__StyledButton",
-  componentId: "sc-w5oi9h-3"
+  componentId: "sc-w5oi9h-2"
 })(["align-self:center;padding:10px 24px;width:150px;height:40px;background-color:#007bff;border:none;border-radius:8px;color:white;font-weight:bold;font-size:14px;cursor:pointer;transition:background-color 0.3s ease;&:hover{background-color:#0056b3;}"]);
 const StyledDeleteButton = styled.button.withConfig({
   displayName: "UsersForm__StyledDeleteButton",
-  componentId: "sc-w5oi9h-4"
+  componentId: "sc-w5oi9h-3"
 })(["align-self:center;padding:10px 24px;width:150px;height:40px;background-color:#ff4d4f;border:none;border-radius:8px;color:white;font-weight:bold;font-size:14px;cursor:pointer;transition:background-color 0.3s ease;&:hover{background-color:#d9363e;}"]);
 const StyledForm = styled.form.withConfig({
   displayName: "UsersForm__StyledForm",
-  componentId: "sc-w5oi9h-5"
+  componentId: "sc-w5oi9h-4"
 })(["position:relative;display:flex;flex-direction:column;gap:16px;padding:32px;border:1px solid #ccc;border-radius:12px;background-color:#f9f9f9;box-shadow:0 4px 12px rgba(0,0,0,0.1);width:300px;"]);
 const StyledInput = styled.input.withConfig({
   displayName: "UsersForm__StyledInput",
-  componentId: "sc-w5oi9h-6"
+  componentId: "sc-w5oi9h-5"
 })(["width:95%;padding:10px;font-size:14px;border:1px solid #aaa;border-radius:8px;"]);
 const StyledSpan = styled.span.withConfig({
   displayName: "UsersForm__StyledSpan",
-  componentId: "sc-w5oi9h-7"
+  componentId: "sc-w5oi9h-6"
 })(["font-size:12px;color:red;"]);
 const StyledDiv = styled.div.withConfig({
   displayName: "UsersForm__StyledDiv",
-  componentId: "sc-w5oi9h-8"
+  componentId: "sc-w5oi9h-7"
 })(["position:relative;width:100%;"]);
 const StyledSelect = styled.select.withConfig({
   displayName: "UsersForm__StyledSelect",
-  componentId: "sc-w5oi9h-9"
+  componentId: "sc-w5oi9h-8"
 })(["width:95%;padding:10px;font-size:14px;border:1px solid #aaa;border-radius:8px;background-color:white;color:black;"]);
 function UsersForm({
   url: url2,
@@ -795,15 +847,12 @@ function UsersForm({
     }
     reset();
   }
-  function handleClose() {
-    setRegistrtion(false);
-  }
   return /* @__PURE__ */ jsxs(StyledBase, { children: [
     /* @__PURE__ */ jsx(ToastContainer, {}),
     !loading || /* @__PURE__ */ jsx(StyledOverlay, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
     !isRegistration || /* @__PURE__ */ jsx("h3", { children: "Create or delete user " }),
     /* @__PURE__ */ jsxs(StyledForm, { onSubmit: handleSubmit(onSubmit), children: [
-      !isRegistration || /* @__PURE__ */ jsx(StyledButtonClose, { type: "button", onClick: handleClose, children: "×" }),
+      !isRegistration || /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal: () => setRegistrtion(false), isOpenModal: isRegistration }),
       /* @__PURE__ */ jsx(StyledInput, { ...register("login", {
         required: true
       }), type: "login", placeholder: "login" }),
@@ -875,6 +924,26 @@ function Login({
       /* @__PURE__ */ jsx(UsersForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "users", isAuth, setAuth, token, isExpired, loading, setLoading })
     ] })
   ] });
+}
+const StyledField = styled.div.withConfig({
+  displayName: "OpenClosedCard__StyledField",
+  componentId: "sc-139pxkg-0"
+})(["position:fixed;top:20px;right:20px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background-color:whitesmoke;border:2px solid #ccc;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2);cursor:pointer;transition:box-shadow 0.3s ease;z-index:9999;&:hover{box-shadow:0 4px 12px rgba(0,0,0,0.3);}"]);
+const StyledSvg = styled.svg.withConfig({
+  displayName: "OpenClosedCard__StyledSvg",
+  componentId: "sc-139pxkg-1"
+})(["width:32px;"]);
+function OpenClosedCard({
+  isOpenModal,
+  setIsOpenModal,
+  cardView,
+  setCardView
+}) {
+  return /* @__PURE__ */ jsx(StyledField, { children: isOpenModal ? /* @__PURE__ */ jsx(StyledSvg, { style: {
+    fill: "#1eec4b"
+  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: "/img/icon.svg#icon-lock-open" }) }) : /* @__PURE__ */ jsx(StyledSvg, { style: {
+    fill: "red"
+  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: "/img/icon.svg#icon-lock-closed" }) }) });
 }
 const url = "https://soft-rabit.onrender.com";
 function App({
@@ -966,6 +1035,7 @@ function App({
     return null;
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx("h1", { children: "Server Rendering Example" }),
+    /* @__PURE__ */ jsx(OpenClosedCard, { isOpenModal: isAuth, setIsOpenModal: setAuth, cardView: card, setCardView: setCard }),
     /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
       /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading }) }),
       /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token: token.token, isExpired, loading, setLoading }) }),
