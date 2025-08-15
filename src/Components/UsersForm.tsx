@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import type { AppProps, Inputs } from 'type';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { ClockLoader } from 'react-spinners';
@@ -103,36 +102,14 @@ export default function UsersForm({
   isAuth,
   isExpired,
   token,
-  setAuth,
   loading,
+  isRegistration,
+  setRegistration,
+  setErrorRegistration,
+  setAuth,
 }: AppProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [isRegistration, setRegistrtion] = useState(false);
-  const [errorRegistration, setErrorRegistration] = useState(0);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    switch (errorRegistration) {
-      case 1:
-        toast.success('Login or Password correct!');
-        break;
-      case 2:
-        toast.error('Login or Password incorrect!');
-        break;
-      case 3:
-        toast.success('New user created!');
-        break;
-      case 4:
-        toast.info('Login successful');
-        break;
-      case 5:
-        toast.info('user deleted');
-        break;
-      default:
-        break;
-    }
-  }, [errorRegistration]);
-
   const {
     register,
     reset,
@@ -143,7 +120,7 @@ export default function UsersForm({
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (isRegistration) {
-      setRegistrtion(false);
+      setRegistration?.(false);
 
       try {
         const result = await fetch(`${url}/${endPoint}/root/10`, {
@@ -181,7 +158,7 @@ export default function UsersForm({
           }),
         });
         const res = await result.json();
-        res.auth ? setRegistrtion(true) : setRegistrtion(false);
+        res.auth ? setRegistration?.(true) : setRegistration?.(false);
         res.auth ? setErrorRegistration(1) : setErrorRegistration(2);
       } catch (err) {
         console.log('error', err);
@@ -233,7 +210,6 @@ export default function UsersForm({
   }
   return (
     <StyledBase>
-      <ToastContainer />
       {!loading || (
         <StyledOverlay>
           <ClockLoader
@@ -249,7 +225,7 @@ export default function UsersForm({
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         {!isRegistration || (
           <ButtonClose
-            setIsOpenModal={() => setRegistrtion(false)}
+            setIsOpenModal={() => setRegistration?.(false)}
             isOpenModal={isRegistration}
           />
         )}

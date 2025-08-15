@@ -14,7 +14,7 @@ import { ClockLoader } from 'react-spinners';
 const StyledOverlaySpiner = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.288);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -149,6 +149,7 @@ export default function ModalCreate({
   isExpired,
   loading,
   setLoading,
+  setErrorRegistration,
 }: AppProps) {
   const {
     register,
@@ -250,6 +251,7 @@ export default function ModalCreate({
   }
 
   async function handleDel() {
+    setLoading(true);
     await fetch(`${url}/`, {
       method: 'DELETE',
       headers: {
@@ -286,6 +288,7 @@ export default function ModalCreate({
       price: '',
       img: [],
     });
+    setLoading(false);
     setProductState(initialData);
     setIsOpenModal(false);
   }
@@ -379,6 +382,7 @@ export default function ModalCreate({
               isExpired={isExpired}
               loading={loading}
               setLoading={setLoading}
+              setErrorRegistration={setErrorRegistration}
             />
             <StyledDeleteButton onClick={handleDel}>
               🗑 Delete Card

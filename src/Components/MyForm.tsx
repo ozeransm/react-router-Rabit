@@ -1,7 +1,17 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { ClockLoader } from 'react-spinners';
 import styled from 'styled-components';
 import type { AppProps, Inputs, Product } from 'type';
-
+const StyledOverlaySpiner = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
 const StyledForm = styled('form')`
   margin: 30px;
   align-items: center;
@@ -64,6 +74,8 @@ export default function MyForm({
   isOpenModal,
   url,
   endPoint,
+  loading,
+  setLoading,
 }: AppProps) {
   const {
     register,
@@ -73,6 +85,7 @@ export default function MyForm({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('price', data.price);
@@ -108,46 +121,62 @@ export default function MyForm({
 
       return { id, name, price, description, img };
     });
-
+    setLoading(false);
     setProductState(initialData);
     reset();
   };
   return (
-    <StyledBaseForm>
-      {endPoint === 'upload' ? (
-        <StyledNameForm>Create new card</StyledNameForm>
-      ) : (
-        <StyledNameForm>Update card</StyledNameForm>
+    <>
+      {!loading || (
+        <StyledOverlaySpiner>
+          <ClockLoader
+            color="#1eec4b"
+            cssOverride={{}}
+            loading={loading}
+            size={70}
+            speedMultiplier={2}
+          />
+        </StyledOverlaySpiner>
       )}
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          {/* register your input into the hook by invoking the "register" function */}
-          <StyledFormField
-            {...register('name', { required: true })}
-            placeholder="Name"
-          />
-          {errors.name && <span>This field name is required</span>}
-          {/* include validation with required or other standard HTML validation rules */}
-          <StyledFormField
-            {...register('price', { required: true })}
-            placeholder="Price"
-          />
-          {/* errors will return when field validation fails  */}
-          {errors.price && <span>This field price is required</span>}
-        </div>
-        <StyledFormTextArea
-          {...register('description', { required: true })}
-          placeholder="Description"
-          rows={5}
-        />
+
+      <StyledBaseForm>
         {endPoint === 'upload' ? (
-          <StyledFormFile type="file" name="files" accept=".jpg" multiple />
+          <StyledNameForm>Create new card</StyledNameForm>
         ) : (
-          ''
+          <StyledNameForm>Update card</StyledNameForm>
         )}
-        {errors.description && <span>This field description is required</span>}
-        <StyledButton type="submit" />
-      </StyledForm>
-    </StyledBaseForm>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {/* register your input into the hook by invoking the "register" function */}
+            <StyledFormField
+              {...register('name', { required: true })}
+              placeholder="Name"
+            />
+            {errors.name && <span>This field name is required</span>}
+            {/* include validation with required or other standard HTML validation rules */}
+            <StyledFormField
+              {...register('price', { required: true })}
+              placeholder="Price"
+            />
+            {/* errors will return when field validation fails  */}
+            {errors.price && <span>This field price is required</span>}
+          </div>
+          <StyledFormTextArea
+            {...register('description', { required: true })}
+            placeholder="Description"
+            rows={5}
+          />
+          {endPoint === 'upload' ? (
+            <StyledFormFile type="file" name="files" accept=".jpg" multiple />
+          ) : (
+            ''
+          )}
+          {errors.description && (
+            <span>This field description is required</span>
+          )}
+          <StyledButton type="submit" />
+        </StyledForm>
+      </StyledBaseForm>
+    </>
   );
 }

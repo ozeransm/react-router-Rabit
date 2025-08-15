@@ -27,6 +27,7 @@ export default function Admin({
   isExpired,
   loading,
   setLoading,
+  setErrorRegistration,
 }: AppProps) {
   return (
     isAuth && (
@@ -48,6 +49,7 @@ export default function Admin({
             isExpired={isExpired}
             loading={loading}
             setLoading={setLoading}
+            setErrorRegistration={setErrorRegistration}
           />
         )}
         <StyledBaseField>
@@ -68,6 +70,7 @@ export default function Admin({
             isExpired={isExpired}
             loading={loading}
             setLoading={setLoading}
+            setErrorRegistration={setErrorRegistration}
           />
           <MyForm
             products={products}
@@ -85,6 +88,7 @@ export default function Admin({
             isExpired={isExpired}
             loading={loading}
             setLoading={setLoading}
+            setErrorRegistration={setErrorRegistration}
           />
         </StyledBaseField>
       </div>

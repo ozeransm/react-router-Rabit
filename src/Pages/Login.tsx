@@ -34,7 +34,10 @@ export default function Login({
   token,
   isExpired,
   loading,
+  isRegistration,
+  setRegistration,
   setLoading,
+  setErrorRegistration,
 }: AppProps) {
   return (
     <>
@@ -58,6 +61,9 @@ export default function Login({
           isExpired={isExpired}
           loading={loading}
           setLoading={setLoading}
+          setErrorRegistration={setErrorRegistration}
+          isRegistration={isRegistration}
+          setRegistration={setRegistration}
         />
       </StyledBaseField>
     </>

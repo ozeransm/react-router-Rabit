@@ -8,6 +8,11 @@ import type { AppProps, Product } from 'type';
 import styled from 'styled-components';
 import ModalView from './ModalView';
 import { useState } from 'react';
+const StyledGenField = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const StyledBaseField = styled.div`
   width: 100%;
@@ -68,7 +73,7 @@ export default function Home({ products, rows }: AppProps) {
       slidePreView = 1;
   }
   return (
-    <div>
+    <StyledGenField>
       {!isOpenModalView || (
         <ModalView
           isOpenModal={isOpenModalView}
@@ -108,6 +113,6 @@ export default function Home({ products, rows }: AppProps) {
           ))}
         </Swiper>
       </StyledBaseField>
-    </div>
+    </StyledGenField>
   );
 }

@@ -15,7 +15,7 @@ const StyledField = styled.div`
   margin: 30px auto;
   position: relative;
   transition: transform 0.3s ease;
-
+  overflow-y: scroll;
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);

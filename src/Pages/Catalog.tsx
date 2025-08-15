@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import Cards from '../Components/Cards';
 
 const StyledBaseField = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 90%;
 `;
 
@@ -20,6 +24,7 @@ export default function Catalog({
   isExpired,
   loading,
   setLoading,
+  setErrorRegistration,
 }: AppProps) {
   return (
     <StyledBaseField>
@@ -40,6 +45,7 @@ export default function Catalog({
         isExpired={isExpired}
         loading={loading}
         setLoading={setLoading}
+        setErrorRegistration={setErrorRegistration}
       />
     </StyledBaseField>
   );

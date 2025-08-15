@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import type { AppProps, Product } from '../../type/index';
+import type { AppProps } from '../../type/index';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/grid';

@@ -37,11 +37,14 @@ export type AppProps = {
   token: string;
   isExpired: boolean;
   loading: boolean;
+  isRegistration?: boolean;
+  setRegistration?: React.Dispatch<React.SetStateAction<boolean>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setAuth: React.Dispatch<React.SetStateAction<boolean>>;
   setCard: React.Dispatch<React.SetStateAction<Product>>;
   setProductState: React.Dispatch<React.SetStateAction<Product[]>>;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setErrorRegistration: React.Dispatch<React.SetStateAction<number>>;
 };
 export type CardProps = {
   product: Product;

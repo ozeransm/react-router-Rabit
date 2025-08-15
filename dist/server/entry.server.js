@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { Link, Outlet, useNavigate, Routes, Route } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import styledComponents from 'styled-components';
 const styled = styledComponents.default;
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
@@ -11,7 +12,6 @@ import { Scrollbar, Grid, Autoplay } from "swiper/modules";
 import { useForm } from "react-hook-form";
 import ReactSpinners from 'react-spinners';
 const { ClockLoader } = ReactSpinners;
-import { toast, ToastContainer } from "react-toastify";
 import { useJwt } from "react-jwt";
 const Fragment = jsxRuntime.Fragment;
 const jsx = jsxRuntime.jsx;
@@ -112,7 +112,7 @@ function Cards({
 const StyledBaseField$3 = styled("div").withConfig({
   displayName: "Catalog__StyledBaseField",
   componentId: "sc-lby759-0"
-})(["width:90%;"]);
+})(["display:flex;flex-direction:column;justify-content:center;align-items:center;width:90%;"]);
 function Catalog({
   products,
   card,
@@ -126,40 +126,45 @@ function Catalog({
   token,
   isExpired,
   loading,
-  setLoading
+  setLoading,
+  setErrorRegistration
 }) {
   return /* @__PURE__ */ jsxs(StyledBaseField$3, { children: [
     /* @__PURE__ */ jsx("h2", { children: "Catalog" }),
-    /* @__PURE__ */ jsx(Cards, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "", isAuth, setAuth, token, isExpired, loading, setLoading })
+    /* @__PURE__ */ jsx(Cards, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "", isAuth, setAuth, token, isExpired, loading, setLoading, setErrorRegistration })
   ] });
 }
+const StyledOverlaySpiner$1 = styled.div.withConfig({
+  displayName: "MyForm__StyledOverlaySpiner",
+  componentId: "sc-1ycmc8g-0"
+})(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;"]);
 const StyledForm$1 = styled("form").withConfig({
   displayName: "MyForm__StyledForm",
-  componentId: "sc-1ycmc8g-0"
+  componentId: "sc-1ycmc8g-1"
 })(["margin:30px;align-items:center;border:1px solid lightblue;border-radius:10px;padding:20px;display:flex;justify-content:center;flex-wrap:wrap;@media (min-width:480px){padding:40px;}@media (min-width:600px){width:500px;}"]);
 const StyledFormField = styled("input").withConfig({
   displayName: "MyForm__StyledFormField",
-  componentId: "sc-1ycmc8g-1"
+  componentId: "sc-1ycmc8g-2"
 })(["margin:5px;width:150px;@media (max-width:480px){width:200px;display:block;}"]);
 const StyledFormTextArea = styled("textarea").withConfig({
   displayName: "MyForm__StyledFormTextArea",
-  componentId: "sc-1ycmc8g-2"
+  componentId: "sc-1ycmc8g-3"
 })(["display:block;margin:5px;width:200px;@media (min-width:480px){width:320px;}"]);
 const StyledButton$1 = styled("input").withConfig({
   displayName: "MyForm__StyledButton",
-  componentId: "sc-1ycmc8g-3"
+  componentId: "sc-1ycmc8g-4"
 })(["width:150px;margin:10px;display:block;"]);
 const StyledFormFile = styled("input").withConfig({
   displayName: "MyForm__StyledFormFile",
-  componentId: "sc-1ycmc8g-4"
+  componentId: "sc-1ycmc8g-5"
 })(["margin:10px;display:block;"]);
 const StyledNameForm = styled.h2.withConfig({
   displayName: "MyForm__StyledNameForm",
-  componentId: "sc-1ycmc8g-5"
+  componentId: "sc-1ycmc8g-6"
 })(["margin:0;padding:0;"]);
 const StyledBaseForm = styled.div.withConfig({
   displayName: "MyForm__StyledBaseForm",
-  componentId: "sc-1ycmc8g-6"
+  componentId: "sc-1ycmc8g-7"
 })(["margin:25px;padding:10px;"]);
 function MyForm({
   products,
@@ -170,7 +175,9 @@ function MyForm({
   setIsOpenModal,
   isOpenModal,
   url: url2,
-  endPoint: endPoint2
+  endPoint: endPoint2,
+  loading,
+  setLoading
 }) {
   const {
     register,
@@ -182,6 +189,7 @@ function MyForm({
     }
   } = useForm();
   const onSubmit = async (data) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("price", data.price);
@@ -224,28 +232,32 @@ function MyForm({
         img
       };
     });
+    setLoading(false);
     setProductState(initialData);
     reset();
   };
-  return /* @__PURE__ */ jsxs(StyledBaseForm, { children: [
-    endPoint2 === "upload" ? /* @__PURE__ */ jsx(StyledNameForm, { children: "Create new card" }) : /* @__PURE__ */ jsx(StyledNameForm, { children: "Update card" }),
-    /* @__PURE__ */ jsxs(StyledForm$1, { onSubmit: handleSubmit(onSubmit), children: [
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx(StyledFormField, { ...register("name", {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    !loading || /* @__PURE__ */ jsx(StyledOverlaySpiner$1, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
+    /* @__PURE__ */ jsxs(StyledBaseForm, { children: [
+      endPoint2 === "upload" ? /* @__PURE__ */ jsx(StyledNameForm, { children: "Create new card" }) : /* @__PURE__ */ jsx(StyledNameForm, { children: "Update card" }),
+      /* @__PURE__ */ jsxs(StyledForm$1, { onSubmit: handleSubmit(onSubmit), children: [
+        /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx(StyledFormField, { ...register("name", {
+            required: true
+          }), placeholder: "Name" }),
+          errors.name && /* @__PURE__ */ jsx("span", { children: "This field name is required" }),
+          /* @__PURE__ */ jsx(StyledFormField, { ...register("price", {
+            required: true
+          }), placeholder: "Price" }),
+          errors.price && /* @__PURE__ */ jsx("span", { children: "This field price is required" })
+        ] }),
+        /* @__PURE__ */ jsx(StyledFormTextArea, { ...register("description", {
           required: true
-        }), placeholder: "Name" }),
-        errors.name && /* @__PURE__ */ jsx("span", { children: "This field name is required" }),
-        /* @__PURE__ */ jsx(StyledFormField, { ...register("price", {
-          required: true
-        }), placeholder: "Price" }),
-        errors.price && /* @__PURE__ */ jsx("span", { children: "This field price is required" })
-      ] }),
-      /* @__PURE__ */ jsx(StyledFormTextArea, { ...register("description", {
-        required: true
-      }), placeholder: "Description", rows: 5 }),
-      endPoint2 === "upload" ? /* @__PURE__ */ jsx(StyledFormFile, { type: "file", name: "files", accept: ".jpg", multiple: true }) : "",
-      errors.description && /* @__PURE__ */ jsx("span", { children: "This field description is required" }),
-      /* @__PURE__ */ jsx(StyledButton$1, { type: "submit" })
+        }), placeholder: "Description", rows: 5 }),
+        endPoint2 === "upload" ? /* @__PURE__ */ jsx(StyledFormFile, { type: "file", name: "files", accept: ".jpg", multiple: true }) : "",
+        errors.description && /* @__PURE__ */ jsx("span", { children: "This field description is required" }),
+        /* @__PURE__ */ jsx(StyledButton$1, { type: "submit" })
+      ] })
     ] })
   ] });
 }
@@ -253,7 +265,7 @@ const pathSvg = "/assets/icon-56ad9de6.svg";
 const StyledButtonClose = styled.button.withConfig({
   displayName: "ButtonClose__StyledButtonClose",
   componentId: "sc-12icmn2-0"
-})(["position:absolute;top:10px;right:10px;font-size:24px;fill:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;"]);
+})(["position:absolute;top:7px;right:7px;font-size:24px;fill:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;"]);
 const StyledSvg$1 = styled.svg.withConfig({
   displayName: "ButtonClose__StyledSvg",
   componentId: "sc-12icmn2-1"
@@ -269,7 +281,7 @@ function ButtonClose({
 const StyledOverlaySpiner = styled.div.withConfig({
   displayName: "ModalCreate__StyledOverlaySpiner",
   componentId: "sc-fgugp0-0"
-})(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;"]);
+})(["position:fixed;inset:0;background:rgba(0,0,0,0.288);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9999;"]);
 const StyledOverlay$2 = styled.div.withConfig({
   displayName: "ModalCreate__StyledOverlay",
   componentId: "sc-fgugp0-1"
@@ -324,7 +336,8 @@ function ModalCreate({
   setAuth,
   isExpired,
   loading,
-  setLoading
+  setLoading,
+  setErrorRegistration
 }) {
   const {
     register,
@@ -438,6 +451,7 @@ function ModalCreate({
     return formData;
   }
   async function handleDel() {
+    setLoading(true);
     await fetch(`${url2}/`, {
       method: "DELETE",
       headers: {
@@ -485,6 +499,7 @@ function ModalCreate({
       price: "",
       img: []
     });
+    setLoading(false);
     setProductState(initialData);
     setIsOpenModal(false);
   }
@@ -520,7 +535,7 @@ function ModalCreate({
         ] })
       ] }) }),
       /* @__PURE__ */ jsxs(StyledFormWrapper, { children: [
-        /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, isExpired, loading, setLoading }),
+        /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, isExpired, loading, setLoading, setErrorRegistration }),
         /* @__PURE__ */ jsx(StyledDeleteButton$1, { onClick: handleDel, children: "🗑 Delete Card" })
       ] })
     ] }) })
@@ -545,21 +560,22 @@ function Admin({
   token,
   isExpired,
   loading,
-  setLoading
+  setLoading,
+  setErrorRegistration
 }) {
   return isAuth && /* @__PURE__ */ jsxs("div", { children: [
-    isOpenModal && /* @__PURE__ */ jsx(ModalCreate, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading }),
+    isOpenModal && /* @__PURE__ */ jsx(ModalCreate, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading, setErrorRegistration }),
     /* @__PURE__ */ jsxs(StyledBaseField$2, { children: [
       /* @__PURE__ */ jsx("h2", { children: "Administrator" }),
-      /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading }),
-      /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading })
+      /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading, setErrorRegistration }),
+      /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading, setErrorRegistration })
     ] })
   ] });
 }
 const StyledField$1 = styled.div.withConfig({
   displayName: "CardView__StyledField",
   componentId: "sc-ver2da-0"
-})(["display:flex;flex-direction:column;align-items:center;background:linear-gradient(145deg,#f0f0f0,#ffffff);border:1px solid #ddd;padding:24px;border-radius:12px;box-shadow:0 8px 16px rgba(0,0,0,0.1);width:320px;margin:30px auto;position:relative;transition:transform 0.3s ease;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}h1{font-size:1.5rem;margin-bottom:8px;color:#333;}h2{font-size:1.2rem;margin-bottom:4px;color:#555;}p{font-size:1rem;margin:4px 0;color:#666;}img{width:100%;height:auto;border-radius:8px;margin-top:12px;object-fit:cover;box-shadow:0 4px 8px rgba(0,0,0,0.05);}"]);
+})(["display:flex;flex-direction:column;align-items:center;background:linear-gradient(145deg,#f0f0f0,#ffffff);border:1px solid #ddd;padding:24px;border-radius:12px;box-shadow:0 8px 16px rgba(0,0,0,0.1);width:320px;margin:30px auto;position:relative;transition:transform 0.3s ease;overflow-y:scroll;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}h1{font-size:1.5rem;margin-bottom:8px;color:#333;}h2{font-size:1.2rem;margin-bottom:4px;color:#555;}p{font-size:1rem;margin:4px 0;color:#666;}img{width:100%;height:auto;border-radius:8px;margin-top:12px;object-fit:cover;box-shadow:0 4px 8px rgba(0,0,0,0.05);}"]);
 function CardView({
   isOpenModal,
   cardView,
@@ -592,9 +608,13 @@ function ModalView({
 }) {
   return /* @__PURE__ */ jsx(StyledOverlay$1, { children: /* @__PURE__ */ jsx(CardView, { isOpenModal, cardView, setCardView, setIsOpenModal }) });
 }
+const StyledGenField = styled.div.withConfig({
+  displayName: "Home__StyledGenField",
+  componentId: "sc-rf26ej-0"
+})(["display:flex;flex-direction:column;align-items:center;"]);
 const StyledBaseField$1 = styled.div.withConfig({
   displayName: "Home__StyledBaseField",
-  componentId: "sc-rf26ej-0"
+  componentId: "sc-rf26ej-1"
 })(["width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}"]);
 function Home({
   products,
@@ -633,7 +653,7 @@ function Home({
     default:
       slidePreView = 1;
   }
-  return /* @__PURE__ */ jsxs("div", { children: [
+  return /* @__PURE__ */ jsxs(StyledGenField, { children: [
     !isOpenModalView || /* @__PURE__ */ jsx(ModalView, { isOpenModal: isOpenModalView, setIsOpenModal: setIsOpenModalView, cardView, setCardView: setCardview }),
     /* @__PURE__ */ jsx("h2", { children: "Home" }),
     /* @__PURE__ */ jsx(StyledBaseField$1, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
@@ -724,32 +744,14 @@ function UsersForm({
   isAuth,
   isExpired,
   token,
-  setAuth,
-  loading
+  loading,
+  isRegistration,
+  setRegistration,
+  setErrorRegistration,
+  setAuth
 }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [isRegistration, setRegistrtion] = useState(false);
-  const [errorRegistration, setErrorRegistration] = useState(0);
   const navigate = useNavigate();
-  useEffect(() => {
-    switch (errorRegistration) {
-      case 1:
-        toast.success("Login or Password correct!");
-        break;
-      case 2:
-        toast.error("Login or Password incorrect!");
-        break;
-      case 3:
-        toast.success("New user created!");
-        break;
-      case 4:
-        toast.info("Login successful");
-        break;
-      case 5:
-        toast.info("user deleted");
-        break;
-    }
-  }, [errorRegistration]);
   const {
     register,
     reset,
@@ -762,7 +764,7 @@ function UsersForm({
   } = useForm();
   const onSubmit = async (data) => {
     if (isRegistration) {
-      setRegistrtion(false);
+      setRegistration == null ? void 0 : setRegistration(false);
       try {
         const result = await fetch(`${url2}/${endPoint2}/root/10`, {
           method: "POST",
@@ -799,7 +801,7 @@ function UsersForm({
           })
         });
         const res = await result.json();
-        res.auth ? setRegistrtion(true) : setRegistrtion(false);
+        res.auth ? setRegistration == null ? void 0 : setRegistration(true) : setRegistration == null ? void 0 : setRegistration(false);
         res.auth ? setErrorRegistration(1) : setErrorRegistration(2);
       } catch (err) {
         console.log("error", err);
@@ -849,11 +851,10 @@ function UsersForm({
     reset();
   }
   return /* @__PURE__ */ jsxs(StyledBase, { children: [
-    /* @__PURE__ */ jsx(ToastContainer, {}),
     !loading || /* @__PURE__ */ jsx(StyledOverlay, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
     !isRegistration || /* @__PURE__ */ jsx("h3", { children: "Create or delete user " }),
     /* @__PURE__ */ jsxs(StyledForm, { onSubmit: handleSubmit(onSubmit), children: [
-      !isRegistration || /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal: () => setRegistrtion(false), isOpenModal: isRegistration }),
+      !isRegistration || /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal: () => setRegistration == null ? void 0 : setRegistration(false), isOpenModal: isRegistration }),
       /* @__PURE__ */ jsx(StyledInput, { ...register("login", {
         required: true
       }), type: "login", placeholder: "login" }),
@@ -916,20 +917,23 @@ function Login({
   token,
   isExpired,
   loading,
-  setLoading
+  isRegistration,
+  setRegistration,
+  setLoading,
+  setErrorRegistration
 }) {
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(StaticBackground, {}),
     /* @__PURE__ */ jsxs(StyledBaseField, { children: [
       /* @__PURE__ */ jsx("h2", { children: "Login" }),
-      /* @__PURE__ */ jsx(UsersForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "users", isAuth, setAuth, token, isExpired, loading, setLoading })
+      /* @__PURE__ */ jsx(UsersForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "users", isAuth, setAuth, token, isExpired, loading, setLoading, setErrorRegistration, isRegistration, setRegistration })
     ] })
   ] });
 }
 const StyledField = styled.div.withConfig({
   displayName: "OpenClosedCard__StyledField",
   componentId: "sc-139pxkg-0"
-})(["position:fixed;top:20px;right:20px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background-color:whitesmoke;border:2px solid #ccc;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2);cursor:pointer;transition:box-shadow 0.3s ease;z-index:9999;&:hover{box-shadow:0 4px 12px rgba(0,0,0,0.3);}"]);
+})(["position:fixed;top:60px;right:10px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background-color:whitesmoke;border:2px solid #ccc;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.2);cursor:pointer;transition:box-shadow 0.3s ease;z-index:1;&:hover{box-shadow:0 4px 12px rgba(0,0,0,0.3);}"]);
 const StyledSvg = styled.svg.withConfig({
   displayName: "OpenClosedCard__StyledSvg",
   componentId: "sc-139pxkg-1"
@@ -967,6 +971,8 @@ function App({
     isExpired
   } = useJwt(token.token);
   const [isAuth, setAuth] = useState(isExpired);
+  const [isRegistration, setRegistration] = useState(false);
+  const [errorRegistration, setErrorRegistration] = useState(0);
   const [card, setCard] = useState({
     id: "",
     name: "",
@@ -989,6 +995,25 @@ function App({
     }
   }, [products]);
   useEffect(() => {
+    switch (errorRegistration) {
+      case 1:
+        toast.success("Login or Password correct!");
+        break;
+      case 2:
+        toast.error("Login or Password incorrect!");
+        break;
+      case 3:
+        toast.success("New user created!");
+        break;
+      case 4:
+        toast.info("Login successful");
+        break;
+      case 5:
+        toast.info("user deleted");
+        break;
+    }
+  }, [errorRegistration]);
+  useEffect(() => {
     const fetchUser = async () => {
       if (decodedToken) {
         try {
@@ -1002,15 +1027,18 @@ function App({
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const userData = await response.json();
+          delete userData.user.password;
           setToken((prevToken) => ({
-            ...prevToken,
-            ...userData.user
+            ...prevToken
+            // ...userData.user,
           }));
+          setAuth(!isExpired);
         } catch (error) {
           console.error("error", error);
         }
       } else {
         console.warn("cant decoding token");
+        setAuth(false);
       }
     };
     fetchUser();
@@ -1036,11 +1064,12 @@ function App({
     return null;
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx("h1", { children: "Server Rendering Example" }),
+    /* @__PURE__ */ jsx(ToastContainer, {}),
     /* @__PURE__ */ jsx(OpenClosedCard, { isOpenModal: isAuth, setIsOpenModal: setAuth, cardView: card, setCardView: setCard }),
     /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
-      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading }) }),
-      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token: token.token, isExpired, loading, setLoading }) }),
-      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading }) }),
+      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading, setErrorRegistration }) }),
+      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token: token.token, isExpired, loading, setLoading, setErrorRegistration, isRegistration, setRegistration }) }),
+      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading, setErrorRegistration }) }),
       /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "contacts", element: /* @__PURE__ */ jsx(Contacts, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NoMatch, {}) })

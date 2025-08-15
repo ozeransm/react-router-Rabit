@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { Product, Products } from '../type/index';
-
+import { ToastContainer, toast } from 'react-toastify';
 import Admin from './Pages/Admin';
 import Home from './Pages/Home';
 import Orders from './Pages/Orders';
@@ -34,6 +34,8 @@ export default function App({ products }: Products) {
 
   const { decodedToken, isExpired } = useJwt<MyJwtPayload>(token.token);
   const [isAuth, setAuth] = useState(isExpired);
+  const [isRegistration, setRegistration] = useState(false);
+  const [errorRegistration, setErrorRegistration] = useState(0);
   const [card, setCard] = useState<Product>({
     id: '',
     name: '',
@@ -57,7 +59,28 @@ export default function App({ products }: Products) {
       }
     }
   }, [products]);
-
+  // Error registration
+  useEffect(() => {
+    switch (errorRegistration) {
+      case 1:
+        toast.success('Login or Password correct!');
+        break;
+      case 2:
+        toast.error('Login or Password incorrect!');
+        break;
+      case 3:
+        toast.success('New user created!');
+        break;
+      case 4:
+        toast.info('Login successful');
+        break;
+      case 5:
+        toast.info('user deleted');
+        break;
+      default:
+        break;
+    }
+  }, [errorRegistration]);
   // Декодування токена при зміні
   useEffect(() => {
     const fetchUser = async () => {
@@ -75,16 +98,18 @@ export default function App({ products }: Products) {
           }
 
           const userData = await response.json();
-
+          delete userData.user.password;
           setToken((prevToken) => ({
             ...prevToken,
-            ...userData.user,
+            // ...userData.user,
           }));
+          setAuth(!isExpired);
         } catch (error) {
           console.error('error', error);
         }
       } else {
         console.warn('cant decoding token');
+        setAuth(false);
       }
     };
 
@@ -115,6 +140,7 @@ export default function App({ products }: Products) {
   return (
     <div>
       <h1>Server Rendering Example</h1>
+      <ToastContainer />
       <OpenClosedCard
         isOpenModal={isAuth}
         setIsOpenModal={setAuth}
@@ -142,6 +168,7 @@ export default function App({ products }: Products) {
                 isExpired={isExpired}
                 loading={loading}
                 setLoading={setLoading}
+                setErrorRegistration={setErrorRegistration}
               />
             }
           />
@@ -164,6 +191,9 @@ export default function App({ products }: Products) {
                 isExpired={isExpired}
                 loading={loading}
                 setLoading={setLoading}
+                setErrorRegistration={setErrorRegistration}
+                isRegistration={isRegistration}
+                setRegistration={setRegistration}
               />
             }
           />
@@ -186,6 +216,7 @@ export default function App({ products }: Products) {
                 isExpired={isExpired}
                 loading={loading}
                 setLoading={setLoading}
+                setErrorRegistration={setErrorRegistration}
               />
             }
           />

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import type { AppProps, ModalOpen } from 'type';
-import pathSvg from '../../img/icon.svg'
+import type { ModalOpen } from 'type';
+import pathSvg from '../../img/icon.svg';
 const StyledButtonClose = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 7px;
+  right: 7px;
   font-size: 24px;
   fill: #999;
   background: none;
@@ -28,7 +28,7 @@ export default function ButtonClose({ setIsOpenModal }: ModalOpen) {
     <StyledButtonClose onClick={handleClose}>
       {/* × */}
       <StyledSvg>
-        <use xlinkHref={pathSvg+'#icon-button-close'} />
+        <use xlinkHref={pathSvg + '#icon-button-close'} />
       </StyledSvg>
     </StyledButtonClose>
   );
