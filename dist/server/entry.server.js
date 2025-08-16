@@ -944,11 +944,15 @@ function OpenClosedCard({
   cardView,
   setCardView
 }) {
+  const navigate = useNavigate();
   return /* @__PURE__ */ jsx(StyledField, { children: isOpenModal ? /* @__PURE__ */ jsx(StyledSvg, { style: {
     fill: "#1eec4b"
+  }, onClick: () => {
+    setIsOpenModal == null ? void 0 : setIsOpenModal(false);
+    navigate("/login");
   }, children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-lock-open" }) }) : /* @__PURE__ */ jsx(StyledSvg, { style: {
     fill: "red"
-  }, children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-lock-closed" }) }) });
+  }, onClick: () => navigate("/login"), children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-lock-closed" }) }) });
 }
 const url = "https://soft-rabit.onrender.com";
 function App({
@@ -995,6 +999,19 @@ function App({
     }
   }, [products]);
   useEffect(() => {
+    if (!isAuth) {
+      setToken({
+        id: "",
+        email: "",
+        name: "",
+        role: "",
+        description: "",
+        token: ""
+      });
+      localStorage.removeItem("token");
+    }
+  }, [isAuth]);
+  useEffect(() => {
     switch (errorRegistration) {
       case 1:
         toast.success("Login or Password correct!");
@@ -1029,8 +1046,8 @@ function App({
           const userData = await response.json();
           delete userData.user.password;
           setToken((prevToken) => ({
-            ...prevToken
-            // ...userData.user,
+            ...prevToken,
+            ...userData.user
           }));
           setAuth(!isExpired);
         } catch (error) {

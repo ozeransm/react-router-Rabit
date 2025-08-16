@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import type { ModalOpen } from 'type';
 import pathSvg from '../../img/icon.svg';
+import { useNavigate } from 'react-router-dom';
 const StyledField = styled.div`
   position: fixed;
   top: 60px;
@@ -30,14 +31,21 @@ export default function OpenClosedCard({
   cardView,
   setCardView,
 }: ModalOpen) {
+  const navigate = useNavigate();
   return (
     <StyledField>
       {isOpenModal ? (
-        <StyledSvg style={{ fill: '#1eec4b' }}>
+        <StyledSvg
+          style={{ fill: '#1eec4b' }}
+          onClick={() => {
+            setIsOpenModal?.(false);
+            navigate('/login');
+          }}
+        >
           <use xlinkHref={pathSvg + '#icon-lock-open'} />
         </StyledSvg>
       ) : (
-        <StyledSvg style={{ fill: 'red' }}>
+        <StyledSvg style={{ fill: 'red' }} onClick={() => navigate('/login')}>
           <use xlinkHref={pathSvg + '#icon-lock-closed'} />
         </StyledSvg>
       )}

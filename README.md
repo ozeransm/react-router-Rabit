@@ -17,7 +17,7 @@ On the server (see [src/entry.server.tsx](src/entry.server.tsx)), we use React R
 
 # Summary (Tech Stack Keywords):
 
-React, React Router, SSR на Express + Vite, TypeScript, Sequelize + PostgreSQL, styled-components, Cloudinary, JWT, multer, react-hook-form, Prettier.
+React, React Router, SSR на Express + Vite, TypeScript, Sequelize + PostgreSQL, styled-components, Cloudinary, JWT, multer, react-hook-form, Prettier, dotenv, bcrypt, cors, cookie-parser, compression, react-toastify, react-spinners, Swiper
 
 ## Preview
 

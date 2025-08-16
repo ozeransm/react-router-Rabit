@@ -59,6 +59,20 @@ export default function App({ products }: Products) {
       }
     }
   }, [products]);
+  // close user
+  useEffect(() => {
+    if (!isAuth) {
+      setToken({
+        id: '',
+        email: '',
+        name: '',
+        role: '',
+        description: '',
+        token: '',
+      });
+      localStorage.removeItem('token');
+    }
+  }, [isAuth]);
   // Error registration
   useEffect(() => {
     switch (errorRegistration) {
@@ -101,7 +115,7 @@ export default function App({ products }: Products) {
           delete userData.user.password;
           setToken((prevToken) => ({
             ...prevToken,
-            // ...userData.user,
+            ...userData.user,
           }));
           setAuth(!isExpired);
         } catch (error) {
