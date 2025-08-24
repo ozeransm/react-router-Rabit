@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { set, useForm, type SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import type { AppProps, Inputs } from 'type';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { ClockLoader } from 'react-spinners';
 import ButtonClose from './ButtonClose';
+import IconEye from './IconEye';
 const StyledOverlay = styled.div`
   position: fixed;
   inset: 0;
@@ -100,13 +101,14 @@ export default function UsersForm({
   url,
   endPoint,
   isAuth,
-  isExpired,
   token,
   loading,
   isRegistration,
   setRegistration,
   setErrorRegistration,
   setAuth,
+  setAuthU,
+  setToken,
 }: AppProps) {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -121,7 +123,7 @@ export default function UsersForm({
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (isRegistration) {
       setRegistration?.(false);
-
+      console.log('data', data);
       try {
         const result = await fetch(`${url}/${endPoint}/root/10`, {
           method: 'POST',
@@ -142,6 +144,7 @@ export default function UsersForm({
         console.log('error', err);
       }
     }
+
     if (data.login === 'root') {
       try {
         const result = await fetch(`${url}/${endPoint}/root/1`, {
@@ -181,9 +184,22 @@ export default function UsersForm({
         const res = await result.json();
         res.auth ? setErrorRegistration(4) : setErrorRegistration(2);
         localStorage.setItem('token', res.token);
-        setAuth(isExpired);
+        setToken((prevToken) => ({
+          ...prevToken,
+          token: res.token,
+        }));
 
-        res.auth && navigate('/admin');
+        if (res.role === 'admin') {
+          localStorage.setItem('isAuth', 'true');
+          setAuth(true);
+          setAuthU?.(false);
+          navigate('/admin');
+        } else if (res.role === 'user') {
+          localStorage.setItem('isAuth', 'false');
+          res.auth && navigate('/orders');
+          setAuth(false);
+          setAuthU?.(true);
+        } else res.auth && navigate('/admin');
       } catch (err) {
         console.log('error', err);
       }
@@ -227,6 +243,8 @@ export default function UsersForm({
           <ButtonClose
             setIsOpenModal={() => setRegistration?.(false)}
             isOpenModal={isRegistration}
+            isAuth={isAuth}
+            setAuth={setAuth}
           />
         )}
         <StyledInput
@@ -254,7 +272,8 @@ export default function UsersForm({
               fontSize: '24px',
             }}
           >
-            {!showPassword ? '🙈' : '👁️'}
+            {/* {!showPassword ? '🙈' : '👁️'} */}
+            {!showPassword ? IconEye(true) : IconEye(false)}
           </StyledSpan>
         </StyledDiv>
         {errors.password && <span>This field is required</span>}
@@ -274,7 +293,7 @@ export default function UsersForm({
             {errors.descriptionUser && <span>This field is required</span>}
 
             <label htmlFor="role">Select role</label>
-            <StyledSelect id="role" name="role">
+            <StyledSelect id="role" {...register('role', { required: true })}>
               <option value="root">Root</option>
               <option value="admin">Admin</option>
               <option value="user">User</option>

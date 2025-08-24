@@ -12,7 +12,6 @@ import { Scrollbar, Grid, Autoplay } from "swiper/modules";
 import { useForm } from "react-hook-form";
 import ReactSpinners from 'react-spinners';
 const { ClockLoader } = ReactSpinners;
-import { useJwt } from "react-jwt";
 const Fragment = jsxRuntime.Fragment;
 const jsx = jsxRuntime.jsx;
 const jsxs = jsxRuntime.jsxs;
@@ -261,12 +260,12 @@ function MyForm({
     ] })
   ] });
 }
-const pathSvg = "/assets/icon-56ad9de6.svg";
+const pathSvg = "/assets/icon-9b10c348.svg";
 const StyledButtonClose = styled.button.withConfig({
   displayName: "ButtonClose__StyledButtonClose",
   componentId: "sc-12icmn2-0"
 })(["position:absolute;top:7px;right:7px;font-size:24px;fill:#999;background:none;border:none;cursor:pointer;transition:color 0.2s;"]);
-const StyledSvg$1 = styled.svg.withConfig({
+const StyledSvg$2 = styled.svg.withConfig({
   displayName: "ButtonClose__StyledSvg",
   componentId: "sc-12icmn2-1"
 })(["width:24px;height:24px;&:hover{fill:#464545;}"]);
@@ -276,7 +275,7 @@ function ButtonClose({
   function handleClose() {
     setIsOpenModal(false);
   }
-  return /* @__PURE__ */ jsx(StyledButtonClose, { onClick: handleClose, children: /* @__PURE__ */ jsx(StyledSvg$1, { children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-button-close" }) }) });
+  return /* @__PURE__ */ jsx(StyledButtonClose, { onClick: handleClose, children: /* @__PURE__ */ jsx(StyledSvg$2, { children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-button-close" }) }) });
 }
 const StyledOverlaySpiner = styled.div.withConfig({
   displayName: "ModalCreate__StyledOverlaySpiner",
@@ -334,7 +333,7 @@ function ModalCreate({
   isAuth,
   token,
   setAuth,
-  isExpired,
+  setToken,
   loading,
   setLoading,
   setErrorRegistration
@@ -506,7 +505,7 @@ function ModalCreate({
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     !loading || /* @__PURE__ */ jsx(StyledOverlaySpiner, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
     /* @__PURE__ */ jsx(StyledOverlay$2, { children: /* @__PURE__ */ jsxs(StyledModal, { children: [
-      /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal, isOpenModal }),
+      /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal, isOpenModal, isAuth, setAuth }),
       /* @__PURE__ */ jsx(Card, { product: card }),
       /* @__PURE__ */ jsx(SwiperContainer, { children: /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [
         /* @__PURE__ */ jsx(Swiper, { scrollbar: {
@@ -535,7 +534,7 @@ function ModalCreate({
         ] })
       ] }) }),
       /* @__PURE__ */ jsxs(StyledFormWrapper, { children: [
-        /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, isExpired, loading, setLoading, setErrorRegistration }),
+        /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration }),
         /* @__PURE__ */ jsx(StyledDeleteButton$1, { onClick: handleDel, children: "🗑 Delete Card" })
       ] })
     ] }) })
@@ -558,17 +557,17 @@ function Admin({
   setAuth,
   isAuth,
   token,
-  isExpired,
+  setToken,
   loading,
   setLoading,
   setErrorRegistration
 }) {
   return isAuth && /* @__PURE__ */ jsxs("div", { children: [
-    isOpenModal && /* @__PURE__ */ jsx(ModalCreate, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading, setErrorRegistration }),
+    isOpenModal && /* @__PURE__ */ jsx(ModalCreate, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, setToken, loading, setLoading, setErrorRegistration }),
     /* @__PURE__ */ jsxs(StyledBaseField$2, { children: [
       /* @__PURE__ */ jsx("h2", { children: "Administrator" }),
-      /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading, setErrorRegistration }),
-      /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, isExpired, loading, setLoading, setErrorRegistration })
+      /* @__PURE__ */ jsx(Catalog, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, setToken, loading, setLoading, setErrorRegistration }),
+      /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint, setAuth, isAuth, token, setToken, loading, setLoading, setErrorRegistration })
     ] })
   ] });
 }
@@ -593,7 +592,8 @@ function CardView({
     /* @__PURE__ */ jsx("img", { src: cardView == null ? void 0 : cardView.img[0], alt: cardView == null ? void 0 : cardView.name, style: {
       width: "100%"
     } }),
-    /* @__PURE__ */ jsx(ButtonClose, { isOpenModal, setIsOpenModal })
+    /* @__PURE__ */ jsx(ButtonClose, { isOpenModal, setIsOpenModal, isAuth: false, setAuth: () => {
+    } })
   ] }) });
 }
 const StyledOverlay$1 = styled.div.withConfig({
@@ -606,7 +606,8 @@ function ModalView({
   setCardView,
   setIsOpenModal
 }) {
-  return /* @__PURE__ */ jsx(StyledOverlay$1, { children: /* @__PURE__ */ jsx(CardView, { isOpenModal, cardView, setCardView, setIsOpenModal }) });
+  return /* @__PURE__ */ jsx(StyledOverlay$1, { children: /* @__PURE__ */ jsx(CardView, { isOpenModal, cardView, setCardView, setIsOpenModal, isAuth: false, setAuth: () => {
+  } }) });
 }
 const StyledGenField = styled.div.withConfig({
   displayName: "Home__StyledGenField",
@@ -654,7 +655,8 @@ function Home({
       slidePreView = 1;
   }
   return /* @__PURE__ */ jsxs(StyledGenField, { children: [
-    !isOpenModalView || /* @__PURE__ */ jsx(ModalView, { isOpenModal: isOpenModalView, setIsOpenModal: setIsOpenModalView, cardView, setCardView: setCardview }),
+    !isOpenModalView || /* @__PURE__ */ jsx(ModalView, { isOpenModal: isOpenModalView, setIsOpenModal: setIsOpenModalView, cardView, setCardView: setCardview, isAuth: false, setAuth: () => {
+    } }),
     /* @__PURE__ */ jsx("h2", { children: "Home" }),
     /* @__PURE__ */ jsx(StyledBaseField$1, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
       hide: true,
@@ -674,8 +676,41 @@ function Home({
     } }) }, p.id)) }) })
   ] });
 }
-function Orders() {
-  return /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("h2", { children: "Orders" }) });
+function Orders({
+  token,
+  isAuth,
+  isAuthU
+}) {
+  var _a;
+  return /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx("h2", { children: "Orders" }),
+    (isAuth || isAuthU) && ((_a = token == null ? void 0 : token.orders) == null ? void 0 : _a.map((order, i) => /* @__PURE__ */ jsxs("div", { children: [
+      /* @__PURE__ */ jsxs("p", { children: [
+        "Id: ",
+        token.id.toString() + "   " + token.name
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "Name: ",
+        order == null ? void 0 : order.name
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "Email: ",
+        order == null ? void 0 : order.email
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "Price: ",
+        order == null ? void 0 : order.price
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "Quantity: ",
+        order == null ? void 0 : order.quantity
+      ] }),
+      /* @__PURE__ */ jsxs("p", { children: [
+        "Description: ",
+        order == null ? void 0 : order.description
+      ] })
+    ] }, order == null ? void 0 : order.id)))
+  ] });
 }
 function Contacts() {
   return /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("h2", { children: "Contacts" }) });
@@ -702,6 +737,13 @@ function Layout() {
 }
 const keyIcon = "/assets/Copilot_20250803_110344-af9a649f.png";
 const ReactToastify = "";
+const StyledSvg$1 = styled.svg.withConfig({
+  displayName: "IconEye__StyledSvg",
+  componentId: "sc-5gj7yb-0"
+})(["width:24px;height:24px;"]);
+function IconEye(flag) {
+  return /* @__PURE__ */ jsx(StyledSvg$1, { children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + (flag ? "#icon-eye-slash" : "#icon-eye") }) });
+}
 const StyledOverlay = styled.div.withConfig({
   displayName: "UsersForm__StyledOverlay",
   componentId: "sc-w5oi9h-0"
@@ -742,13 +784,14 @@ function UsersForm({
   url: url2,
   endPoint: endPoint2,
   isAuth,
-  isExpired,
   token,
   loading,
   isRegistration,
   setRegistration,
   setErrorRegistration,
-  setAuth
+  setAuth,
+  setAuthU,
+  setToken
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -765,6 +808,7 @@ function UsersForm({
   const onSubmit = async (data) => {
     if (isRegistration) {
       setRegistration == null ? void 0 : setRegistration(false);
+      console.log("data", data);
       try {
         const result = await fetch(`${url2}/${endPoint2}/root/10`, {
           method: "POST",
@@ -824,8 +868,22 @@ function UsersForm({
         const res = await result.json();
         res.auth ? setErrorRegistration(4) : setErrorRegistration(2);
         localStorage.setItem("token", res.token);
-        setAuth(isExpired);
-        res.auth && navigate("/admin");
+        setToken((prevToken) => ({
+          ...prevToken,
+          token: res.token
+        }));
+        if (res.role === "admin") {
+          localStorage.setItem("isAuth", "true");
+          setAuth(true);
+          setAuthU == null ? void 0 : setAuthU(false);
+          navigate("/admin");
+        } else if (res.role === "user") {
+          localStorage.setItem("isAuth", "false");
+          res.auth && navigate("/orders");
+          setAuth(false);
+          setAuthU == null ? void 0 : setAuthU(true);
+        } else
+          res.auth && navigate("/admin");
       } catch (err) {
         console.log("error", err);
       }
@@ -854,7 +912,7 @@ function UsersForm({
     !loading || /* @__PURE__ */ jsx(StyledOverlay, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
     !isRegistration || /* @__PURE__ */ jsx("h3", { children: "Create or delete user " }),
     /* @__PURE__ */ jsxs(StyledForm, { onSubmit: handleSubmit(onSubmit), children: [
-      !isRegistration || /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal: () => setRegistration == null ? void 0 : setRegistration(false), isOpenModal: isRegistration }),
+      !isRegistration || /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal: () => setRegistration == null ? void 0 : setRegistration(false), isOpenModal: isRegistration, isAuth, setAuth }),
       /* @__PURE__ */ jsx(StyledInput, { ...register("login", {
         required: true
       }), type: "login", placeholder: "login" }),
@@ -870,7 +928,7 @@ function UsersForm({
           transform: "translateY(-50%)",
           cursor: "pointer",
           fontSize: "24px"
-        }, children: !showPassword ? "🙈" : "👁️" })
+        }, children: !showPassword ? IconEye(true) : IconEye(false) })
       ] }),
       errors.password && /* @__PURE__ */ jsx("span", { children: "This field is required" }),
       !isRegistration || /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -883,7 +941,9 @@ function UsersForm({
         }), type: "text", placeholder: "description" }),
         errors.descriptionUser && /* @__PURE__ */ jsx("span", { children: "This field is required" }),
         /* @__PURE__ */ jsx("label", { htmlFor: "role", children: "Select role" }),
-        /* @__PURE__ */ jsxs(StyledSelect, { id: "role", name: "role", children: [
+        /* @__PURE__ */ jsxs(StyledSelect, { id: "role", ...register("role", {
+          required: true
+        }), children: [
           /* @__PURE__ */ jsx("option", { value: "root", children: "Root" }),
           /* @__PURE__ */ jsx("option", { value: "admin", children: "Admin" }),
           /* @__PURE__ */ jsx("option", { value: "user", children: "User" })
@@ -915,18 +975,19 @@ function Login({
   isOpenModal,
   isAuth,
   token,
-  isExpired,
   loading,
   isRegistration,
+  setToken,
   setRegistration,
   setLoading,
-  setErrorRegistration
+  setErrorRegistration,
+  setAuthU
 }) {
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(StaticBackground, {}),
     /* @__PURE__ */ jsxs(StyledBaseField, { children: [
       /* @__PURE__ */ jsx("h2", { children: "Login" }),
-      /* @__PURE__ */ jsx(UsersForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "users", isAuth, setAuth, token, isExpired, loading, setLoading, setErrorRegistration, isRegistration, setRegistration })
+      /* @__PURE__ */ jsx(UsersForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "users", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, isRegistration, setRegistration, setAuthU })
     ] })
   ] });
 }
@@ -940,15 +1001,23 @@ const StyledSvg = styled.svg.withConfig({
 })(["width:32px;"]);
 function OpenClosedCard({
   isOpenModal,
+  isAuthU,
+  setAuthU,
   setIsOpenModal,
+  setToken,
   cardView,
-  setCardView
+  setCardView,
+  setAuth
 }) {
   const navigate = useNavigate();
-  return /* @__PURE__ */ jsx(StyledField, { children: isOpenModal ? /* @__PURE__ */ jsx(StyledSvg, { style: {
+  return /* @__PURE__ */ jsx(StyledField, { children: isOpenModal || isAuthU ? /* @__PURE__ */ jsx(StyledSvg, { style: {
     fill: "#1eec4b"
   }, onClick: () => {
     setIsOpenModal == null ? void 0 : setIsOpenModal(false);
+    setAuthU == null ? void 0 : setAuthU(false);
+    setAuth == null ? void 0 : setAuth(false);
+    localStorage.setItem("isAuth", "false");
+    localStorage.removeItem("token");
     navigate("/login");
   }, children: /* @__PURE__ */ jsx("use", { xlinkHref: pathSvg + "#icon-lock-open" }) }) : /* @__PURE__ */ jsx(StyledSvg, { style: {
     fill: "red"
@@ -968,13 +1037,11 @@ function App({
     name: "",
     role: "",
     description: "",
-    token: ""
+    token: "",
+    orders: []
   });
-  const {
-    decodedToken,
-    isExpired
-  } = useJwt(token.token);
-  const [isAuth, setAuth] = useState(isExpired);
+  const [isAuth, setAuth] = useState(false);
+  const [isAuthU, setAuthU] = useState(false);
   const [isRegistration, setRegistration] = useState(false);
   const [errorRegistration, setErrorRegistration] = useState(0);
   const [card, setCard] = useState({
@@ -985,32 +1052,66 @@ function App({
     img: []
   });
   const [hydrated, setHydrated] = useState(false);
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch(`${url}/order`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const orders = await response.json();
+      setToken((prevToken) => ({
+        ...prevToken,
+        orders: orders.orders || []
+      }));
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
+  const getIdFromToken = (token2) => {
+    try {
+      const payloadBase64 = token2.split(".")[1];
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
+      return payload.id || null;
+    } catch (error) {
+      console.error("error decoding token", error);
+      return null;
+    }
+  };
+  const fetchUser = async () => {
+    if (token.token) {
+      try {
+        const response = await fetch(`${url}/users/${getIdFromToken(token.token)}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        const userData = await response.json();
+        delete userData.user.password;
+        setToken((prevToken) => ({
+          ...prevToken,
+          ...userData.user
+        }));
+        fetchOrders();
+      } catch (error) {
+        console.error("error", error);
+      }
+    } else {
+      console.warn("cant decoding token");
+      setAuth(false);
+      localStorage.removeItem("isAuth");
+      setAuthU(false);
+    }
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       setHydrated(true);
       setProductState(products);
-      const storedToken = localStorage.getItem("token");
-      if (storedToken) {
-        setToken({
-          ...token,
-          token: storedToken
-        });
-      }
     }
   }, [products]);
-  useEffect(() => {
-    if (!isAuth) {
-      setToken({
-        id: "",
-        email: "",
-        name: "",
-        role: "",
-        description: "",
-        token: ""
-      });
-      localStorage.removeItem("token");
-    }
-  }, [isAuth]);
   useEffect(() => {
     switch (errorRegistration) {
       case 1:
@@ -1031,36 +1132,20 @@ function App({
     }
   }, [errorRegistration]);
   useEffect(() => {
-    const fetchUser = async () => {
-      if (decodedToken) {
-        try {
-          const response = await fetch(`${url}/users/${decodedToken.id}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json"
-            }
-          });
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const userData = await response.json();
-          delete userData.user.password;
-          setToken((prevToken) => ({
-            ...prevToken,
-            ...userData.user
-          }));
-          setAuth(!isExpired);
-        } catch (error) {
-          console.error("error", error);
-        }
-      } else {
-        console.warn("cant decoding token");
-        setAuth(false);
-      }
-    };
     fetchUser();
-  }, [decodedToken, isExpired]);
+  }, [token.token]);
   useEffect(() => {
+    const isAuthLocal = localStorage.getItem("isAuth");
+    const storedToken = localStorage.getItem("token");
+    if (storedToken)
+      setToken((prevToken) => ({
+        ...prevToken,
+        token: storedToken
+      }));
+    if (isAuthLocal === "true")
+      setAuth(true);
+    else
+      setAuth(false);
     function handleResize() {
       const width = window.innerWidth;
       if (width < 480) {
@@ -1082,12 +1167,12 @@ function App({
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx("h1", { children: "Server Rendering Example" }),
     /* @__PURE__ */ jsx(ToastContainer, {}),
-    /* @__PURE__ */ jsx(OpenClosedCard, { isOpenModal: isAuth, setIsOpenModal: setAuth, cardView: card, setCardView: setCard }),
+    /* @__PURE__ */ jsx(OpenClosedCard, { isOpenModal: isAuth, setIsOpenModal: setAuth, cardView: card, setCardView: setCard, isAuthU, setAuthU, setToken, isAuth, setAuth }),
     /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
-      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading, setErrorRegistration }) }),
-      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token: token.token, isExpired, loading, setLoading, setErrorRegistration, isRegistration, setRegistration }) }),
-      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token: token.token, isExpired, loading, setLoading, setErrorRegistration }) }),
-      /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, {}) }),
+      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration }) }),
+      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, isRegistration, setRegistration, setAuthU }) }),
+      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration }) }),
+      /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, isAuthU, setAuth, token, setToken, loading, setLoading, setErrorRegistration }) }),
       /* @__PURE__ */ jsx(Route, { path: "contacts", element: /* @__PURE__ */ jsx(Contacts, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NoMatch, {}) })
     ] }) })

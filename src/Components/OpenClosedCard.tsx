@@ -27,18 +27,26 @@ const StyledSvg = styled.svg`
 `;
 export default function OpenClosedCard({
   isOpenModal,
+  isAuthU,
+  setAuthU,
   setIsOpenModal,
+  setToken,
   cardView,
   setCardView,
+  setAuth,
 }: ModalOpen) {
   const navigate = useNavigate();
   return (
     <StyledField>
-      {isOpenModal ? (
+      {isOpenModal || isAuthU ? (
         <StyledSvg
           style={{ fill: '#1eec4b' }}
           onClick={() => {
             setIsOpenModal?.(false);
+            setAuthU?.(false);
+            setAuth?.(false);
+            localStorage.setItem('isAuth', 'false');
+            localStorage.removeItem('token');
             navigate('/login');
           }}
         >

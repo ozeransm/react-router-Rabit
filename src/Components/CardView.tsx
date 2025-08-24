@@ -69,6 +69,8 @@ export default function CardView({
         <ButtonClose
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
+          isAuth={false}
+          setAuth={() => {}}
         />
       </StyledField>
     </>

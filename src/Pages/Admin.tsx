@@ -24,7 +24,7 @@ export default function Admin({
   setAuth,
   isAuth,
   token,
-  isExpired,
+  setToken,
   loading,
   setLoading,
   setErrorRegistration,
@@ -46,7 +46,7 @@ export default function Admin({
             setAuth={setAuth}
             isAuth={isAuth}
             token={token}
-            isExpired={isExpired}
+            setToken={setToken}
             loading={loading}
             setLoading={setLoading}
             setErrorRegistration={setErrorRegistration}
@@ -67,7 +67,7 @@ export default function Admin({
             setAuth={setAuth}
             isAuth={isAuth}
             token={token}
-            isExpired={isExpired}
+            setToken={setToken}
             loading={loading}
             setLoading={setLoading}
             setErrorRegistration={setErrorRegistration}
@@ -85,7 +85,7 @@ export default function Admin({
             setAuth={setAuth}
             isAuth={isAuth}
             token={token}
-            isExpired={isExpired}
+            setToken={setToken}
             loading={loading}
             setLoading={setLoading}
             setErrorRegistration={setErrorRegistration}

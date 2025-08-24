@@ -26,6 +26,8 @@ export default function ModalView({
         cardView={cardView}
         setCardView={setCardView}
         setIsOpenModal={setIsOpenModal}
+        isAuth={false}
+        setAuth={() => {}}
       />
     </StyledOverlay>
   );

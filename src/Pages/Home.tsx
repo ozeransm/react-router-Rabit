@@ -80,6 +80,8 @@ export default function Home({ products, rows }: AppProps) {
           setIsOpenModal={setIsOpenModalView}
           cardView={cardView}
           setCardView={setCardview}
+          isAuth={false}
+          setAuth={() => {}}
         />
       )}
       <h2>Home</h2>

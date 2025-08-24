@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import type { Product, Products } from '../type/index';
+import type { MyToken, Product, Products } from '../type/index';
 import { ToastContainer, toast } from 'react-toastify';
 import Admin from './Pages/Admin';
 import Home from './Pages/Home';
@@ -9,11 +9,6 @@ import Contacts from './Pages/Contacts';
 import NoMatch from './Pages/NoMatch';
 import Layout from './Pages/Layout';
 import Login from './Pages/Login';
-interface MyJwtPayload {
-  id: string;
-  exp: number;
-}
-import { useJwt } from 'react-jwt';
 import OpenClosedCard from './Components/OpenClosedCard';
 
 const url = import.meta.env.VITE_API_URL;
@@ -23,17 +18,18 @@ export default function App({ products }: Products) {
   const [rows, setRows] = useState(2);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState({
+  const [token, setToken] = useState<MyToken>({
     id: '',
     email: '',
     name: '',
     role: '',
     description: '',
     token: '',
+    orders: [],
   });
 
-  const { decodedToken, isExpired } = useJwt<MyJwtPayload>(token.token);
-  const [isAuth, setAuth] = useState(isExpired);
+  const [isAuth, setAuth] = useState(false);
+  const [isAuthU, setAuthU] = useState(false);
   const [isRegistration, setRegistration] = useState(false);
   const [errorRegistration, setErrorRegistration] = useState(0);
   const [card, setCard] = useState<Product>({
@@ -44,35 +40,74 @@ export default function App({ products }: Products) {
     img: [],
   });
   const [hydrated, setHydrated] = useState(false);
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch(`${url}/order`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const orders = await response.json();
+      setToken((prevToken) => ({
+        ...prevToken,
+        orders: orders.orders || [],
+      }));
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
+  };
+  const getIdFromToken = (token: string): number | null => {
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
+      return payload.id || null;
+    } catch (error) {
+      console.error('error decoding token', error);
+      return null;
+    }
+  };
+  const fetchUser = async () => {
+    if (token.token) {
+      try {
+        const response = await fetch(
+          `${url}/users/${getIdFromToken(token.token)}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
+        const userData = await response.json();
+        delete userData.user.password;
+
+        setToken((prevToken) => ({
+          ...prevToken,
+          ...userData.user,
+        }));
+
+        fetchOrders();
+      } catch (error) {
+        console.error('error', error);
+      }
+    } else {
+      console.warn('cant decoding token');
+      setAuth(false);
+      localStorage.removeItem('isAuth');
+      setAuthU(false);
+    }
+  };
   // Гідратація та отримання токена
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setHydrated(true);
       setProductState(products);
-      const storedToken = localStorage.getItem('token');
-      if (storedToken) {
-        setToken({
-          ...token,
-          token: storedToken,
-        });
-      }
     }
   }, [products]);
-  // close user
-  useEffect(() => {
-    if (!isAuth) {
-      setToken({
-        id: '',
-        email: '',
-        name: '',
-        role: '',
-        description: '',
-        token: '',
-      });
-      localStorage.removeItem('token');
-    }
-  }, [isAuth]);
+
   // Error registration
   useEffect(() => {
     switch (errorRegistration) {
@@ -95,43 +130,22 @@ export default function App({ products }: Products) {
         break;
     }
   }, [errorRegistration]);
-  // Декодування токена при зміні
+
   useEffect(() => {
-    const fetchUser = async () => {
-      if (decodedToken) {
-        try {
-          const response = await fetch(`${url}/users/${decodedToken.id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const userData = await response.json();
-          delete userData.user.password;
-          setToken((prevToken) => ({
-            ...prevToken,
-            ...userData.user,
-          }));
-          setAuth(!isExpired);
-        } catch (error) {
-          console.error('error', error);
-        }
-      } else {
-        console.warn('cant decoding token');
-        setAuth(false);
-      }
-    };
-
     fetchUser();
-  }, [decodedToken, isExpired]);
+  }, [token.token]);
 
   // Адаптивна кількість рядків
   useEffect(() => {
+    const isAuthLocal = localStorage.getItem('isAuth');
+    const storedToken = localStorage.getItem('token');
+    if (storedToken)
+      setToken((prevToken) => ({
+        ...prevToken,
+        token: storedToken,
+      }));
+    if (isAuthLocal === 'true') setAuth(true);
+    else setAuth(false);
     function handleResize() {
       const width = window.innerWidth;
       if (width < 480) {
@@ -160,6 +174,11 @@ export default function App({ products }: Products) {
         setIsOpenModal={setAuth}
         cardView={card}
         setCardView={setCard}
+        isAuthU={isAuthU}
+        setAuthU={setAuthU}
+        setToken={setToken}
+        isAuth={isAuth}
+        setAuth={setAuth}
       />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -178,8 +197,8 @@ export default function App({ products }: Products) {
                 endPoint=""
                 isAuth={isAuth}
                 setAuth={setAuth}
-                token={token.token}
-                isExpired={isExpired}
+                token={token}
+                setToken={setToken}
                 loading={loading}
                 setLoading={setLoading}
                 setErrorRegistration={setErrorRegistration}
@@ -201,13 +220,14 @@ export default function App({ products }: Products) {
                 endPoint="users"
                 isAuth={isAuth}
                 setAuth={setAuth}
-                token={token.token}
-                isExpired={isExpired}
+                token={token}
+                setToken={setToken}
                 loading={loading}
                 setLoading={setLoading}
                 setErrorRegistration={setErrorRegistration}
                 isRegistration={isRegistration}
                 setRegistration={setRegistration}
+                setAuthU={setAuthU}
               />
             }
           />
@@ -226,15 +246,38 @@ export default function App({ products }: Products) {
                 endPoint=""
                 isAuth={isAuth}
                 setAuth={setAuth}
-                token={token.token}
-                isExpired={isExpired}
+                token={token}
+                setToken={setToken}
                 loading={loading}
                 setLoading={setLoading}
                 setErrorRegistration={setErrorRegistration}
               />
             }
           />
-          <Route path="orders" element={<Orders />} />
+          <Route
+            path="orders"
+            element={
+              <Orders
+                products={productState}
+                card={card}
+                rows={rows}
+                setCard={setCard}
+                setProductState={setProductState}
+                setIsOpenModal={setIsOpenModal}
+                isOpenModal={isOpenModal}
+                url={url}
+                endPoint=""
+                isAuth={isAuth}
+                isAuthU={isAuthU}
+                setAuth={setAuth}
+                token={token}
+                setToken={setToken}
+                loading={loading}
+                setLoading={setLoading}
+                setErrorRegistration={setErrorRegistration}
+              />
+            }
+          />
           <Route path="contacts" element={<Contacts />} />
           <Route path="*" element={<NoMatch />} />
         </Route>

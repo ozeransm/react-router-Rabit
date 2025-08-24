@@ -98,6 +98,8 @@ router.post('/root/:id', async (req, res, next) => {
       res.status(200).json({
         status: 'User logged in',
         auth: req.auth,
+        id: user.dataValues.id,
+        role: user.dataValues.role,
         token: createToken(user.dataValues.id),
       });
     } else {

@@ -9,6 +9,7 @@ import fs from 'fs/promises';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import uploadRouter from './routes/upload.js';
+import ordersRouter from './routes/oredrs.js';
 // Імпорт бази даних
 import sequelize from './database/db.js';
 import { isProduction } from './type/const.js';
@@ -70,7 +71,7 @@ app.use(cookieParser());
 app.use('/', indexRouter(vite));
 app.use('/upload', uploadRouter);
 app.use('/users', usersRouter);
-
+app.use('/order', ordersRouter);
 app.get('*', async (req, res, next) => {
   const url = req.originalUrl;
   try {

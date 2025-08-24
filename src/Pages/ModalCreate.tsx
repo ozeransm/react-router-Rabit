@@ -146,7 +146,7 @@ export default function ModalCreate({
   isAuth,
   token,
   setAuth,
-  isExpired,
+  setToken,
   loading,
   setLoading,
   setErrorRegistration,
@@ -311,6 +311,8 @@ export default function ModalCreate({
           <ButtonClose
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
+            isAuth={isAuth}
+            setAuth={setAuth}
           />
           <Card product={card} />
           <SwiperContainer>
@@ -379,7 +381,7 @@ export default function ModalCreate({
               isAuth={isAuth}
               setAuth={setAuth}
               token={token}
-              isExpired={isExpired}
+              setToken={setToken}
               loading={loading}
               setLoading={setLoading}
               setErrorRegistration={setErrorRegistration}

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import type { AppProps } from 'type';
 import keyIcon from '../../img/Copilot_20250803_110344.png';
 import UsersForm from '../Components/UsersForm';
+import { set } from 'react-hook-form';
 const StyledBaseField = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,12 +33,13 @@ export default function Login({
   isOpenModal,
   isAuth,
   token,
-  isExpired,
   loading,
   isRegistration,
+  setToken,
   setRegistration,
   setLoading,
   setErrorRegistration,
+  setAuthU,
 }: AppProps) {
   return (
     <>
@@ -58,12 +60,13 @@ export default function Login({
           isAuth={isAuth}
           setAuth={setAuth}
           token={token}
-          isExpired={isExpired}
+          setToken={setToken}
           loading={loading}
           setLoading={setLoading}
           setErrorRegistration={setErrorRegistration}
           isRegistration={isRegistration}
           setRegistration={setRegistration}
+          setAuthU={setAuthU}
         />
       </StyledBaseField>
     </>
