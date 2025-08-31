@@ -22,9 +22,9 @@ const StyledField = styled.div`
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  } 
+  }
 
-  h1 { 
+  h1 {
     font-size: 1.5rem;
     margin-bottom: 8px;
     color: #333;
@@ -41,7 +41,6 @@ const StyledField = styled.div`
     margin: 4px 0;
     color: #666;
   }
-
 `;
 const StyledImg = styled.img`
   width: 100%;
@@ -58,7 +57,7 @@ export default function CardView({
   return (
     <StyledField>
       <div style={{ position: 'relative', width: '95%' }}>
-       <h1>Card</h1>
+        <h1>Card</h1>
         <Swiper
           scrollbar={{
             hide: true,
@@ -73,29 +72,22 @@ export default function CardView({
             fill: 'row',
           }}
         >
-        
-
-        {cardView?.img.map((imgUrl, index) => (
-         
-            <SwiperSlide key={'modalHome'+index}> 
-              <StyledImg src={imgUrl} alt={"Photo"+index} />
+          {cardView?.img.map((imgUrl, index) => (
+            <SwiperSlide key={'modalHome' + index}>
+              <StyledImg src={imgUrl} alt={'Photo' + index} />
             </SwiperSlide>
-           
-        ))}
-
+          ))}
         </Swiper>
-        </div> 
-        <h2>{cardView?.name}</h2>
-        <p>{cardView?.description}</p>
-        <p>Price: {cardView?.price}</p>
-        <ButtonClose
-          isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
-          isAuth={false}
-          setAuth={() => {}}
-        />
-        
-      </StyledField>
-    
+      </div>
+      <h2>{cardView?.name}</h2>
+      <p>{cardView?.description}</p>
+      <p>Price: {cardView?.price}</p>
+      <ButtonClose
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        isAuth={false}
+        setAuth={() => {}}
+      />
+    </StyledField>
   );
 }

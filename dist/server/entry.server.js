@@ -22,7 +22,7 @@ const CardWrapper = styled.div.withConfig({
   displayName: "Card__CardWrapper",
   componentId: "sc-h41vf0-0"
 })(["max-width:340px;background:#fff;border-radius:16px;padding:16px;margin:12px auto;box-shadow:0 8px 16px rgba(0,0,0,0.1);transition:transform 0.2s ease,box-shadow 0.3s ease;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}"]);
-const StyledImg$1 = styled.img.withConfig({
+const StyledImg$3 = styled.img.withConfig({
   displayName: "Card__StyledImg",
   componentId: "sc-h41vf0-1"
 })(["width:100%;border-radius:12px;display:block;margin-bottom:12px;"]);
@@ -42,7 +42,7 @@ function Card({
   product
 }) {
   return /* @__PURE__ */ jsxs(CardWrapper, { children: [
-    /* @__PURE__ */ jsx(StyledImg$1, { src: product.img[0], alt: product.name }),
+    /* @__PURE__ */ jsx(StyledImg$3, { src: product.img[0], alt: product.name }),
     /* @__PURE__ */ jsxs(ProductId, { children: [
       "ID: ",
       product.id
@@ -123,14 +123,14 @@ function Catalog({
   isAuth,
   setAuth,
   token,
-  isExpired,
   loading,
   setLoading,
   setErrorRegistration
 }) {
   return /* @__PURE__ */ jsxs(StyledBaseField$3, { children: [
     /* @__PURE__ */ jsx("h2", { children: "Catalog" }),
-    /* @__PURE__ */ jsx(Cards, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "", isAuth, setAuth, token, isExpired, loading, setLoading, setErrorRegistration })
+    /* @__PURE__ */ jsx(Cards, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: "", endPoint: "", isAuth, setAuth, token, setToken: () => {
+    }, loading, setLoading, setErrorRegistration })
   ] });
 }
 const StyledOverlaySpiner$1 = styled.div.withConfig({
@@ -305,7 +305,7 @@ const SrtyledDivImg = styled.div.withConfig({
   displayName: "ModalCreate__SrtyledDivImg",
   componentId: "sc-fgugp0-6"
 })(["width:100%;height:auto;margin-bottom:15px;"]);
-const StyledImg = styled.img.withConfig({
+const StyledImg$2 = styled.img.withConfig({
   displayName: "ModalCreate__StyledImg",
   componentId: "sc-fgugp0-7"
 })(["width:100%;border-radius:12px;display:block;margin-bottom:12px;"]);
@@ -367,7 +367,7 @@ function ModalCreate({
     newImg = [newImg[+data.selectedPhoto], ...newImg.filter((_, i) => i !== +data.selectedPhoto)];
     newImg = newImg.filter((item) => item && item.trim());
     const formData = new FormData();
-    formData.append("id", card.id);
+    formData.append("id", card.id.toString());
     formData.append("name", card.name);
     formData.append("price", card.price);
     formData.append("description", card.description);
@@ -492,7 +492,7 @@ function ModalCreate({
       };
     });
     setCard({
-      id: "",
+      id: 0,
       name: "",
       description: "",
       price: "",
@@ -522,7 +522,7 @@ function ModalCreate({
             /* @__PURE__ */ jsx(StyledInput$1, { type: "checkbox", value: idx, ...register("deletePhotos") }),
             "Delete Photo"
           ] }),
-          /* @__PURE__ */ jsx(StyledImg, { src, alt: card.name }),
+          /* @__PURE__ */ jsx(StyledImg$2, { src, alt: card.name }),
           /* @__PURE__ */ jsxs("label", { children: [
             /* @__PURE__ */ jsx(StyledInput$1, { type: "radio", value: idx, defaultChecked: idx === 0, ...register("selectedPhoto") }),
             idx === 0 && "General Photo"
@@ -571,30 +571,46 @@ function Admin({
     ] })
   ] });
 }
-const StyledField$1 = styled.div.withConfig({
+const StyledField$2 = styled.div.withConfig({
   displayName: "CardView__StyledField",
   componentId: "sc-ver2da-0"
-})(["display:flex;flex-direction:column;align-items:center;background:linear-gradient(145deg,#f0f0f0,#ffffff);border:1px solid #ddd;padding:24px;border-radius:12px;box-shadow:0 8px 16px rgba(0,0,0,0.1);width:320px;margin:30px auto;position:relative;transition:transform 0.3s ease;overflow-y:scroll;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}h1{font-size:1.5rem;margin-bottom:8px;color:#333;}h2{font-size:1.2rem;margin-bottom:4px;color:#555;}p{font-size:1rem;margin:4px 0;color:#666;}img{width:100%;height:auto;border-radius:8px;margin-top:12px;object-fit:cover;box-shadow:0 4px 8px rgba(0,0,0,0.05);}"]);
+})(["display:flex;flex-direction:column;background:linear-gradient(145deg,#f0f0f0,#ffffff);border:1px solid #ddd;padding:30px 15px 60px 30px;border-radius:12px;box-shadow:0 8px 16px rgba(0,0,0,0.1);width:320px;margin:30px auto;position:relative;transition:transform 0.3s ease;overflow-y:scroll;&:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.15);}h1{font-size:1.5rem;margin-bottom:8px;color:#333;}h2{font-size:1.2rem;margin-bottom:4px;color:#555;}p{font-size:1rem;margin:4px 0;color:#666;}"]);
+const StyledImg$1 = styled.img.withConfig({
+  displayName: "CardView__StyledImg",
+  componentId: "sc-ver2da-1"
+})(["width:100%;border-radius:12px;display:block;margin-bottom:12px;"]);
 function CardView({
   isOpenModal,
   cardView,
   setCardView,
   setIsOpenModal
 }) {
-  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs(StyledField$1, { children: [
-    /* @__PURE__ */ jsx("h1", { children: "Card" }),
+  return /* @__PURE__ */ jsxs(StyledField$2, { children: [
+    /* @__PURE__ */ jsxs("div", { style: {
+      position: "relative",
+      width: "95%"
+    }, children: [
+      /* @__PURE__ */ jsx("h1", { children: "Card" }),
+      /* @__PURE__ */ jsx(Swiper, { scrollbar: {
+        hide: true,
+        draggable: true
+      }, modules: [Scrollbar, Grid, Autoplay], autoplay: {
+        delay: 2500,
+        disableOnInteraction: true
+      }, slidesPerView: 1, spaceBetween: 20, grid: {
+        rows: 1,
+        fill: "row"
+      }, children: cardView == null ? void 0 : cardView.img.map((imgUrl, index) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(StyledImg$1, { src: imgUrl, alt: "Photo" + index }) }, "modalHome" + index)) })
+    ] }),
     /* @__PURE__ */ jsx("h2", { children: cardView == null ? void 0 : cardView.name }),
     /* @__PURE__ */ jsx("p", { children: cardView == null ? void 0 : cardView.description }),
     /* @__PURE__ */ jsxs("p", { children: [
       "Price: ",
       cardView == null ? void 0 : cardView.price
     ] }),
-    /* @__PURE__ */ jsx("img", { src: cardView == null ? void 0 : cardView.img[0], alt: cardView == null ? void 0 : cardView.name, style: {
-      width: "100%"
-    } }),
     /* @__PURE__ */ jsx(ButtonClose, { isOpenModal, setIsOpenModal, isAuth: false, setAuth: () => {
     } })
-  ] }) });
+  ] });
 }
 const StyledOverlay$1 = styled.div.withConfig({
   displayName: "ModalView__StyledOverlay",
@@ -623,7 +639,7 @@ function Home({
 }) {
   const [isOpenModalView, setIsOpenModalView] = useState(false);
   const [cardView, setCardview] = useState({
-    id: "",
+    id: 0,
     name: "",
     description: "",
     price: "",
@@ -676,40 +692,98 @@ function Home({
     } }) }, p.id)) }) })
   ] });
 }
+const StyledImg = styled.img.withConfig({
+  displayName: "OrderView__StyledImg",
+  componentId: "sc-ktxpo0-0"
+})(["width:250px;border-radius:12px;display:block;margin-bottom:12px;"]);
+const OrderContainer = styled.div.withConfig({
+  displayName: "OrderView__OrderContainer",
+  componentId: "sc-ktxpo0-1"
+})(["max-width:254px;border:1px solid #ccc;border-radius:8px;padding:16px;margin-bottom:12px;background-color:#f9f9f9;box-shadow:0 2px 4px rgba(0,0,0,0.1);"]);
+const OrderItem = styled.p.withConfig({
+  displayName: "OrderView__OrderItem",
+  componentId: "sc-ktxpo0-2"
+})(["margin:4px 0;font-size:14px;color:#333;span{font-weight:bold;color:#555;}"]);
+function OrderView({
+  id,
+  name,
+  email,
+  price,
+  quantity,
+  description,
+  id_product,
+  products
+}) {
+  const matchedProduct = products == null ? void 0 : products.find((p) => p.id === id_product);
+  return /* @__PURE__ */ jsx(OrderContainer, { children: /* @__PURE__ */ jsxs(Swiper, { scrollbar: {
+    hide: true,
+    draggable: true
+  }, modules: [Scrollbar, Grid, Autoplay], autoplay: {
+    delay: 2500,
+    disableOnInteraction: true
+  }, slidesPerView: 1, spaceBetween: 20, grid: {
+    rows: 1,
+    fill: "row"
+  }, children: [
+    /* @__PURE__ */ jsxs(OrderItem, { children: [
+      /* @__PURE__ */ jsx("span", { children: "Name:" }),
+      " ",
+      name
+    ] }),
+    /* @__PURE__ */ jsxs(OrderItem, { children: [
+      /* @__PURE__ */ jsx("span", { children: "Email:" }),
+      " ",
+      email
+    ] }),
+    /* @__PURE__ */ jsxs(OrderItem, { children: [
+      /* @__PURE__ */ jsx("span", { children: "Price:" }),
+      " $",
+      price
+    ] }),
+    /* @__PURE__ */ jsxs(OrderItem, { children: [
+      /* @__PURE__ */ jsx("span", { children: "Quantity:" }),
+      " ",
+      quantity
+    ] }),
+    /* @__PURE__ */ jsxs(OrderItem, { children: [
+      /* @__PURE__ */ jsx("span", { children: "Description:" }),
+      " ",
+      description
+    ] }),
+    /* @__PURE__ */ jsxs(OrderItem, { children: [
+      /* @__PURE__ */ jsx("span", { children: "Product ID:" }),
+      " ",
+      id_product
+    ] }),
+    matchedProduct == null ? void 0 : matchedProduct.img.map((imgUrl, index) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(StyledImg, { src: imgUrl, alt: "Photo" + index }) }, index))
+  ] }) }, id_product);
+}
+const StyledField$1 = styled.div.withConfig({
+  displayName: "Orders__StyledField",
+  componentId: "sc-1wcx7kn-0"
+})(["display:flex;flex-direction:row-reverse;justify-content:center;flex-wrap:wrap;gap:16px;"]);
+const StyledTitle = styled.h2.withConfig({
+  displayName: "Orders__StyledTitle",
+  componentId: "sc-1wcx7kn-1"
+})(["text-align:center;margin-top:16px;margin-bottom:24px;"]);
 function Orders({
   token,
   isAuth,
-  isAuthU
+  isAuthU,
+  products
 }) {
   var _a;
   return /* @__PURE__ */ jsxs("div", { children: [
-    /* @__PURE__ */ jsx("h2", { children: "Orders" }),
-    (isAuth || isAuthU) && ((_a = token == null ? void 0 : token.orders) == null ? void 0 : _a.map((order, i) => /* @__PURE__ */ jsxs("div", { children: [
+    /* @__PURE__ */ jsx(StyledTitle, { children: "Orders" }),
+    /* @__PURE__ */ jsx(StyledField$1, { children: (isAuth || isAuthU) && ((_a = token == null ? void 0 : token.orders) == null ? void 0 : _a.map((order, i) => /* @__PURE__ */ jsx("div", { children: ((token == null ? void 0 : token.role) === "admin" || (token == null ? void 0 : token.role) === "user" && token.email === order.email) && /* @__PURE__ */ jsxs("div", { children: [
       /* @__PURE__ */ jsxs("p", { children: [
-        "Id: ",
-        token.id.toString() + "   " + token.name
+        "ID: ",
+        token == null ? void 0 : token.id,
+        " ",
+        token == null ? void 0 : token.role
       ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Name: ",
-        order == null ? void 0 : order.name
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Email: ",
-        order == null ? void 0 : order.email
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Price: ",
-        order == null ? void 0 : order.price
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Quantity: ",
-        order == null ? void 0 : order.quantity
-      ] }),
-      /* @__PURE__ */ jsxs("p", { children: [
-        "Description: ",
-        order == null ? void 0 : order.description
-      ] })
-    ] }, order == null ? void 0 : order.id)))
+      /* @__PURE__ */ jsx(OrderView, { id: order.id, name: order.name, email: order.email, price: order.price, quantity: order.quantity, description: order.description, id_product: order.id_product, contacts: order.contacts, products: products || [] })
+    ] }) }, i))) })
   ] });
 }
 function Contacts() {
@@ -1032,7 +1106,7 @@ function App({
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState({
-    id: "",
+    id: 0,
     email: "",
     name: "",
     role: "",
@@ -1045,7 +1119,7 @@ function App({
   const [isRegistration, setRegistration] = useState(false);
   const [errorRegistration, setErrorRegistration] = useState(0);
   const [card, setCard] = useState({
-    id: "",
+    id: 0,
     name: "",
     description: "",
     price: "",
