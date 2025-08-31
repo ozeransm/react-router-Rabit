@@ -21,7 +21,6 @@ export default function Catalog({
   isAuth,
   setAuth,
   token,
-  isExpired,
   loading,
   setLoading,
   setErrorRegistration,
@@ -42,7 +41,7 @@ export default function Catalog({
         isAuth={isAuth}
         setAuth={setAuth}
         token={token}
-        isExpired={isExpired}
+        setToken={() => {}}
         loading={loading}
         setLoading={setLoading}
         setErrorRegistration={setErrorRegistration}

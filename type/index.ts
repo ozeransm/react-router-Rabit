@@ -14,7 +14,7 @@ export type Inputs = {
   role: string;
 };
 export type Product = {
-  id: string;
+  id: number;
   name: string;
   price: string;
   description: string;
@@ -44,10 +44,12 @@ export type MyOrder = {
   price: string;
   quantity: number;
   description: string;
+  id_product: number;
+  products?: Product[];
   contacts: MyContacts;
 };
 export type MyToken = {
-  id: string;
+  id: number;
   email: string;
   name: string;
   role: string;

@@ -181,7 +181,7 @@ export default function ModalCreate({
     newImg = newImg.filter((item) => item && item.trim());
 
     const formData = new FormData();
-    formData.append('id', card.id);
+    formData.append('id', card.id.toString());
     formData.append('name', card.name);
     formData.append('price', card.price);
     formData.append('description', card.description);
@@ -282,7 +282,7 @@ export default function ModalCreate({
       return { id, name, price, description, img };
     });
     setCard({
-      id: '',
+      id: 0,
       name: '',
       description: '',
       price: '',

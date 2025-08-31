@@ -1,15 +1,30 @@
+import styled from 'styled-components';
 import OrderView from '../Components/OrderView';
 import type { AppProps } from 'type';
-
-export default function Orders({ token, isAuth, isAuthU }: AppProps) {
+const StyledField = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+`;
+const StyledTitle = styled.h2`
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 24px;
+`;  
+export default function Orders({ token, isAuth, isAuthU, products }: AppProps) {
   return (
     <div>
-      <h2>Orders</h2>
+      <StyledTitle>Orders</StyledTitle>
+      <StyledField>
       {(isAuth || isAuthU) &&
         token?.orders?.map((order, i) => (
           <div key={i}>
-            <p>ID: {token?.id} {token?.role}</p>
+            
             {(token?.role === 'admin' || (token?.role === 'user' && token.email === order.email)) && (
+              <div>
+              <p>ID: {token?.id} {token?.role}</p>
               <OrderView
                 id={order.id}
                 name={order.name}
@@ -17,11 +32,15 @@ export default function Orders({ token, isAuth, isAuthU }: AppProps) {
                 price={order.price}
                 quantity={order.quantity}
                 description={order.description}
+                id_product={order.id_product}
                 contacts={order.contacts}
+                products={products || []}
               />
+              </div>
             )}
           </div>
         ))}
+      </StyledField>
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function App({ products }: Products) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState<MyToken>({
-    id: '',
+    id: 0,
     email: '',
     name: '',
     role: '',
@@ -33,7 +33,7 @@ export default function App({ products }: Products) {
   const [isRegistration, setRegistration] = useState(false);
   const [errorRegistration, setErrorRegistration] = useState(0);
   const [card, setCard] = useState<Product>({
-    id: '',
+    id: 0,
     name: '',
     description: '',
     price: '',

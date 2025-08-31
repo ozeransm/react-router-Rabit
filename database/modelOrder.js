@@ -33,6 +33,9 @@ const Order = sequelize.define(
     contacts: {
       type: DataTypes.JSONB,
     },
+    id_product: {
+      type: DataTypes.INTEGER,
+    },
   },
   {
     timestamps: true,

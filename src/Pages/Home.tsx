@@ -41,13 +41,13 @@ const StyledBaseField = styled.div`
 export default function Home({ products, rows }: AppProps) {
   const [isOpenModalView, setIsOpenModalView] = useState(false);
   const [cardView, setCardview] = useState<Product>({
-    id: '',
+    id: 0,
     name: '',
     description: '',
     price: '',
     img: [],
   });
-  function handleViewCard(id: string) {
+  function handleViewCard(id: number) {
     const product = products.find((p) => p.id === id);
     if (product) {
       setCardview(product);
