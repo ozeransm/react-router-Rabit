@@ -16,12 +16,13 @@ router.get('/', async (req, res, next) => {
 });
 router.post('/', async (req, res, next) => {
   try {
-    const { name, email, price, quantity, description, contacts } = req.body;
+    const { name, email, price, quantity, id_product, description, contacts } = req.body;
     const newOrder = await Orders.create({
       name,
       email,
       price,
       quantity,
+      id_product,
       description,
       contacts,
     });

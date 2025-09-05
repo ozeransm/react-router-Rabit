@@ -14,6 +14,7 @@ const StyledOverlay = styled.div`
 `;
 
 export default function ModalView({
+  url,
   isOpenModal,
   cardView,
   setCardView,
@@ -28,6 +29,7 @@ export default function ModalView({
         setIsOpenModal={setIsOpenModal}
         isAuth={false}
         setAuth={() => {}}
+        url={url || ''}
       />
     </StyledOverlay>
   );

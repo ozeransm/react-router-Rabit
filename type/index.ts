@@ -21,6 +21,7 @@ export type Product = {
   img: string[];
 };
 export type ModalOpen = {
+  url?: string;
   isOpenModal: boolean;
   cardView?: Product;
   isAuthU?: boolean;
@@ -47,6 +48,7 @@ export type MyOrder = {
   id_product: number;
   products?: Product[];
   contacts: MyContacts;
+  url?: string;
 };
 export type MyToken = {
   id: number;

@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/grid';
 import { Autoplay, Grid, Scrollbar } from 'swiper/modules';
+import ButtonAddToOrder from './ButtonAddToOrder';
 const StyledField = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,6 +52,7 @@ const StyledImg = styled.img`
 export default function CardView({
   isOpenModal,
   cardView,
+  url,
   setCardView,
   setIsOpenModal,
 }: ModalOpen) {
@@ -82,6 +84,18 @@ export default function CardView({
       <h2>{cardView?.name}</h2>
       <p>{cardView?.description}</p>
       <p>Price: {cardView?.price}</p>
+      <ButtonAddToOrder 
+        id=''
+        url={url || ''}
+        name={cardView?.name || ''} 
+        email={''}
+        price={cardView?.price || ''}
+        contacts={{ city: '', phone: '', email: '', address: '' }}
+        id_product={cardView?.id || 0} 
+        quantity={1} 
+        description={cardView?.description || ''}
+        
+      />
       <ButtonClose
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
