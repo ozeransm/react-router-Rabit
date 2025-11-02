@@ -17,6 +17,8 @@ export default function ModalView({
   url,
   isOpenModal,
   cardView,
+  order,
+  setOrder,
   setCardView,
   setIsOpenModal,
 }: ModalOpen) {
@@ -30,6 +32,8 @@ export default function ModalView({
         isAuth={false}
         setAuth={() => {}}
         url={url || ''}
+        order={order}
+        setOrder={setOrder}
       />
     </StyledOverlay>
   );

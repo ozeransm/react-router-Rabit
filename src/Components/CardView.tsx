@@ -53,6 +53,8 @@ export default function CardView({
   isOpenModal,
   cardView,
   url,
+  order,
+  setOrder,
   setCardView,
   setIsOpenModal,
 }: ModalOpen) {
@@ -94,13 +96,16 @@ export default function CardView({
         id_product={cardView?.id || 0} 
         quantity={1} 
         description={cardView?.description || ''}
-        
+        order={order }
+        setOrder={setOrder}
       />
       <ButtonClose
         isOpenModal={isOpenModal}
         setIsOpenModal={setIsOpenModal}
         isAuth={false}
         setAuth={() => {}}
+        order={order}
+        setOrder={setOrder}
       />
     </StyledField>
   );

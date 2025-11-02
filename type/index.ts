@@ -26,6 +26,8 @@ export type ModalOpen = {
   cardView?: Product;
   isAuthU?: boolean;
   isAuth: boolean;
+  order?: MyOrder[];
+  setOrder: React.Dispatch<React.SetStateAction<MyOrder[]>>;
   setAuth: React.Dispatch<React.SetStateAction<boolean>>;
   setAuthU?: React.Dispatch<React.SetStateAction<boolean>>;
   setCardView?: React.Dispatch<React.SetStateAction<Product>>;
@@ -49,6 +51,8 @@ export type MyOrder = {
   products?: Product[];
   contacts: MyContacts;
   url?: string;
+  order?: MyOrder[];
+  setOrder?: React.Dispatch<React.SetStateAction<MyOrder[]>>;
 };
 export type MyToken = {
   id: number;
@@ -71,6 +75,7 @@ export type AppProps = {
   token: MyToken;
   loading: boolean;
   isRegistration?: boolean;
+  order: MyOrder[];
   setToken: React.Dispatch<React.SetStateAction<MyToken>>;
   setRegistration?: React.Dispatch<React.SetStateAction<boolean>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -80,6 +85,7 @@ export type AppProps = {
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setErrorRegistration: React.Dispatch<React.SetStateAction<number>>;
   setAuthU?: React.Dispatch<React.SetStateAction<boolean>>;
+  setOrder: React.Dispatch<React.SetStateAction<MyOrder[]>>;
 };
 export type CardProps = {
   product: Product;

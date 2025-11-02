@@ -336,7 +336,9 @@ function ModalCreate({
   setToken,
   loading,
   setLoading,
-  setErrorRegistration
+  setErrorRegistration,
+  order,
+  setOrder
 }) {
   const {
     register,
@@ -505,7 +507,7 @@ function ModalCreate({
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     !loading || /* @__PURE__ */ jsx(StyledOverlaySpiner, { children: /* @__PURE__ */ jsx(ClockLoader, { color: "#1eec4b", cssOverride: {}, loading, size: 70, speedMultiplier: 2 }) }),
     /* @__PURE__ */ jsx(StyledOverlay$2, { children: /* @__PURE__ */ jsxs(StyledModal, { children: [
-      /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal, isOpenModal, isAuth, setAuth }),
+      /* @__PURE__ */ jsx(ButtonClose, { setIsOpenModal, isOpenModal, isAuth, setAuth, order, setOrder }),
       /* @__PURE__ */ jsx(Card, { product: card }),
       /* @__PURE__ */ jsx(SwiperContainer, { children: /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [
         /* @__PURE__ */ jsx(Swiper, { scrollbar: {
@@ -534,7 +536,7 @@ function ModalCreate({
         ] })
       ] }) }),
       /* @__PURE__ */ jsxs(StyledFormWrapper, { children: [
-        /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration }),
+        /* @__PURE__ */ jsx(MyForm, { products, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url: url2, endPoint: "admin", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, order, setOrder }),
         /* @__PURE__ */ jsx(StyledDeleteButton$1, { onClick: handleDel, children: "🗑 Delete Card" })
       ] })
     ] }) })
@@ -571,6 +573,41 @@ function Admin({
     ] })
   ] });
 }
+const StyledButtonAadToOrder = styled.button.withConfig({
+  displayName: "ButtonAddToOrder__StyledButtonAadToOrder",
+  componentId: "sc-190xfn0-0"
+})(["display:block;margin:20px auto 0 auto;padding:10px 20px;font-size:16px;width:150px;height:40px;background-color:#4CAF50;color:white;border:none;border-radius:5px;"]);
+function ButtonAddToOrder({
+  id,
+  url: url2,
+  name,
+  email,
+  price,
+  contacts,
+  id_product,
+  quantity,
+  description,
+  order,
+  setOrder
+}) {
+  async function handlerAdd1() {
+    if (!setOrder)
+      return;
+    setOrder((prevOrder) => [...prevOrder, {
+      id,
+      name,
+      email,
+      price,
+      quantity,
+      id_product,
+      description,
+      contacts,
+      url: url2
+    }]);
+    console.log("Add to order", order);
+  }
+  return /* @__PURE__ */ jsx(StyledButtonAadToOrder, { onClick: handlerAdd1, children: "Add" });
+}
 const StyledField$2 = styled.div.withConfig({
   displayName: "CardView__StyledField",
   componentId: "sc-ver2da-0"
@@ -582,6 +619,9 @@ const StyledImg$1 = styled.img.withConfig({
 function CardView({
   isOpenModal,
   cardView,
+  url: url2,
+  order,
+  setOrder,
   setCardView,
   setIsOpenModal
 }) {
@@ -608,8 +648,14 @@ function CardView({
       "Price: ",
       cardView == null ? void 0 : cardView.price
     ] }),
+    /* @__PURE__ */ jsx(ButtonAddToOrder, { id: "", url: url2 || "", name: (cardView == null ? void 0 : cardView.name) || "", email: "", price: (cardView == null ? void 0 : cardView.price) || "", contacts: {
+      city: "",
+      phone: "",
+      email: "",
+      address: ""
+    }, id_product: (cardView == null ? void 0 : cardView.id) || 0, quantity: 1, description: (cardView == null ? void 0 : cardView.description) || "", order, setOrder }),
     /* @__PURE__ */ jsx(ButtonClose, { isOpenModal, setIsOpenModal, isAuth: false, setAuth: () => {
-    } })
+    }, order, setOrder })
   ] });
 }
 const StyledOverlay$1 = styled.div.withConfig({
@@ -617,13 +663,16 @@ const StyledOverlay$1 = styled.div.withConfig({
   componentId: "sc-r0zy7f-0"
 })(["position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:9998;"]);
 function ModalView({
+  url: url2,
   isOpenModal,
   cardView,
+  order,
+  setOrder,
   setCardView,
   setIsOpenModal
 }) {
   return /* @__PURE__ */ jsx(StyledOverlay$1, { children: /* @__PURE__ */ jsx(CardView, { isOpenModal, cardView, setCardView, setIsOpenModal, isAuth: false, setAuth: () => {
-  } }) });
+  }, url: url2 || "", order, setOrder }) });
 }
 const StyledGenField = styled.div.withConfig({
   displayName: "Home__StyledGenField",
@@ -635,7 +684,10 @@ const StyledBaseField$1 = styled.div.withConfig({
 })(["width:100%;max-width:1200px;margin:0 auto;padding:1rem;box-sizing:border-box;.swiper{width:100%;height:auto;}.swiper-slide{display:flex;justify-content:center;align-items:center;height:100%;}.swiper-scrollbar{margin-top:8px;}"]);
 function Home({
   products,
-  rows
+  rows,
+  url: url2,
+  order,
+  setOrder
 }) {
   const [isOpenModalView, setIsOpenModalView] = useState(false);
   const [cardView, setCardview] = useState({
@@ -672,7 +724,7 @@ function Home({
   }
   return /* @__PURE__ */ jsxs(StyledGenField, { children: [
     !isOpenModalView || /* @__PURE__ */ jsx(ModalView, { isOpenModal: isOpenModalView, setIsOpenModal: setIsOpenModalView, cardView, setCardView: setCardview, isAuth: false, setAuth: () => {
-    } }),
+    }, url: url2, order, setOrder }),
     /* @__PURE__ */ jsx("h2", { children: "Home" }),
     /* @__PURE__ */ jsx(StyledBaseField$1, { children: /* @__PURE__ */ jsx(Swiper, { scrollbar: {
       hide: true,
@@ -770,20 +822,24 @@ function Orders({
   token,
   isAuth,
   isAuthU,
-  products
+  products,
+  order
 }) {
   var _a;
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx(StyledTitle, { children: "Orders" }),
-    /* @__PURE__ */ jsx(StyledField$1, { children: (isAuth || isAuthU) && ((_a = token == null ? void 0 : token.orders) == null ? void 0 : _a.map((order, i) => /* @__PURE__ */ jsx("div", { children: ((token == null ? void 0 : token.role) === "admin" || (token == null ? void 0 : token.role) === "user" && token.email === order.email) && /* @__PURE__ */ jsxs("div", { children: [
-      /* @__PURE__ */ jsxs("p", { children: [
-        "ID: ",
-        token == null ? void 0 : token.id,
-        " ",
-        token == null ? void 0 : token.role
-      ] }),
-      /* @__PURE__ */ jsx(OrderView, { id: order.id, name: order.name, email: order.email, price: order.price, quantity: order.quantity, description: order.description, id_product: order.id_product, contacts: order.contacts, products: products || [] })
-    ] }) }, i))) })
+    /* @__PURE__ */ jsxs(StyledField$1, { children: [
+      (isAuth || isAuthU) && ((_a = token == null ? void 0 : token.orders) == null ? void 0 : _a.map((order2, i) => /* @__PURE__ */ jsx("div", { children: ((token == null ? void 0 : token.role) === "admin" || (token == null ? void 0 : token.role) === "user" && token.email === order2.email) && /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsxs("p", { children: [
+          "ID: ",
+          token == null ? void 0 : token.id,
+          " ",
+          token == null ? void 0 : token.role
+        ] }),
+        /* @__PURE__ */ jsx(OrderView, { id: order2.id, name: order2.name, email: order2.email, price: order2.price, quantity: order2.quantity, description: order2.description, id_product: order2.id_product, contacts: order2.contacts, products: products || [] })
+      ] }) }, i))),
+      !(isAuth || isAuthU) && (order == null ? void 0 : order.map((order2) => /* @__PURE__ */ jsx(OrderView, { id: order2.id, name: order2.name, email: order2.email, price: order2.price, quantity: order2.quantity, description: order2.description, id_product: order2.id_product, contacts: order2.contacts, products: products || [] })))
+    ] })
   ] });
 }
 function Contacts() {
@@ -1114,6 +1170,7 @@ function App({
     token: "",
     orders: []
   });
+  const [order, setOrder] = useState([]);
   const [isAuth, setAuth] = useState(false);
   const [isAuthU, setAuthU] = useState(false);
   const [isRegistration, setRegistration] = useState(false);
@@ -1241,12 +1298,12 @@ function App({
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx("h1", { children: "Server Rendering Example" }),
     /* @__PURE__ */ jsx(ToastContainer, {}),
-    /* @__PURE__ */ jsx(OpenClosedCard, { isOpenModal: isAuth, setIsOpenModal: setAuth, cardView: card, setCardView: setCard, isAuthU, setAuthU, setToken, isAuth, setAuth }),
+    /* @__PURE__ */ jsx(OpenClosedCard, { isOpenModal: isAuth, setIsOpenModal: setAuth, cardView: card, setCardView: setCard, isAuthU, setAuthU, setToken, isAuth, setAuth, order, setOrder }),
     /* @__PURE__ */ jsx(Routes, { children: /* @__PURE__ */ jsxs(Route, { path: "/", element: /* @__PURE__ */ jsx(Layout, {}), children: [
-      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration }) }),
-      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, isRegistration, setRegistration, setAuthU }) }),
-      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration }) }),
-      /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, isAuthU, setAuth, token, setToken, loading, setLoading, setErrorRegistration }) }),
+      /* @__PURE__ */ jsx(Route, { index: true, element: /* @__PURE__ */ jsx(Home, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, order, setOrder }) }),
+      /* @__PURE__ */ jsx(Route, { path: "login", element: /* @__PURE__ */ jsx(Login, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "users", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, isRegistration, setRegistration, setAuthU, order, setOrder }) }),
+      /* @__PURE__ */ jsx(Route, { path: "admin", element: /* @__PURE__ */ jsx(Admin, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, setAuth, token, setToken, loading, setLoading, setErrorRegistration, order, setOrder }) }),
+      /* @__PURE__ */ jsx(Route, { path: "orders", element: /* @__PURE__ */ jsx(Orders, { products: productState, card, rows, setCard, setProductState, setIsOpenModal, isOpenModal, url, endPoint: "", isAuth, isAuthU, setAuth, token, setToken, loading, setLoading, setErrorRegistration, order, setOrder }) }),
       /* @__PURE__ */ jsx(Route, { path: "contacts", element: /* @__PURE__ */ jsx(Contacts, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NoMatch, {}) })
     ] }) })

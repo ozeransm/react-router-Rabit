@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import type { MyToken, Product, Products } from '../type/index';
+import type { MyOrder, MyToken, Product, Products } from '../type/index';
 import { ToastContainer, toast } from 'react-toastify';
 import Admin from './Pages/Admin';
 import Home from './Pages/Home';
@@ -27,7 +27,7 @@ export default function App({ products }: Products) {
     token: '',
     orders: [],
   });
-
+  const [order, setOrder] = useState<MyOrder[]>([]);
   const [isAuth, setAuth] = useState(false);
   const [isAuthU, setAuthU] = useState(false);
   const [isRegistration, setRegistration] = useState(false);
@@ -179,6 +179,8 @@ export default function App({ products }: Products) {
         setToken={setToken}
         isAuth={isAuth}
         setAuth={setAuth}
+        order={order}
+        setOrder={setOrder}
       />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -202,6 +204,8 @@ export default function App({ products }: Products) {
                 loading={loading}
                 setLoading={setLoading}
                 setErrorRegistration={setErrorRegistration}
+                order={order}
+                setOrder={setOrder}
               />
             }
           />
@@ -228,6 +232,8 @@ export default function App({ products }: Products) {
                 isRegistration={isRegistration}
                 setRegistration={setRegistration}
                 setAuthU={setAuthU}
+                order={order}
+                setOrder={setOrder}
               />
             }
           />
@@ -251,6 +257,8 @@ export default function App({ products }: Products) {
                 loading={loading}
                 setLoading={setLoading}
                 setErrorRegistration={setErrorRegistration}
+                order={order}
+                setOrder={setOrder}
               />
             }
           />
@@ -275,6 +283,8 @@ export default function App({ products }: Products) {
                 loading={loading}
                 setLoading={setLoading}
                 setErrorRegistration={setErrorRegistration}
+                order={order}
+                setOrder={setOrder}
               />
             }
           />

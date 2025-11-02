@@ -38,7 +38,7 @@ const StyledBaseField = styled.div`
   }
 `;
 
-export default function Home({ products, rows, url }: AppProps) {
+export default function Home({ products, rows, url, order, setOrder }: AppProps) {
   const [isOpenModalView, setIsOpenModalView] = useState(false);
   const [cardView, setCardview] = useState<Product>({
     id: 0,
@@ -83,6 +83,8 @@ export default function Home({ products, rows, url }: AppProps) {
           isAuth={false}
           setAuth={() => {}}
           url={url}
+          order={order}
+          setOrder={setOrder}
         />
       )}
       <h2>Home</h2>

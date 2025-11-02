@@ -40,6 +40,7 @@ export default function OrderView({
   description,
   id_product,
   products,
+  
 }: MyOrder) {
   const matchedProduct = products?.find((p) => p.id === id_product);
   return (

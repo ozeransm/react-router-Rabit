@@ -15,7 +15,7 @@ const StyledButtonAadToOrder = styled.button`
 `;
 
 export default function ButtonAddToOrder(
-    {url, name, email, price, contacts, id_product, quantity, description}: MyOrder
+    {id, url, name, email, price, contacts, id_product, quantity, description, order, setOrder}: MyOrder
 ) {
     async function handlerAdd() {
     console.log('Add to order');
@@ -35,7 +35,12 @@ export default function ButtonAddToOrder(
       }),
     });
   }
+  async function handlerAdd1() {
+    if (!setOrder) return;
+    setOrder(prevOrder => [...prevOrder, {id, name, email, price, quantity, id_product, description, contacts, url}]);
+    console.log('Add to order', order);
+  }
   return (
-    <StyledButtonAadToOrder onClick={handlerAdd}>Add</StyledButtonAadToOrder>
+    <StyledButtonAadToOrder onClick={handlerAdd1}>Add</StyledButtonAadToOrder>
   );
 }

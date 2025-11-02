@@ -150,6 +150,8 @@ export default function ModalCreate({
   loading,
   setLoading,
   setErrorRegistration,
+  order,
+  setOrder,
 }: AppProps) {
   const {
     register,
@@ -313,6 +315,8 @@ export default function ModalCreate({
             isOpenModal={isOpenModal}
             isAuth={isAuth}
             setAuth={setAuth}
+            order={order}
+            setOrder={setOrder}
           />
           <Card product={card} />
           <SwiperContainer>
@@ -385,6 +389,8 @@ export default function ModalCreate({
               loading={loading}
               setLoading={setLoading}
               setErrorRegistration={setErrorRegistration}
+              order={order}
+              setOrder={setOrder}
             />
             <StyledDeleteButton onClick={handleDel}>
               🗑 Delete Card
