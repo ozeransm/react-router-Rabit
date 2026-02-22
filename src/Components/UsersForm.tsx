@@ -109,6 +109,7 @@ export default function UsersForm({
   setAuth,
   setAuthU,
   setToken,
+  setOrder
 }: AppProps) {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -245,6 +246,7 @@ export default function UsersForm({
             isOpenModal={isRegistration}
             isAuth={isAuth}
             setAuth={setAuth}
+            setOrder={setOrder}
           />
         )}
         <StyledInput

@@ -35,6 +35,8 @@ export default function Login({
   token,
   loading,
   isRegistration,
+  order,
+  setOrder,
   setToken,
   setRegistration,
   setLoading,
@@ -67,6 +69,8 @@ export default function Login({
           isRegistration={isRegistration}
           setRegistration={setRegistration}
           setAuthU={setAuthU}
+          order={order}
+          setOrder={setOrder}
         />
       </StyledBaseField>
     </>

@@ -22,3 +22,17 @@ React, React Router, SSR на Express + Vite, TypeScript, Sequelize + PostgreSQL
 ## Preview
 
 Open this example on [Render.com](https://soft-rabit.onrender.com/):
+
+## Notice
+
+https://github.com/remix-run/react-router/blob/dev/examples/ssr/README.md - react ssr
+
+cloudinary 
+// cloud_name: 'dtq5o3uun', 
+//   api_key: '939174913714746', 
+//   api_secret: '8JB6NeIboKcLBmO9v_CTFKscdOQ'
+import ReactSpinners from 'react-spinners';
+const { ClockLoader } = ReactSpinners;
+<link rel="icon" href="../../img/favicon.png" type="image/png" />
+import styledComponents from 'styled-components';
+const styled = styledComponents.default;
